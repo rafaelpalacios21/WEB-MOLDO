@@ -565,8 +565,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 10. ENHANCED GSAP ANIMATIONS ---
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
 
-        // Parallax: process image
-        const processImg = document.querySelector('.process-image img');
+        // Parallax: process image (exclude the --video variant to avoid clipping the static image)
+        const processImg = document.querySelector('.process-image:not(.process-image--video) img');
         if (processImg) {
             gsap.to(processImg, {
                 yPercent: -14,
