@@ -1,0 +1,276 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BRAZALETE ORA — moldoLab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:'Poppins',sans-serif;background:#EDE9E7;color:#1F2218;overflow-x:hidden}
+        .pp-hero{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;background:#780313;padding-top:80px}
+        .pp-left{display:flex;flex-direction:column;justify-content:center;padding:70px 7%}
+        .pp-eyebrow{font-size:.58rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:rgba(237,233,231,.55);margin-bottom:18px;opacity:0}
+        .pp-name{font-size:clamp(2.5rem,5.5vw,5.5rem);font-weight:900;letter-spacing:-2px;line-height:.9;color:#EDE9E7;text-transform:uppercase;margin-bottom:24px;overflow:hidden}
+        .pp-name span{display:block;transform:translateY(110%)}
+        .pp-tagline{font-size:.95rem;font-weight:300;line-height:1.7;color:rgba(237,233,231,.6);max-width:340px;margin-bottom:28px;opacity:0}
+        .pp-price{font-size:2.5rem;font-weight:200;color:#EDE9E7;letter-spacing:-1.5px;margin-bottom:24px;opacity:0}
+        .pp-actions{display:flex;gap:10px;flex-wrap:wrap;opacity:0}
+        .pp-btn{display:inline-flex;align-items:center;font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px 26px;border-radius:2px;text-decoration:none;border:none;cursor:pointer;transition:background .3s,transform .25s;font-family:inherit}
+        .pp-btn-primary{background:#EDE9E7;color:#780313}.pp-btn-primary:hover{background:#1F2218;color:#EDE9E7;transform:translateY(-2px)}
+        .pp-btn-outline{background:transparent;color:#EDE9E7;border:1px solid rgba(237,233,231,.3)}.pp-btn-outline:hover{border-color:#EDE9E7;transform:translateY(-2px)}
+        .pp-right{display:flex;align-items:flex-end;justify-content:center;padding:40px 5% 0;overflow:hidden}
+        .pp-right img{max-height:calc(100vh - 120px);width:100%;object-fit:contain;object-position:center bottom;display:block}
+        .pp-strip{background:#1F2218;display:grid;grid-template-columns:repeat(3,1fr);padding:28px 7%}
+        .pp-stat{padding:0 28px;border-left:1px solid rgba(237,233,231,.1)}.pp-stat:first-child{border-left:none;padding-left:0}
+        .pp-stat-num{font-size:1.8rem;font-weight:800;color:#EDE9E7;letter-spacing:-1px;line-height:1}
+        .pp-stat-label{font-size:.58rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(237,233,231,.35);margin-top:3px}
+        .pp-desc-section{display:grid;grid-template-columns:1fr 1fr;background:#EDE9E7}
+        .pp-desc-text{padding:80px 7%;display:flex;flex-direction:column;justify-content:center}
+        .pp-section-label{font-size:.58rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#780313;margin-bottom:16px}
+        .pp-desc-quote{font-size:clamp(1.5rem,2.8vw,2.3rem);font-weight:800;letter-spacing:-1px;line-height:1.05;color:#1F2218;margin-bottom:20px}
+        .pp-desc-quote em{font-style:italic;font-weight:200;color:#565F34}
+        .pp-desc-body{font-size:.87rem;font-weight:300;line-height:1.75;color:rgba(31,34,24,.58);max-width:360px;margin-bottom:28px}
+        .pp-desc-img{overflow:hidden;min-height:440px}.pp-desc-img img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .7s ease}.pp-desc-img:hover img{transform:scale(1.04)}
+        .pp-colors{padding:70px 7%;background:#1F2218}
+        .pp-colors-label{font-size:.58rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#A7BF66;margin-bottom:28px}
+        .pp-swatches{display:flex;gap:14px;flex-wrap:wrap}
+        .pp-swatch{width:52px;height:52px;border-radius:6px;cursor:pointer;transition:transform .25s,box-shadow .25s}.pp-swatch:hover{transform:scale(1.15);box-shadow:0 8px 20px rgba(0,0,0,.3)}
+        .pp-swatch-label{font-size:.58rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(237,233,231,.35);margin-top:18px}
+        .pp-specs{padding:70px 7%;background:#EDE9E7;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}
+        .pp-specs-title{font-size:clamp(2rem,4vw,3.5rem);font-weight:900;letter-spacing:-2.5px;line-height:.9;text-transform:uppercase}
+        .pp-specs-title em{display:block;font-style:normal;color:#780313}
+        .pp-specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+        .pp-spec-cell{background:rgba(31,34,24,.04);padding:18px 16px;transition:background .25s}.pp-spec-cell:hover{background:rgba(31,34,24,.08)}
+        .pp-spec-key{font-size:.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#780313;margin-bottom:4px}
+        .pp-spec-val{font-size:.83rem;font-weight:300;color:#1F2218;line-height:1.4}
+        /* Ghost watermark */
+        .pp-bg-word{position:absolute;bottom:-8%;left:50%;transform:translateX(-50%);font-family:'Poppins',sans-serif;font-size:clamp(8rem,24vw,22rem);font-weight:900;color:rgba(237,233,231,0.028);letter-spacing:-8px;pointer-events:none;white-space:nowrap;z-index:0;line-height:1;text-transform:uppercase}
+        .pp-hero{position:relative}
+        /* Progress line */
+        .pp-prog{position:fixed;left:22px;top:50%;transform:translateY(-50%);width:1px;height:100px;background:rgba(237,233,231,0.1);z-index:200;pointer-events:none}
+        .pp-prog-fill{width:100%;background:var(--lima);height:0%}
+        @media(max-width:768px){.pp-prog{display:none}}
+        /* CTA */
+        .pp-cta{display:grid;grid-template-columns:1fr 1fr;background:#EDE9E7}
+        .pp-cta-care{padding:70px 7%;border-right:1px solid rgba(31,34,24,.08)}
+        .pp-cta-care-label{font-size:.55rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#780313;margin-bottom:22px}
+        .pp-care-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+        .pp-care-list li{font-size:.83rem;font-weight:300;line-height:1.5;color:rgba(31,34,24,.62);padding-left:14px;position:relative}
+        .pp-care-list li::before{content:'—';position:absolute;left:0;color:#780313;font-weight:700}
+        .pp-cta-buy{padding:70px 7%;display:flex;flex-direction:column;justify-content:center}
+        .pp-cta-price{font-size:clamp(3.5rem,7vw,6rem);font-weight:200;color:#1F2218;letter-spacing:-3px;line-height:1;margin-bottom:14px}
+        .pp-cta-note{font-size:.72rem;font-weight:300;color:rgba(31,34,24,.45);margin-bottom:28px;line-height:1.6}
+        .pp-cta-btns{display:flex;gap:10px;flex-wrap:wrap}
+        .pp-cta-btn{display:inline-flex;justify-content:center;align-items:center;font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:18px 34px;border-radius:2px;background:#780313;color:#EDE9E7;border:none;cursor:pointer;font-family:inherit;transition:background .3s,transform .25s;text-decoration:none}
+        .pp-cta-btn:hover{background:#1F2218;transform:translateY(-2px)}
+        .pp-cta-btn-outline{background:transparent;border:1px solid rgba(31,34,24,.3);color:#1F2218}
+        .pp-cta-btn-outline:hover{border-color:#1F2218;background:rgba(31,34,24,.05)}
+        /* Relacionados */
+        .pp-related{background:#1F2218;padding:70px 7%}
+        .pp-related-label{font-size:.58rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#A7BF66;margin-bottom:28px}
+        .pp-related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
+        .pp-rel-card{position:relative;overflow:hidden;aspect-ratio:3/4;text-decoration:none;display:block}
+        .pp-rel-card img{width:100%;height:100%;object-fit:cover;object-position:bottom;transition:transform .6s cubic-bezier(.16,1,.3,1)}.pp-rel-card:hover img{transform:scale(1.06)}
+        .pp-rel-info{position:absolute;bottom:0;left:0;right:0;padding:18px 14px;background:linear-gradient(to top,rgba(31,34,24,.88) 0%,transparent 100%)}
+        .pp-rel-name{font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#EDE9E7}
+        .pp-rel-price{font-size:.68rem;font-weight:300;color:rgba(237,233,231,.5)}
+        @media(max-width:900px){.pp-hero{grid-template-columns:1fr}.pp-right img{max-height:60vw}.pp-desc-section{grid-template-columns:1fr}.pp-specs{grid-template-columns:1fr;gap:30px}.pp-related-grid{grid-template-columns:repeat(2,1fr)}.pp-strip{grid-template-columns:1fr}.pp-cta{grid-template-columns:1fr}.pp-cta-care{border-right:none;border-bottom:1px solid rgba(31,34,24,.08)}}
+    </style>
+</head>
+<body>
+    <div class="grain-overlay"></div>
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
+
+    <div class="pp-prog"><div class="pp-prog-fill" id="pp-prog-fill"></div></div>
+
+    <header class="header" id="header">
+        <nav class="header-nav"><a href="index.html#coleccion" class="nav-link">COLECCIÓN</a><a href="color-lab.html" class="nav-link">COLOR LAB</a><a href="index.html#proceso" class="nav-link">PROCESO</a><a href="index.html#sobre-la-marca" class="nav-link">SOBRE LA MARCA</a></nav>
+        <div class="header-logo"><a href="index.html"><span class="logo-svg" aria-label="moldoLab"></span></a></div>
+        <div class="header-actions">
+            <button class="icon-btn" id="login-btn" style="background:none;border:none;cursor:pointer;" aria-label="Cuenta">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 20c0-3.866 3.134-7 7-7s7 3.134 7 7"/></svg>
+            </button>
+            <button class="icon-btn" id="cart-trigger" style="background:none;border:none;cursor:pointer;position:relative;" aria-label="Carrito" onclick="window.location='checkout.html'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                <sup id="cart-badge" style="position:absolute;top:-4px;right:-6px;font-size:0.5rem;font-weight:900;color:var(--lima);display:none;"></sup>
+            </button>
+        </div>
+    </header>
+    <main>
+        <section class="pp-hero">
+            <div class="pp-bg-word">ORA</div>
+            <div class="pp-left">
+                <div class="pp-eyebrow" id="pp-ey">COLECCIÓN SS·26</div>
+                <h1 class="pp-name" id="pp-name"><span>BRAZALETE</span><span>ORA</span></h1>
+                <p class="pp-tagline" id="pp-tag">Una forma amplia y envolvente que parece plegarse sobre sí misma. Volumen, continuidad y cuerpo.</p>
+                <div class="pp-price" id="pp-price">53 €</div>
+                <div class="pp-actions" id="pp-act">
+                    <button class="pp-btn pp-btn-primary" onclick="addToCart('BRAZALETE ORA',53,'assets/BrazaleteORA.jpg')" data-magnetic>AÑADIR AL CARRITO</button>
+                    <a href="color-lab.html" class="pp-btn pp-btn-outline" data-magnetic>COLOR LAB</a>
+                </div>
+            </div>
+            <div class="pp-right"><img src="assets/BrazaleteORA.jpg" alt="BRAZALETE ORA — moldoLab"></div>
+        </section>
+        <div class="pp-strip">
+            <div class="pp-stat"><div class="pp-stat-num">53 €</div><div class="pp-stat-label">Precio pieza</div></div>
+            <div class="pp-stat"><div class="pp-stat-num">100%</div><div class="pp-stat-label">Hecho a mano</div></div>
+            <div class="pp-stat"><div class="pp-stat-num">SS·26</div><div class="pp-stat-label">Colección</div></div>
+        </div>
+        <section class="pp-desc-section">
+            <div class="pp-desc-text reveal">
+                <div class="pp-section-label">SOBRE LA PIEZA</div>
+                <blockquote class="pp-desc-quote">Forma envolvente,<br><em>equilibrio entre<br>estructura y cuerpo.</em></blockquote>
+                <p class="pp-desc-body">Ora es un brazalete de forma amplia y envolvente, definido por un recorrido fluido que parece plegarse sobre sí mismo. Destaca por su fuerza visual y por su relación con el cuerpo, aportando volumen, continuidad y una sensación de equilibrio entre estructura y organicidad.</p>
+                <a href="color-lab.html" class="pp-btn" style="align-self:flex-start;margin-top:8px;background:#780313;color:#EDE9E7;display:inline-flex;align-items:center;font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px 26px;border-radius:2px;text-decoration:none;">VER EN COLOR LAB</a>
+            </div>
+            <div class="pp-desc-img"><img src="assets/BrazaleteORAdet.PNG" alt="Detalle BRAZALETE ORA"></div>
+        </section>
+        <div class="pp-colors">
+            <div class="pp-colors-label">ACABADOS DISPONIBLES</div>
+            <div class="pp-swatches">
+                <div class="pp-swatch" style="background:#780313;"></div>
+                <div class="pp-swatch" style="background:#565F34;"></div>
+                <div class="pp-swatch" style="background:#A7BF66;"></div>
+                <div class="pp-swatch" style="background:#1F2218;"></div>
+                <div class="pp-swatch" style="background:#EDE9E7;outline:1px solid rgba(86,95,52,.2);"></div>
+            </div>
+            <div class="pp-swatch-label">PERSONALIZA EN <a href="color-lab.html" style="color:#A7BF66;text-decoration:none;">COLOR LAB →</a></div>
+        </div>
+        <section class="pp-specs">
+            <div class="reveal"><h2 class="pp-specs-title">FICHA<em>TÉCNICA</em></h2></div>
+            <div class="pp-specs-grid reveal delay-1">
+                <div class="pp-spec-cell"><div class="pp-spec-key">Pieza</div><div class="pp-spec-val">03 / Brazalete</div></div>
+                <div class="pp-spec-cell"><div class="pp-spec-key">Material</div><div class="pp-spec-val">Resina experimental / polímero flexible</div></div>
+                <div class="pp-spec-cell"><div class="pp-spec-key">Acabado</div><div class="pp-spec-val">Blanco mate suave</div></div>
+                <div class="pp-spec-cell"><div class="pp-spec-key">Producción</div><div class="pp-spec-val">Hecho a mano</div></div>
+                <div class="pp-spec-cell"><div class="pp-spec-key">Tiempo</div><div class="pp-spec-val">5–7 días hábiles</div></div>
+                <div class="pp-spec-cell"><div class="pp-spec-key">Edición</div><div class="pp-spec-val">Limitada SS·26</div></div>
+            </div>
+        </section>
+        <!-- CTA -->
+        <div class="pp-cta">
+            <div class="pp-cta-care">
+                <div class="pp-cta-care-label">CUIDADO DE LA PIEZA</div>
+                <ul class="pp-care-list">
+                    <li>Evitar contacto prolongado con agua y humedad extrema.</li>
+                    <li>Guardar en la bolsa de tela incluida para proteger el acabado.</li>
+                    <li>Limpiar con paño suave seco; no usar productos químicos.</li>
+                    <li>No forzar la apertura; el brazalete es rígido por diseño.</li>
+                    <li>La resina puede desarrollar pequeñas marcas de uso que son parte de la pieza.</li>
+                </ul>
+            </div>
+            <div class="pp-cta-buy">
+                <div class="pp-cta-price">53 €</div>
+                <p class="pp-cta-note">Edición limitada · Envío en 5–7 días hábiles<br>Pieza hecha bajo pedido · Pequeñas variaciones forman parte del proceso.</p>
+                <div class="pp-cta-btns">
+                    <button class="pp-cta-btn" onclick="addToCart('BRAZALETE ORA',53,'assets/BrazaleteORA.jpg')" data-magnetic>AÑADIR AL CARRITO</button>
+                    <a href="checkout.html" class="pp-cta-btn pp-cta-btn-outline" data-magnetic>FINALIZAR COMPRA</a>
+                </div>
+            </div>
+        </div>
+
+        <section class="pp-related">
+            <div class="pp-related-label">TAMBIÉN TE PUEDE INTERESAR</div>
+            <div class="pp-related-grid">
+                <a href="featured-product.html" class="pp-rel-card"><img src="assets/anilloCALA.jpg" alt="CALA"><div class="pp-rel-info"><div class="pp-rel-name">ANILLO CALA</div><div class="pp-rel-price">45 € · Icónico</div></div></a>
+                <a href="product-anillo-amarillo.html" class="pp-rel-card"><img src="assets/AnilloLUA.jpg" alt="LUA"><div class="pp-rel-info"><div class="pp-rel-name">ANILLO LUA</div><div class="pp-rel-price">45 €</div></div></a>
+                <a href="product-anillo-verde.html" class="pp-rel-card"><img src="assets/CollarNARA.jpg" alt="NARA"><div class="pp-rel-info"><div class="pp-rel-name">COLLAR NARA</div><div class="pp-rel-price">96 €</div></div></a>
+                <a href="product-anillo-oliva.html" class="pp-rel-card"><img src="assets/PendientesSIRA.jpg" alt="SIRA"><div class="pp-rel-info"><div class="pp-rel-name">PENDIENTES SIRA</div><div class="pp-rel-price">45 €</div></div></a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col brand-col">
+                <div class="footer-logo"><a href="index.html"><span class="logo-svg"></span></a></div>
+                <p class="footer-tagline">Joyería experimental hecha a mano.</p>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-heading">COLECCIÓN</h4>
+                <ul class="footer-links">
+                    <li><a href="featured-product.html">ANILLO CALA</a></li>
+                    <li><a href="product-anillo-amarillo.html">ANILLO LUA</a></li>
+                    <li><a href="product-anillo-burdeos.html">BRAZALETE ORA</a></li>
+                    <li><a href="product-anillo-verde.html">COLLAR NARA</a></li>
+                    <li><a href="product-anillo-oliva.html">PENDIENTES SIRA</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-heading">INFORMACIÓN</h4>
+                <ul class="footer-links">
+                    <li><a href="info.html#envios">ENVÍOS</a></li>
+                    <li><a href="info.html#devoluciones">CAMBIOS Y DEVOLUCIONES</a></li>
+                    <li><a href="info.html#cuidados">CUIDADOS</a></li>
+                    <li><a href="contacto.html">CONTACTO</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+        const _h = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            _h.classList.toggle('scrolled', window.scrollY > 50);
+            const fill = document.getElementById('pp-prog-fill');
+            if (fill) fill.style.height = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
+        }, { passive: true });
+
+        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        tl.to('#pp-ey', { opacity: 1, duration: .7, delay: .2 })
+          .to('#pp-name span', { y: '0%', duration: .95, stagger: .1 }, '-=.4')
+          .to('#pp-tag',   { opacity: 1, duration: .7 }, '-=.4')
+          .to('#pp-price', { opacity: 1, duration: .5 }, '-=.3')
+          .to('#pp-act',   { opacity: 1, duration: .5 }, '-=.3');
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            const delay = el.classList.contains('delay-1') ? .18 : 0;
+            gsap.from(el, { opacity: 0, y: 28, duration: .8, ease: 'power3.out', delay, scrollTrigger: { trigger: el, start: 'top 87%' } });
+        });
+
+        document.querySelectorAll('[data-magnetic]').forEach(b => {
+            b.addEventListener('mousemove', e => {
+                const r = b.getBoundingClientRect();
+                gsap.to(b, { x: (e.clientX - r.left - r.width/2)*.28, y: (e.clientY - r.top - r.height/2)*.28, duration: .35, ease: 'power2.out' });
+            });
+            b.addEventListener('mouseleave', () => gsap.to(b, { x: 0, y: 0, duration: .5, ease: 'elastic.out(1,.4)' }));
+        });
+
+        const dot = document.getElementById('cursor-dot');
+        const ring = document.getElementById('cursor-ring');
+        let rx = 0, ry = 0;
+        document.addEventListener('mousemove', e => {
+            if (dot) { dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px'; }
+            rx += (e.clientX - rx) * .12; ry += (e.clientY - ry) * .12;
+        });
+        (function rafCursor() { if (ring) { ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; } requestAnimationFrame(rafCursor); })();
+
+        function addToCart(n, p, i) {
+            const c = JSON.parse(localStorage.getItem('moldo_cart')) || [];
+            c.push({ name: n, price: p, img: i });
+            localStorage.setItem('moldo_cart', JSON.stringify(c));
+            const badge = document.getElementById('cart-badge');
+            if (badge) { badge.textContent = c.length; badge.style.display = 'block'; }
+            const b = event.currentTarget;
+            const o = b.textContent;
+            b.textContent = '¡AÑADIDO!';
+            setTimeout(() => b.textContent = o, 2000);
+        }
+
+        (function initBadge() {
+            const c = JSON.parse(localStorage.getItem('moldo_cart')) || [];
+            const badge = document.getElementById('cart-badge');
+            if (badge && c.length) { badge.textContent = c.length; badge.style.display = 'block'; }
+        })();
+    </script>
+    <script src="music.js"></script>
+</body>
+</html>
+

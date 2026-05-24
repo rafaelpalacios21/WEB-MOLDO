@@ -1,0 +1,955 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>moldoLab | Joyería Experimental</title>
+    <meta name="description"
+        content="moldoLab trabaja cada pieza como una forma de expresión: objetos portátiles que deforman lo cotidiano.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+    <!-- GSAP & Lenis for Smooth Scroll and Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
+</head>
+
+<body>
+    <!-- Fixed UI elements -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+    <div class="grain-overlay"></div>
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
+
+    <!-- ── POPUP NEWSLETTER ── -->
+    <div class="nl-overlay" id="nl-overlay" aria-hidden="true">
+        <div class="nl-modal" id="nl-modal" role="dialog" aria-modal="true">
+            <button class="nl-close" id="nl-close" aria-label="Cerrar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+            <p class="nl-eyebrow">MOLDOLAB · SS·26</p>
+            <h2 class="nl-title">ENTRA AL<br>LABORATORIO</h2>
+            <p class="nl-body">Acceso anticipado a nuevas piezas, ediciones limitadas y el universo moldoLab antes que nadie.</p>
+            <form class="nl-form" id="nl-form">
+                <input class="nl-input" type="email" placeholder="tu@email.com" required autocomplete="email">
+                <button class="nl-submit" type="submit">QUIERO ENTRAR</button>
+            </form>
+            <p class="nl-legal">Al suscribirte aceptas nuestra <a href="legal.html#privacidad">política de privacidad</a>.</p>
+        </div>
+    </div>
+
+    <section class="top-video-section">
+        <video autoplay muted loop playsinline class="bg-video" id="hero-video">
+            <source src="assets/SPOT PUBLICITARIO.mp4" type="video/mp4">
+        </video>
+
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Ticker Strip 1 (Red) -->
+    <div class="ticker-strip" aria-hidden="true">
+        <div class="ticker-inner">
+            <div class="ticker-item">Formas que no piden permiso <span class="ticker-sep"></span></div>
+            <div class="ticker-item">Joyería experimental <span class="ticker-sep"></span></div>
+            <div class="ticker-item">Hecho a mano <span class="ticker-sep"></span></div>
+            <div class="ticker-item">Objetos portátiles <span class="ticker-sep"></span></div>
+            <div class="ticker-item">Colección SS·26 <span class="ticker-sep"></span></div>
+            <div class="ticker-item">Piezas únicas <span class="ticker-sep"></span></div>
+            <div class="ticker-item">Formas que no piden permiso <span class="ticker-sep"></span></div>
+            <div class="ticker-item">Joyería experimental <span class="ticker-sep"></span></div>
+            <div class="ticker-item">Hecho a mano <span class="ticker-sep"></span></div>
+            <div class="ticker-item">Objetos portátiles <span class="ticker-sep"></span></div>
+            <div class="ticker-item">Colección SS·26 <span class="ticker-sep"></span></div>
+            <div class="ticker-item">Piezas únicas <span class="ticker-sep"></span></div>
+        </div>
+    </div>
+
+    <!-- HELADO — full-bleed lifestyle banner -->
+    <div class="helado-banner">
+        <img src="assets/HELADO.png" alt="moldoLab lifestyle" class="helado-banner-img">
+        <div class="helado-banner-overlay"></div>
+        <div class="helado-banner-degradado" aria-hidden="true"></div>
+        <div class="helado-banner-content">
+            <div class="helado-banner-texts">
+                <p class="helado-banner-eyebrow">Joyería experimental · SS·26</p>
+                <h2 class="helado-banner-title">FORMAS<br>QUE DURAN</h2>
+                <p class="helado-banner-sub">Piezas construidas desde el volumen y la presencia.<br>No para adornar. Para expresar.</p>
+                <a href="#coleccion" class="helado-banner-cta">DESCUBRIR COLECCIÓN</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <nav class="header-nav">
+            <a href="#coleccion" class="nav-link">COLECCIÓN</a>
+            <a href="color-lab.html" class="nav-link">COLOR LAB</a>
+            <a href="#proceso" class="nav-link">PROCESO</a>
+            <a href="#sobre-la-marca" class="nav-link">SOBRE LA MARCA</a>
+        </nav>
+        <div class="header-logo">
+            <a href="#hero">
+                <span class="logo-svg" aria-label="moldoLab"></span>
+            </a>
+        </div>
+        <div class="header-actions">
+            <button class="icon-btn" id="login-btn" style="background:none;border:none;cursor:pointer;" aria-label="Cuenta">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 20c0-3.866 3.134-7 7-7s7 3.134 7 7"/></svg>
+            </button>
+            <button class="icon-btn" id="cart-trigger" style="background:none;border:none;cursor:pointer;position:relative;" aria-label="Carrito">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                <sup id="cart-badge" style="position:absolute;top:-4px;right:-6px;font-size:0.5rem;font-weight:900;color:var(--lima);display:none;"></sup>
+            </button>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <button class="mobile-menu-btn" aria-label="Menú">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6h16.5m-16.5 5.25h16.5m-16.5 5.25h16.5" />
+            </svg>
+        </button>
+    </header>
+
+    <main>
+
+        <!-- Statement Section — Tipografía Moldo -->
+        <section class="statement-section reveal">
+            <div class="statement-content">
+                <h2 class="statement-headline display-font">DISEÑADO<br>PARA NO<br>PARECERSE</h2>
+                <p class="statement-sub">Piezas que deforman lo cotidiano y convierten el accesorio en presencia. Cada forma, un gesto.</p>
+            </div>
+
+            <span class="statement-bg-text" aria-hidden="true">MOLDO</span>
+        </section>
+
+        <!-- Editorial Claim / Sobre la marca -->
+        <section class="editorial" id="sobre-la-marca">
+            <div class="editorial-container reveal">
+                <h2 class="editorial-title">NO ES UNA JOYA.<br>ES UNA DECLARACIÓN.</h2>
+                <p class="editorial-text">moldoLab entiende la joyería como una extensión de quien la lleva. Cada pieza parte de formas orgánicas, volúmenes blandos y materiales experimentales para construir objetos con presencia propia. No diseñamos pensando en seguir moldes. Los rompemos.</p>
+                <div class="editorial-claims">
+                    <span class="editorial-claim">"Diseñado para no parecerse."</span>
+                    <span class="editorial-claim">"Si encaja con todo, probablemente no sea nuestro."</span>
+                    <span class="editorial-claim">"Lo imperfecto tiene personalidad."</span>
+                </div>
+                <div class="abstract-shape"></div>
+            </div>
+        </section>
+
+        <!-- Collection Preview -->
+        <section class="collection" id="coleccion">
+            <div class="collection-header reveal">
+                <h2 class="section-title">COLECCIÓN SS·26</h2>
+                <p class="section-subtitle">Cinco piezas construidas desde el volumen, la curva y la presencia. Diseñadas para quienes no buscan una joya discreta, sino una forma de identidad.</p>
+            </div>
+
+            <!-- Featured Product — ANILLO CALA -->
+            <div class="featured-product reveal">
+                <a href="featured-product.html" class="featured-link">
+                    <div class="featured-image-box">
+                        <img src="assets/anilloCALA.jpg" alt="ANILLO CALA — moldoLab">
+                        <div class="featured-tag">PIEZA ICÓNICA</div>
+                    </div>
+                    <div class="featured-info">
+                        <h3 class="featured-name">ANILLO CALA</h3>
+                        <p class="featured-desc">La pieza más emblemática de moldoLab. Forma escultórica irregular trabajada a mano: el equilibrio perfecto entre el peso de la materia y la fluidez del gesto.</p>
+                        <span class="featured-price">45 €</span>
+                        <button class="add-to-cart-btn" style="margin-top: 10px;">AÑADIR</button>
+                    </div>
+                </a>
+            </div>
+
+            <div class="vertical-grid reveal delay-1">
+                <article class="vertical-card">
+                    <a href="product-anillo-amarillo.html" class="product-link">
+                        <div class="vertical-image"><img src="assets/AnilloLUA.jpg" alt="ANILLO LUA — moldoLab"></div>
+                        <div class="vertical-info">
+                            <div class="vertical-type">ANILLO · 02</div>
+                            <div class="vertical-name">LUA</div>
+                            <div class="vertical-meta">Resina experimental · Polímero flexible</div>
+                            <div class="vertical-price">45 €</div>
+                            <div style="margin-top:10px;"><button class="add-to-cart-btn">AÑADIR</button></div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="vertical-card">
+                    <a href="product-anillo-burdeos.html" class="product-link">
+                        <div class="vertical-image"><img src="assets/BrazaleteORA.jpg" alt="BRAZALETE ORA — moldoLab"></div>
+                        <div class="vertical-info">
+                            <div class="vertical-type">BRAZALETE · 03</div>
+                            <div class="vertical-name">ORA</div>
+                            <div class="vertical-meta">Resina experimental · Polímero flexible</div>
+                            <div class="vertical-price">53 €</div>
+                            <div style="margin-top:10px;"><button class="add-to-cart-btn">AÑADIR</button></div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="vertical-card">
+                    <a href="product-anillo-verde.html" class="product-link">
+                        <div class="vertical-image"><img src="assets/CollarNARA.jpg" alt="COLLAR NARA — moldoLab"></div>
+                        <div class="vertical-info">
+                            <div class="vertical-type">COLLAR · 04</div>
+                            <div class="vertical-name">NARA</div>
+                            <div class="vertical-meta">Resina experimental · Polímero flexible</div>
+                            <div class="vertical-price">96 €</div>
+                            <div style="margin-top:10px;"><button class="add-to-cart-btn">AÑADIR</button></div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="vertical-card">
+                    <a href="product-anillo-oliva.html" class="product-link">
+                        <div class="vertical-image"><img src="assets/PendientesSIRA.jpg" alt="PENDIENTES SIRA — moldoLab"></div>
+                        <div class="vertical-info">
+                            <div class="vertical-type">PENDIENTES · 05</div>
+                            <div class="vertical-name">SIRA</div>
+                            <div class="vertical-meta">Resina experimental · Polímero flexible</div>
+                            <div class="vertical-price">45 €</div>
+                            <div style="margin-top:10px;"><button class="add-to-cart-btn">AÑADIR</button></div>
+                        </div>
+                    </a>
+                </article>
+            </div>
+
+            <div class="collection-footer reveal delay-2">
+                <a href="products.html" class="btn btn-outline" data-magnetic>VER TODA LA COLECCIÓN</a>
+            </div>
+        </section>
+
+        <!-- Ticker Strip 2 (Olive) -->
+        <div class="ticker-strip ticker-olive" aria-hidden="true">
+            <div class="ticker-inner">
+                <div class="ticker-item">Del gesto a la pieza <span class="ticker-sep"></span></div>
+                <div class="ticker-item">Cerámica · Resina · Metal <span class="ticker-sep"></span></div>
+                <div class="ticker-item">Laboratorio de formas <span class="ticker-sep"></span></div>
+                <div class="ticker-item">Irregulares por diseño <span class="ticker-sep"></span></div>
+                <div class="ticker-item">Sin molde cerrado <span class="ticker-sep"></span></div>
+                <div class="ticker-item">Esculturas portátiles <span class="ticker-sep"></span></div>
+                <div class="ticker-item">Del gesto a la pieza <span class="ticker-sep"></span></div>
+                <div class="ticker-item">Cerámica · Resina · Metal <span class="ticker-sep"></span></div>
+                <div class="ticker-item">Laboratorio de formas <span class="ticker-sep"></span></div>
+                <div class="ticker-item">Irregulares por diseño <span class="ticker-sep"></span></div>
+                <div class="ticker-item">Sin molde cerrado <span class="ticker-sep"></span></div>
+                <div class="ticker-item">Esculturas portátiles <span class="ticker-sep"></span></div>
+            </div>
+        </div>
+
+        <!-- Process -->
+        <section class="process" id="proceso">
+            <div class="process-container">
+                <div class="process-image process-image--video reveal">
+                    <video autoplay muted loop playsinline class="process-video">
+                        <source src="assets/videoaereo.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+                <div class="process-content reveal delay-1">
+                    <h2 class="section-title text-light">DEL GESTO A LA PIEZA</h2>
+                    <p class="process-intro">El proceso no parte de un molde cerrado, sino de una búsqueda. Cada pieza
+                        se prueba, se curva, se deforma y se ajusta hasta encontrar una presencia propia.</p>
+
+                    <div class="micro-blocks">
+                        <div class="micro-block">
+                            <h4>FORMA</h4>
+                            <p>Se exploran curvas, pliegues y volúmenes orgánicos. La silueta no se diseña: se descubre.</p>
+                        </div>
+                        <div class="micro-block">
+                            <h4>MATERIA</h4>
+                            <p>Se trabaja con polímeros y materiales flexibles que permiten una joyería menos rígida, más sensorial y expresiva.</p>
+                        </div>
+                        <div class="micro-block">
+                            <h4>IDENTIDAD</h4>
+                            <p>Cada pieza se convierte en una presencia visual propia, pensada para conectar con quien la lleva. No con todo el mundo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección interactiva: video + logo trail -->
+        <section class="iprocess-section">
+
+            <!-- Contenedor 1: video + texto DEL GESTO A LA PIEZA -->
+            <div class="iprocess-video-wrap">
+                <video autoplay muted loop playsinline class="iprocess-video">
+                    <source src="assets/videoaereo.mp4" type="video/mp4">
+                    <!-- fallback si no hay vídeo -->
+                    <img src="assets/7.jpg" alt="Proceso moldoLab">
+                </video>
+                <div class="iprocess-video-overlay">
+                    <div class="iprocess-eyebrow">EL PROCESO</div>
+                    <h2 class="iprocess-title">DEL GESTO<br>A LA PIEZA</h2>
+                    <p class="iprocess-desc">Cada forma nace de una búsqueda, no de un molde. El material se curva, se deforma y se ajusta hasta encontrar su presencia propia.</p>
+                    <a href="#proceso" class="btn btn-outline" style="margin-top:24px;">VER PROCESO</a>
+                </div>
+            </div>
+
+            <!-- Contenedor 2: zona interactiva — trail del logo -->
+            <div class="iprocess-trail-wrap" id="logo-trail-zone">
+                <div class="trail-bg-word" aria-hidden="true">MOLDO</div>
+                <div class="trail-crosshair" aria-hidden="true"></div>
+                <div class="trail-info">
+                    <span class="trail-eyebrow">Zona interactiva</span>
+                    <span class="trail-cue" id="trail-hint">Mueve el ratón</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Text & Image Split -->
+        <section class="feature-split">
+            <div class="split-row reveal">
+                <div class="split-text">
+                    <h2 class="section-title">EL MATERIAL NO DEFINE EL VALOR</h2>
+                    <p>moldoLab no trabaja con oro ni plata. Trabaja con polímeros, resinas y materiales experimentales porque la apuesta no es el metal: es la forma. Cada pieza vale por lo que transmite, no por lo que está hecha.</p>
+                    <p style="margin-top:16px;font-size:.82rem;font-weight:600;color:var(--oliva);letter-spacing:1px;">— No apto para quien busca pasar desapercibido.</p>
+                </div>
+                <div class="split-image">
+                    <img src="assets/8.jpg" alt="Proceso moldoLab — material experimental"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="placeholder-img"></div>
+                </div>
+            </div>
+
+            <div class="split-row reverse reveal delay-1">
+                <div class="split-text">
+                    <h2 class="section-title">UN MISMO GESTO.<br>TODOS LOS COLORES.</h2>
+                    <p>El Color Lab permite imaginar las piezas desde diferentes tonos y estados visuales. moldoLab no pertenece a un único color: cada tono construye una actitud distinta. La misma forma puede sentirse más cruda, más divertida, más rara o más tuya.</p>
+                    <a href="color-lab.html" class="btn btn-secondary" style="margin-top:24px;align-self:flex-start;" data-magnetic>PROBAR COLOR LAB</a>
+                </div>
+                <div class="split-image">
+                    <img src="assets/9.jpg" alt="Color Lab moldoLab"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="placeholder-img"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hover Carousel -->
+        <section class="hover-carousel-section reveal delay-2">
+            <h2 class="carousel-title">GALERÍA EN MOVIMIENTO</h2>
+            <div class="carousel-container" id="hover-carousel">
+                <div class="carousel-track" id="carousel-track">
+                    <div class="carousel-item">
+                        <img src="assets/anillocala.png" alt="Anillo CALA — moldoLab">
+                        <div class="carousel-label">
+                            <span class="carousel-label-name">ANILLO CALA</span>
+                            <span class="carousel-label-date">SS·26</span>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/anillolua.png" alt="Anillo LUA — moldoLab">
+                        <div class="carousel-label">
+                            <span class="carousel-label-name">ANILLO LUA</span>
+                            <span class="carousel-label-date">SS·26</span>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/brazaleteora.png" alt="Brazalete ORA — moldoLab">
+                        <div class="carousel-label">
+                            <span class="carousel-label-name">BRAZALETE ORA</span>
+                            <span class="carousel-label-date">SS·26</span>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/collarnara.png" alt="Collar NARA — moldoLab">
+                        <div class="carousel-label">
+                            <span class="carousel-label-name">COLLAR NARA</span>
+                            <span class="carousel-label-date">SS·26</span>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/pendientes sira.png" alt="Pendientes SIRA — moldoLab">
+                        <div class="carousel-label">
+                            <span class="carousel-label-name">PENDIENTES SIRA</span>
+                            <span class="carousel-label-date">SS·26</span>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/COCOS.png" alt="moldoLab — colección">
+                        <div class="carousel-label">
+                            <span class="carousel-label-name">COLECCIÓN</span>
+                            <span class="carousel-label-date">SS·26</span>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/SOMBRILLA.jpg" alt="moldoLab — verano">
+                        <div class="carousel-label">
+                            <span class="carousel-label-name">VERANO</span>
+                            <span class="carousel-label-date">SS·26</span>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/HIELOS.png" alt="moldoLab — editorial">
+                        <div class="carousel-label">
+                            <span class="carousel-label-name">EDITORIAL</span>
+                            <span class="carousel-label-date">SS·26</span>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/HELADO.png" alt="moldoLab — laboratorio">
+                        <div class="carousel-label">
+                            <span class="carousel-label-name">LABORATORIO</span>
+                            <span class="carousel-label-date">SS·26</span>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/IMAGEN1.jpg" alt="moldoLab — studio">
+                        <div class="carousel-label">
+                            <span class="carousel-label-name">STUDIO</span>
+                            <span class="carousel-label-date">SS·26</span>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/IMAGEN2.jpg" alt="moldoLab — proceso">
+                        <div class="carousel-label">
+                            <span class="carousel-label-name">PROCESO</span>
+                            <span class="carousel-label-date">SS·26</span>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/IMAGEN3.jpg" alt="moldoLab — material">
+                        <div class="carousel-label">
+                            <span class="carousel-label-name">MATERIAL</span>
+                            <span class="carousel-label-date">SS·26</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Numbers / Stats -->
+        <section class="numbers-section">
+            <div class="numbers-grid">
+                <div class="number-item reveal">
+                    <div class="number-value" data-target="100" data-suffix="%">0%</div>
+                    <div class="number-label">Hecho a mano</div>
+                </div>
+                <div class="number-item reveal delay-1">
+                    <div class="number-value" data-target="5" data-suffix=" piezas">0 piezas</div>
+                    <div class="number-label">Colección SS·26</div>
+                </div>
+                <div class="number-item reveal delay-2">
+                    <div class="number-value" data-target="1" data-suffix=" lab">0 lab</div>
+                    <div class="number-label">Un solo taller</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Materiales -->
+        <section class="materials-section">
+            <div class="materials-inner reveal">
+                <div class="materials-text">
+                    <div class="materials-eyebrow">MATERIAL</div>
+                    <h2 class="materials-title">MATERIAL QUE<br>NO PIDE PERDÓN</h2>
+                    <p class="materials-body">moldoLab apuesta por polímeros y materiales plásticos como una decisión estética y conceptual. La marca se aleja del valor clásico asociado al oro, la plata o las piedras preciosas para poner el foco en la forma, el volumen, el color y la identidad. El material no intenta parecer otra cosa: se muestra como superficie, cuerpo y gesto.</p>
+                    <a href="color-lab.html" class="btn btn-outline" data-magnetic>EXPLORAR COLOR LAB</a>
+                </div>
+                <div class="materials-tags">
+                    <div class="mat-tag">FLEXIBLE</div>
+                    <div class="mat-tag">LIGERO</div>
+                    <div class="mat-tag">SENSORIAL</div>
+                    <div class="mat-tag">ESCULTÓRICO</div>
+                    <div class="mat-tag">NO PRECIOSO,<br>PERO VALIOSO</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Brand World -->
+        <section class="brand-world" id="mundo">
+            <div class="brand-world-header reveal">
+                <div class="brand-world-eyebrow">EL UNIVERSO MOLDO</div>
+                <h2 class="brand-world-title">NO ES SOLO<br>UNA JOYA.</h2>
+                <p class="brand-world-sub">Es una actitud. Un lugar. Una forma de estar.</p>
+            </div>
+            <div class="bw-marquee">
+                <div class="bw-strip bw-strip-fwd">
+                    <img src="assets/SOMBRILLA.jpg" alt="moldoLab lifestyle">
+                    <img src="assets/COCOS.png"     alt="moldoLab lifestyle">
+                    <img src="assets/HELADO.png"    alt="moldoLab lifestyle">
+                    <img src="assets/IMAGEN1.jpg"   alt="moldoLab lifestyle">
+                    <img src="assets/HIELOS.png"    alt="moldoLab lifestyle">
+                    <img src="assets/IMAGEN2.jpg"   alt="moldoLab lifestyle">
+                    <img src="assets/IMAGEN3.jpg"   alt="moldoLab lifestyle">
+                    <!-- duplicados para loop infinito -->
+                    <img src="assets/SOMBRILLA.jpg" alt="" aria-hidden="true">
+                    <img src="assets/COCOS.png"     alt="" aria-hidden="true">
+                    <img src="assets/HELADO.png"    alt="" aria-hidden="true">
+                    <img src="assets/IMAGEN1.jpg"   alt="" aria-hidden="true">
+                    <img src="assets/HIELOS.png"    alt="" aria-hidden="true">
+                    <img src="assets/IMAGEN2.jpg"   alt="" aria-hidden="true">
+                    <img src="assets/IMAGEN3.jpg"   alt="" aria-hidden="true">
+                </div>
+                <div class="bw-strip bw-strip-rev">
+                    <img src="assets/IMAGEN3.jpg"   alt="moldoLab lifestyle">
+                    <img src="assets/HELADO.png"    alt="moldoLab lifestyle">
+                    <img src="assets/IMAGEN2.jpg"   alt="moldoLab lifestyle">
+                    <img src="assets/SOMBRILLA.jpg" alt="moldoLab lifestyle">
+                    <img src="assets/HIELOS.png"    alt="moldoLab lifestyle">
+                    <img src="assets/COCOS.png"     alt="moldoLab lifestyle">
+                    <img src="assets/IMAGEN1.jpg"   alt="moldoLab lifestyle">
+                    <!-- duplicados para loop infinito -->
+                    <img src="assets/IMAGEN3.jpg"   alt="" aria-hidden="true">
+                    <img src="assets/HELADO.png"    alt="" aria-hidden="true">
+                    <img src="assets/IMAGEN2.jpg"   alt="" aria-hidden="true">
+                    <img src="assets/SOMBRILLA.jpg" alt="" aria-hidden="true">
+                    <img src="assets/HIELOS.png"    alt="" aria-hidden="true">
+                    <img src="assets/COCOS.png"     alt="" aria-hidden="true">
+                    <img src="assets/IMAGEN1.jpg"   alt="" aria-hidden="true">
+                </div>
+            </div>
+        </section>
+
+        <!-- Manifesto -->
+        <section class="manifesto">
+            <div class="manifesto-bg-degradado" aria-hidden="true"></div>
+            <div class="manifesto-content reveal">
+                <h2>ESTO NO ES PARA TODOS.<br>POR SUERTE.</h2>
+                <p>moldoLab nace para quienes entienden la joya como algo más que un complemento. Cada pieza funciona como una pequeña escultura portátil: blanda, rara, expresiva y difícil de ignorar. No buscamos adornar. Buscamos decir algo.</p>
+                <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+                    <a href="#coleccion" class="btn btn-primary btn-large" data-magnetic>VER COLECCIÓN</a>
+                    <a href="color-lab.html" class="btn btn-outline btn-large" data-magnetic>ENTRAR AL COLOR LAB</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-col brand-col">
+                <div class="footer-logo">
+                    <a href="#hero"><span class="logo-svg" aria-label="moldoLab"></span></a>
+                </div>
+                <p class="footer-tagline">Joyas experimentales hechas desde la forma, el gesto y la materia.</p>
+                <p class="footer-brand-claim">"No nacimos para adornar.<br>Nacimos para expresar."</p>
+                <div class="footer-social">
+                    <a href="#" class="footer-social-link" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                        Instagram
+                    </a>
+                    <a href="#" class="footer-social-link" aria-label="TikTok">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.15 8.15 0 004.77 1.54V6.79a4.85 4.85 0 01-1-.1z"/></svg>
+                        TikTok
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4 class="footer-heading">COLECCIÓN</h4>
+                <ul class="footer-links">
+                    <li><a href="featured-product.html">ANILLO CALA <span class="footer-link-price">45 €</span></a></li>
+                    <li><a href="product-anillo-amarillo.html">ANILLO LUA <span class="footer-link-price">45 €</span></a></li>
+                    <li><a href="product-anillo-burdeos.html">BRAZALETE ORA <span class="footer-link-price">53 €</span></a></li>
+                    <li><a href="product-anillo-verde.html">COLLAR NARA <span class="footer-link-price">96 €</span></a></li>
+                    <li><a href="product-anillo-oliva.html">PENDIENTES SIRA <span class="footer-link-price">45 €</span></a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4 class="footer-heading">LABORATORIO</h4>
+                <ul class="footer-links">
+                    <li><a href="color-lab.html">COLOR LAB</a></li>
+                    <li><a href="#proceso">PROCESO</a></li>
+                    <li><a href="#sobre-la-marca">SOBRE LA MARCA</a></li>
+                    <li><a href="products.html">TODA LA COLECCIÓN</a></li>
+                </ul>
+                <h4 class="footer-heading" style="margin-top:28px;">INFORMACIÓN</h4>
+                <ul class="footer-links">
+                    <li><a href="info.html#envios">ENVÍOS</a></li>
+                    <li><a href="info.html#devoluciones">CAMBIOS Y DEVOLUCIONES</a></li>
+                    <li><a href="info.html#cuidados">CUIDADOS</a></li>
+                    <li><a href="contacto.html">CONTACTO</a></li>
+                    <li><a href="legal.html#privacidad">POLÍTICA DE PRIVACIDAD</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col newsletter-col">
+                <h4 class="footer-heading">ÚNETE AL LABORATORIO</h4>
+                <p class="footer-newsletter-desc">Procesos, piezas nuevas y experimentos antes que nadie. Sin spam, con criterio.</p>
+                <form class="newsletter-form" onsubmit="event.preventDefault();">
+                    <input type="email" placeholder="tu@email.com" required>
+                    <button type="submit">→</button>
+                </form>
+                <p class="footer-microcopy">Pieza hecha bajo pedido.<br>Pequeñas variaciones forman parte del proceso.<br>Tiempo estimado: 5–7 días hábiles.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-legal">© 2026 moldoLab · Joyería experimental hecha a mano · SS·26</p>
+            <div class="footer-legal-links">
+                <a href="legal.html#aviso-legal">Aviso legal</a>
+                <a href="legal.html#cookies">Cookies</a>
+                <a href="legal.html#privacidad">Política de privacidad</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="login-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="close-modal" aria-label="Cerrar">&times;</button>
+
+            <div class="modal-logo">
+                <span class="logo-svg" aria-label="moldoLab"></span>
+            </div>
+
+            <h2 class="modal-title">ACCEDER</h2>
+            <p class="modal-subtitle">Accede o crea una cuenta</p>
+
+            <button class="btn-google">
+                <svg class="google-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="display:inline-block;vertical-align:middle;">
+                    <path
+                        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                        fill="#4285F4" />
+                    <path
+                        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                        fill="#34A853" />
+                    <path
+                        d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                        fill="#FBBC05" />
+                    <path
+                        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                        fill="#EA4335" />
+                </svg>
+                Continuar con Google
+            </button>
+
+            <div class="modal-divider">
+                <span>o</span>
+            </div>
+
+            <form class="modal-form" onsubmit="event.preventDefault();">
+                <input type="email" placeholder="Email" required>
+                <button type="submit" class="btn-continue">CONTINUAR</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox-overlay" id="carousel-lightbox">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Cerrar">&times;</button>
+        <img class="lightbox-img" id="lightbox-img" src="" alt="Imagen ampliada">
+    </div>
+
+    <script src="script.js"></script>
+    <!-- Side Cart -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <aside class="side-cart" id="side-cart">
+        <div class="cart-header">
+            <h2>TU CARRITO</h2>
+            <button class="btn-close-cart" id="close-cart">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="cart-items" id="cart-items-container">
+            <!-- Items injected by JS -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>TOTAL</span>
+                <span id="cart-total-amount">0€</span>
+            </div>
+            <a href="checkout.html" class="btn-checkout">FINALIZAR COMPRA</a>
+        </div>
+    </aside>
+
+    <script>
+        // --- CART SYSTEM LOGIC ---
+        let cart = JSON.parse(localStorage.getItem('moldo_cart')) || [];
+
+        const sideCart = document.getElementById('side-cart');
+        const cartOverlay = document.getElementById('cart-overlay');
+        const cartTrigger = document.getElementById('cart-trigger');
+        const closeCart = document.getElementById('close-cart');
+        const cartItemsContainer = document.getElementById('cart-items-container');
+        const cartTotalAmount = document.getElementById('cart-total-amount');
+        const cartBadge = document.getElementById('cart-badge');
+
+        function toggleCart(open = true) {
+            if (open) {
+                sideCart.classList.add('active');
+                cartOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } else {
+                sideCart.classList.remove('active');
+                cartOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function updateCart() {
+            localStorage.setItem('moldo_cart', JSON.stringify(cart));
+            renderCart();
+            
+            // Update badge
+            if (cart.length > 0) {
+                cartBadge.style.display = 'flex';
+                cartBadge.textContent = cart.length;
+            } else {
+                cartBadge.style.display = 'none';
+            }
+        }
+
+        function renderCart() {
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<div class="cart-empty-msg">TU CARRITO ESTÁ VACÍO</div>';
+                cartTotalAmount.textContent = '0€';
+                return;
+            }
+
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                const itemEl = document.createElement('div');
+                itemEl.className = 'cart-item';
+                itemEl.innerHTML = `
+                    <img src="${item.img}" class="cart-item-img" alt="${item.name}">
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">${item.price}€</div>
+                        <button class="btn-remove-item" onclick="removeItem(${index})">ELIMINAR</button>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(itemEl);
+            });
+
+            cartTotalAmount.textContent = `${total}€`;
+        }
+
+        window.removeItem = (index) => {
+            cart.splice(index, 1);
+            updateCart();
+        };
+
+        function addToCart(name, price, img) {
+            cart.push({ name, price, img });
+            updateCart();
+            toggleCart(true);
+        }
+
+        // Add to cart buttons listeners
+        document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const card = btn.closest('.product-card')
+                          || btn.closest('.featured-product')
+                          || btn.closest('.vertical-card');
+                if (!card) return;
+
+                let name, price, img;
+
+                if (card.classList.contains('featured-product')) {
+                    name  = card.querySelector('.featured-name').textContent.trim();
+                    price = parseInt(card.querySelector('.featured-price').textContent.match(/\d+/)[0]);
+                    img   = card.querySelector('img').src;
+                } else if (card.classList.contains('vertical-card')) {
+                    name  = card.querySelector('.vertical-name').textContent.trim();
+                    price = parseInt(card.querySelector('.vertical-price').textContent.match(/\d+/)[0]);
+                    img   = card.querySelector('img').src;
+                } else {
+                    name  = card.querySelector('.product-name').textContent.trim();
+                    price = parseInt(card.querySelector('.product-price').textContent.match(/\d+/)[0]);
+                    img   = card.querySelector('img').src;
+                }
+
+                addToCart(name, price, img);
+            });
+        });
+
+        cartTrigger.addEventListener('click', () => toggleCart(true));
+        closeCart.addEventListener('click', () => toggleCart(false));
+        cartOverlay.addEventListener('click', () => toggleCart(false));
+
+        // Initial render
+        updateCart();
+    </script>
+
+    <!-- Logo Trail — zona interactiva -->
+    <script>
+    (function() {
+        const zone = document.getElementById('logo-trail-zone');
+        if (!zone) return;
+
+        const MIN_DIST = 200;
+        let lastX = 0, lastY = 0;
+
+        zone.addEventListener('mouseenter', () => zone.classList.add('active'));
+        zone.addEventListener('mouseleave', () => zone.classList.remove('active'));
+
+        zone.addEventListener('mousemove', (e) => {
+            const rect = zone.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const dx = x - lastX, dy = y - lastY;
+            if (Math.sqrt(dx*dx + dy*dy) < MIN_DIST) return;
+            lastX = x; lastY = y;
+
+            const stamp = document.createElement('span');
+            stamp.className = 'logo-stamp';
+            stamp.style.cssText = `
+                left:${x}px; top:${y}px;
+                width:180px; height:37px;
+                background-color: #BE1A32;
+                -webkit-mask-image: url('assets/Recurso 4.svg');
+                mask-image: url('assets/Recurso 4.svg');
+                -webkit-mask-size: contain;
+                mask-size: contain;
+                -webkit-mask-repeat: no-repeat;
+                mask-repeat: no-repeat;
+                -webkit-mask-position: center;
+                mask-position: center;
+            `;
+            zone.appendChild(stamp);
+            // Las estampas se quedan — NO se borran al animationend
+        });
+
+        // Borrar todas las estampas al hacer clic fuera de la zona
+        document.addEventListener('click', (e) => {
+            if (!zone.contains(e.target)) {
+                zone.querySelectorAll('.logo-stamp').forEach(s => {
+                    s.style.transition = 'opacity 0.4s ease';
+                    s.style.opacity = '0';
+                    setTimeout(() => s.remove(), 420);
+                });
+            }
+        });
+    })();
+    </script>
+
+    <script>
+    /* ── GALERÍA EN MOVIMIENTO: infinite hover-scroll ── */
+    (function() {
+        const container = document.getElementById('hover-carousel');
+        const track = document.getElementById('carousel-track');
+        if (!container || !track) return;
+
+        /* Duplicate items: [clone-left][originals][clone-right]
+           Use fragments so order is preserved (prepend loop reverses) */
+        const originals = Array.from(track.children);
+
+        const leftFrag = document.createDocumentFragment();
+        originals.forEach(el => leftFrag.appendChild(el.cloneNode(true)));
+        track.insertBefore(leftFrag, track.firstChild);
+
+        const rightFrag = document.createDocumentFragment();
+        originals.forEach(el => rightFrag.appendChild(el.cloneNode(true)));
+        track.appendChild(rightFrag);
+
+        /* Start scrolled to the original (middle) set */
+        const goMiddle = () => { track.scrollLeft = track.scrollWidth / 3; };
+        setTimeout(goMiddle, 0);
+
+        let speed = 0;
+        let active = false;
+
+        container.addEventListener('mouseenter', () => { active = true; });
+        container.addEventListener('mouseleave', () => { active = false; speed = 0; });
+
+        container.addEventListener('mousemove', (e) => {
+            const rect = container.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const w = rect.width;
+            const zone = w * 0.28;
+
+            if (x < zone) {
+                speed = -((zone - x) / zone) * 7;
+            } else if (x > w - zone) {
+                speed = ((x - (w - zone)) / zone) * 7;
+            } else {
+                speed = 0;
+            }
+        });
+
+        function tick() {
+            if (active && speed !== 0) {
+                track.scrollLeft += speed;
+
+                /* Seamless infinite jump */
+                const oneSet = track.scrollWidth / 3;
+                if (track.scrollLeft < oneSet * 0.25) {
+                    track.scrollLeft += oneSet;
+                } else if (track.scrollLeft > oneSet * 1.75) {
+                    track.scrollLeft -= oneSet;
+                }
+            }
+            requestAnimationFrame(tick);
+        }
+        tick();
+    })();
+    </script>
+
+    <script>
+    /* ── POPUP NEWSLETTER: aparece al salir del vídeo hero ── */
+    (function () {
+        if (localStorage.getItem('moldo_nl_done')) return;
+
+        const overlay = document.getElementById('nl-overlay');
+        const hero    = document.querySelector('.top-video-section');
+        const closeBtn= document.getElementById('nl-close');
+        const form    = document.getElementById('nl-form');
+        if (!overlay || !hero) return;
+
+        let shown = false;
+
+        function showPopup() {
+            if (shown) return;
+            shown = true;
+            overlay.classList.add('nl-visible');
+            overlay.setAttribute('aria-hidden', 'false');
+        }
+
+        function hidePopup() {
+            overlay.classList.remove('nl-visible');
+        }
+
+        /* IntersectionObserver: se dispara cuando el hero sale del viewport */
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (!e.isIntersecting) {
+                    setTimeout(showPopup, 600);
+                    obs.disconnect();
+                }
+            });
+        }, { threshold: 0 });
+        obs.observe(hero);
+
+        closeBtn.addEventListener('click', hidePopup);
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) hidePopup(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hidePopup(); });
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            localStorage.setItem('moldo_nl_done', '1');
+            form.innerHTML = '<p class="nl-thanks">¡Bienvenida al laboratorio. Te escribiremos pronto.</p>';
+            setTimeout(hidePopup, 2200);
+        });
+    })();
+    </script>
+
+    <script src="music.js"></script>
+
+</body>
+
+</html>

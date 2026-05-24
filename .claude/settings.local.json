@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-Item \"c:\\\\Users\\\\Diseño\\\\Desktop\\\\WEB moldoLab\\\\assets\\\\Hitem3d-1773241653302.fbx\" | Select-Object Name, @{N='MB';E={[math]::Round\\($_.Length/1MB,2\\)}}, @{N='KB';E={[math]::Round\\($_.Length/1KB,0\\)}})",
+      "Bash(sort -k6,7)"
+    ]
+  }
+}

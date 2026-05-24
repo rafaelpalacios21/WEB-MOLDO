@@ -1,0 +1,465 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Legal — moldoLab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; background: #1F2218; color: #EDE9E7; overflow-x: hidden; }
+
+        /* ── HEADER ── */
+        .lg-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 48px;
+            background: linear-gradient(to bottom, #1F2218 60%, transparent);
+        }
+        .lg-back {
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            color: rgba(237,233,231,0.55);
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+        .lg-back:hover { color: #EDE9E7; }
+        .lg-back::before { content: '← '; }
+        .lg-mark {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .lg-mark-ring {
+            width: 22px;
+            height: 22px;
+            border: 1px solid rgba(200,217,111,0.45);
+            border-radius: 50%;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .lg-mark-ring::after {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border-radius: 50%;
+            border: 1px solid rgba(200,217,111,0.2);
+        }
+        .lg-mark-text {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            line-height: 1;
+        }
+        .lg-mark-text span:first-child {
+            font-size: 9px;
+            letter-spacing: 0.28em;
+            color: var(--lima, #C8D96F);
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+        .lg-mark-text span:last-child {
+            font-size: 9px;
+            letter-spacing: 0.22em;
+            color: rgba(237,233,231,0.28);
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        /* ── HERO ── */
+        .lg-hero {
+            padding: 160px 48px 80px;
+            border-bottom: 1px solid rgba(237,233,231,0.08);
+        }
+        .lg-hero-label {
+            font-size: 10px;
+            letter-spacing: 0.3em;
+            color: var(--lima, #C8D96F);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .lg-hero h1 {
+            font-size: clamp(2.4rem, 5vw, 5rem);
+            font-weight: 200;
+            letter-spacing: 0.04em;
+            line-height: 1.05;
+            text-transform: uppercase;
+        }
+
+        /* ── NAV ── */
+        .lg-nav {
+            display: flex;
+            gap: 12px;
+            padding: 40px 48px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(237,233,231,0.08);
+        }
+        .lg-nav a {
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(237,233,231,0.5);
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid rgba(237,233,231,0.15);
+            border-radius: 100px;
+            transition: all 0.3s ease;
+        }
+        .lg-nav a:hover {
+            color: #1F2218;
+            background: #EDE9E7;
+            border-color: #EDE9E7;
+        }
+
+        /* ── SECTIONS ── */
+        .lg-section {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 80px 48px;
+            border-bottom: 1px solid rgba(237,233,231,0.08);
+        }
+        .lg-section:last-of-type { border-bottom: none; }
+
+        .lg-section-tag {
+            font-size: 10px;
+            letter-spacing: 0.3em;
+            color: var(--lima, #C8D96F);
+            text-transform: uppercase;
+            margin-bottom: 28px;
+        }
+        .lg-section h2 {
+            font-size: clamp(1.4rem, 2.5vw, 2rem);
+            font-weight: 300;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+
+        .lg-block {
+            margin-bottom: 40px;
+        }
+        .lg-block h3 {
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #EDE9E7;
+            margin-bottom: 14px;
+        }
+        .lg-block p {
+            font-size: 14px;
+            line-height: 1.85;
+            color: rgba(237,233,231,0.6);
+            font-weight: 300;
+        }
+        .lg-block p + p { margin-top: 10px; }
+        .lg-block a {
+            color: var(--lima, #C8D96F);
+            text-decoration: none;
+        }
+        .lg-block a:hover { text-decoration: underline; }
+
+        .lg-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+        .lg-list li {
+            font-size: 14px;
+            line-height: 1.85;
+            color: rgba(237,233,231,0.6);
+            font-weight: 300;
+            padding-left: 18px;
+            position: relative;
+        }
+        .lg-list li::before {
+            content: '–';
+            position: absolute;
+            left: 0;
+            color: var(--lima, #C8D96F);
+        }
+
+        .lg-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+        .lg-table th,
+        .lg-table td {
+            text-align: left;
+            padding: 12px 16px;
+            font-size: 13px;
+            font-weight: 300;
+            border-bottom: 1px solid rgba(237,233,231,0.07);
+        }
+        .lg-table th {
+            font-size: 10px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(237,233,231,0.35);
+            background: rgba(237,233,231,0.03);
+        }
+        .lg-table td { color: rgba(237,233,231,0.6); }
+        .lg-table tr:last-child td { border-bottom: none; }
+
+        .lg-update {
+            font-size: 11px;
+            color: rgba(237,233,231,0.25);
+            letter-spacing: 0.08em;
+            margin-bottom: 36px;
+        }
+
+        /* ── FOOTER ── */
+        .lg-footer {
+            padding: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            border-top: 1px solid rgba(237,233,231,0.08);
+        }
+        .lg-footer p {
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            color: rgba(237,233,231,0.3);
+        }
+        .lg-footer-links {
+            display: flex;
+            gap: 24px;
+        }
+        .lg-footer-links a {
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            color: rgba(237,233,231,0.35);
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        .lg-footer-links a:hover { color: #EDE9E7; }
+
+        @media (max-width: 768px) {
+            .lg-header { padding: 20px 24px; }
+            .lg-hero { padding: 120px 24px 60px; }
+            .lg-nav { padding: 28px 24px; }
+            .lg-section { padding: 60px 24px; }
+            .lg-footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+            .lg-table th, .lg-table td { padding: 10px 8px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="lg-header">
+        <a href="index.html" class="lg-back">Inicio</a>
+        <div class="lg-mark" aria-hidden="true">
+            <div class="lg-mark-ring"></div>
+            <div class="lg-mark-text">
+                <span>SS · 26</span>
+                <span>Joyería experimental</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="lg-hero">
+        <p class="lg-hero-label">moldoLab · Legal</p>
+        <h1>Información<br>Legal</h1>
+    </div>
+
+    <nav class="lg-nav">
+        <a href="#privacidad">Política de privacidad</a>
+        <a href="#aviso-legal">Aviso legal</a>
+        <a href="#cookies">Cookies</a>
+    </nav>
+
+    <!-- POLÍTICA DE PRIVACIDAD -->
+    <section class="lg-section" id="privacidad">
+        <p class="lg-section-tag">01 — Privacidad</p>
+        <p class="lg-update">Última actualización: mayo 2026</p>
+        <h2>Política de Privacidad</h2>
+
+        <div class="lg-block">
+            <h3>Responsable del tratamiento</h3>
+            <p>moldoLab (en adelante, "la empresa") actúa como responsable del tratamiento de los datos personales recogidos a través de este sitio web.</p>
+            <p>Email de contacto: <a href="mailto:hola@moldolab.com">hola@moldolab.com</a></p>
+        </div>
+
+        <div class="lg-block">
+            <h3>Datos que recogemos</h3>
+            <ul class="lg-list">
+                <li>Datos de identificación: nombre y apellidos, dirección de correo electrónico</li>
+                <li>Datos de contacto: dirección de envío, número de teléfono (si se facilita)</li>
+                <li>Datos de navegación: cookies técnicas, dirección IP, páginas visitadas (anonimizados)</li>
+                <li>Datos de la transacción: historial de pedidos, método de pago (no almacenamos datos de tarjeta)</li>
+            </ul>
+        </div>
+
+        <div class="lg-block">
+            <h3>Finalidad del tratamiento</h3>
+            <ul class="lg-list">
+                <li>Gestionar y tramitar tus pedidos</li>
+                <li>Responder a tus consultas y mensajes de contacto</li>
+                <li>Enviarte comunicaciones comerciales si has dado tu consentimiento (newsletter)</li>
+                <li>Cumplir con las obligaciones legales aplicables</li>
+                <li>Mejorar la experiencia de navegación mediante análisis anónimos</li>
+            </ul>
+        </div>
+
+        <div class="lg-block">
+            <h3>Base legal</h3>
+            <p>El tratamiento de tus datos se basa en la ejecución del contrato de compraventa, en tu consentimiento explícito (newsletter, cookies no esenciales) y en el cumplimiento de obligaciones legales (fiscales, contables).</p>
+        </div>
+
+        <div class="lg-block">
+            <h3>Conservación de datos</h3>
+            <p>Los datos vinculados a pedidos se conservan durante el tiempo necesario para cumplir con las obligaciones legales (hasta 5 años según normativa fiscal). Los datos de la newsletter se eliminan en el momento en que te des de baja.</p>
+        </div>
+
+        <div class="lg-block">
+            <h3>Tus derechos</h3>
+            <p>De acuerdo con el RGPD (Reglamento General de Protección de Datos) tienes derecho a:</p>
+            <ul class="lg-list">
+                <li><strong style="color:#EDE9E7; font-weight:400;">Acceso:</strong> conocer qué datos tenemos sobre ti</li>
+                <li><strong style="color:#EDE9E7; font-weight:400;">Rectificación:</strong> corregir datos incorrectos</li>
+                <li><strong style="color:#EDE9E7; font-weight:400;">Supresión:</strong> solicitar la eliminación de tus datos</li>
+                <li><strong style="color:#EDE9E7; font-weight:400;">Oposición:</strong> oponerte al tratamiento para fines de marketing</li>
+                <li><strong style="color:#EDE9E7; font-weight:400;">Portabilidad:</strong> recibir tus datos en formato estructurado</li>
+                <li><strong style="color:#EDE9E7; font-weight:400;">Limitación:</strong> solicitar la restricción del tratamiento</li>
+            </ul>
+            <p>Para ejercer estos derechos, escríbenos a <a href="mailto:hola@moldolab.com">hola@moldolab.com</a>. Si consideras que el tratamiento no es correcto, puedes presentar una reclamación ante la Agencia Española de Protección de Datos (aepd.es).</p>
+        </div>
+
+        <div class="lg-block">
+            <h3>Transferencias internacionales</h3>
+            <p>No realizamos transferencias de datos a países fuera del Espacio Económico Europeo, salvo que sea estrictamente necesario para el envío de tu pedido y siempre con las garantías adecuadas.</p>
+        </div>
+    </section>
+
+    <!-- AVISO LEGAL -->
+    <section class="lg-section" id="aviso-legal">
+        <p class="lg-section-tag">02 — Condiciones</p>
+        <p class="lg-update">Última actualización: mayo 2026</p>
+        <h2>Aviso Legal</h2>
+
+        <div class="lg-block">
+            <h3>Titular del sitio web</h3>
+            <p>Este sitio web es propiedad de moldoLab. El acceso y uso del mismo implica la aceptación de las presentes condiciones de uso.</p>
+        </div>
+
+        <div class="lg-block">
+            <h3>Propiedad intelectual</h3>
+            <p>Todos los contenidos de este sitio web (textos, fotografías, diseños, logotipos, vídeos, nombres comerciales y cualquier otro elemento) son propiedad de moldoLab o de sus licenciantes, y están protegidos por la normativa española e internacional de propiedad intelectual e industrial.</p>
+            <p>Queda prohibida la reproducción, distribución, comunicación pública o transformación de cualquier contenido sin autorización expresa por escrito.</p>
+        </div>
+
+        <div class="lg-block">
+            <h3>Responsabilidad</h3>
+            <p>moldoLab no se hace responsable de los daños derivados del uso incorrecto del sitio web, de la imposibilidad de acceso o de los contenidos enlazados de terceros. El sitio web se proporciona "tal cual" y puede ser modificado sin previo aviso.</p>
+        </div>
+
+        <div class="lg-block">
+            <h3>Legislación aplicable</h3>
+            <p>Estas condiciones se rigen por la legislación española. Para cualquier controversia, las partes se someten a los juzgados y tribunales del domicilio del consumidor, sin perjuicio de los derechos reconocidos por la normativa de consumidores.</p>
+        </div>
+
+        <div class="lg-block">
+            <h3>Resolución de litigios en línea</h3>
+            <p>Si eres consumidor de la UE, puedes acceder a la plataforma de resolución de litigios en línea de la Comisión Europea en <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">ec.europa.eu/consumers/odr</a>.</p>
+        </div>
+    </section>
+
+    <!-- COOKIES -->
+    <section class="lg-section" id="cookies">
+        <p class="lg-section-tag">03 — Cookies</p>
+        <p class="lg-update">Última actualización: mayo 2026</p>
+        <h2>Política de Cookies</h2>
+
+        <div class="lg-block">
+            <h3>¿Qué son las cookies?</h3>
+            <p>Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo cuando visitas un sitio web. Sirven para recordar tus preferencias, analizar el uso del sitio y mejorar la experiencia de navegación.</p>
+        </div>
+
+        <div class="lg-block">
+            <h3>Tipos de cookies que utilizamos</h3>
+            <table class="lg-table">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Propósito</th>
+                        <th>Duración</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Técnicas (necesarias)</td>
+                        <td>Funcionamiento esencial del sitio: sesión, carrito, preferencias de idioma</td>
+                        <td>Sesión / 1 año</td>
+                    </tr>
+                    <tr>
+                        <td>Analíticas</td>
+                        <td>Estadísticas anónimas de uso para mejorar el sitio (Google Analytics)</td>
+                        <td>2 años</td>
+                    </tr>
+                    <tr>
+                        <td>De preferencias</td>
+                        <td>Recordar tus ajustes de visualización y accesibilidad</td>
+                        <td>1 año</td>
+                    </tr>
+                    <tr>
+                        <td>Marketing (opcionales)</td>
+                        <td>Publicidad adaptada y seguimiento de campañas</td>
+                        <td>90 días</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="lg-block">
+            <h3>Cookies de terceros</h3>
+            <p>Podemos utilizar servicios de terceros que instalan sus propias cookies. Entre ellos:</p>
+            <ul class="lg-list">
+                <li>Google Analytics (análisis de tráfico, <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">política de Google</a>)</li>
+                <li>Meta Pixel / Instagram (si se activan campañas publicitarias)</li>
+                <li>Fuentes de Google Fonts (carga de tipografías)</li>
+            </ul>
+        </div>
+
+        <div class="lg-block">
+            <h3>Cómo gestionar las cookies</h3>
+            <p>Puedes aceptar, rechazar o configurar las cookies no esenciales en el panel de preferencias que aparece al acceder al sitio por primera vez. También puedes eliminar las cookies desde la configuración de tu navegador:</p>
+            <ul class="lg-list">
+                <li>Chrome: Configuración → Privacidad y seguridad → Cookies</li>
+                <li>Firefox: Opciones → Privacidad y seguridad</li>
+                <li>Safari: Preferencias → Privacidad</li>
+                <li>Edge: Configuración → Privacidad, búsqueda y servicios</li>
+            </ul>
+            <p>Ten en cuenta que desactivar las cookies técnicas puede afectar al funcionamiento del sitio.</p>
+        </div>
+
+        <div class="lg-block">
+            <h3>Consentimiento</h3>
+            <p>Al continuar navegando sin modificar los ajustes de tu navegador, o al hacer clic en "Aceptar" en el banner de cookies, consientes el uso de cookies según esta política. Puedes retirar tu consentimiento en cualquier momento desde el panel de preferencias.</p>
+        </div>
+    </section>
+
+    <footer class="lg-footer">
+        <p>© 2026 moldoLab · Joyería experimental hecha a mano</p>
+        <div class="lg-footer-links">
+            <a href="info.html">Envíos</a>
+            <a href="info.html#devoluciones">Devoluciones</a>
+            <a href="contacto.html">Contacto</a>
+        </div>
+    </footer>
+
+    <script src="music.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,386 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Información — moldoLab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; background: #1F2218; color: #EDE9E7; overflow-x: hidden; }
+
+        /* ── HEADER ── */
+        .info-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 48px;
+            background: linear-gradient(to bottom, #1F2218 60%, transparent);
+        }
+        .info-back {
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            color: rgba(237,233,231,0.55);
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+        .info-back:hover { color: #EDE9E7; }
+        .info-back::before { content: '← '; }
+        .info-mark {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .info-mark-ring {
+            width: 22px;
+            height: 22px;
+            border: 1px solid rgba(200,217,111,0.45);
+            border-radius: 50%;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .info-mark-ring::after {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border-radius: 50%;
+            border: 1px solid rgba(200,217,111,0.2);
+        }
+        .info-mark-text {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            line-height: 1;
+        }
+        .info-mark-text span:first-child {
+            font-size: 9px;
+            letter-spacing: 0.28em;
+            color: var(--lima, #C8D96F);
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+        .info-mark-text span:last-child {
+            font-size: 9px;
+            letter-spacing: 0.22em;
+            color: rgba(237,233,231,0.28);
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        /* ── HERO ── */
+        .info-hero {
+            padding: 160px 48px 80px;
+            border-bottom: 1px solid rgba(237,233,231,0.08);
+        }
+        .info-hero-label {
+            font-size: 10px;
+            letter-spacing: 0.3em;
+            color: var(--lima, #C8D96F);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .info-hero h1 {
+            font-size: clamp(2.4rem, 5vw, 5rem);
+            font-weight: 200;
+            letter-spacing: 0.04em;
+            line-height: 1.05;
+            text-transform: uppercase;
+            color: #EDE9E7;
+        }
+
+        /* ── NAV PILLS ── */
+        .info-nav {
+            display: flex;
+            gap: 12px;
+            padding: 40px 48px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(237,233,231,0.08);
+        }
+        .info-nav a {
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(237,233,231,0.5);
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid rgba(237,233,231,0.15);
+            border-radius: 100px;
+            transition: all 0.3s ease;
+        }
+        .info-nav a:hover {
+            color: #1F2218;
+            background: #EDE9E7;
+            border-color: #EDE9E7;
+        }
+
+        /* ── SECTIONS ── */
+        .info-section {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 80px 48px;
+            border-bottom: 1px solid rgba(237,233,231,0.08);
+        }
+        .info-section:last-of-type { border-bottom: none; }
+
+        .info-section-tag {
+            font-size: 10px;
+            letter-spacing: 0.3em;
+            color: var(--lima, #C8D96F);
+            text-transform: uppercase;
+            margin-bottom: 28px;
+        }
+        .info-section h2 {
+            font-size: clamp(1.4rem, 2.5vw, 2rem);
+            font-weight: 300;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #EDE9E7;
+            margin-bottom: 40px;
+        }
+
+        .info-block {
+            margin-bottom: 40px;
+        }
+        .info-block h3 {
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #EDE9E7;
+            margin-bottom: 14px;
+        }
+        .info-block p {
+            font-size: 14px;
+            line-height: 1.85;
+            color: rgba(237,233,231,0.65);
+            font-weight: 300;
+        }
+        .info-block p + p { margin-top: 10px; }
+
+        .info-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+        .info-list li {
+            font-size: 14px;
+            line-height: 1.85;
+            color: rgba(237,233,231,0.65);
+            font-weight: 300;
+            padding-left: 18px;
+            position: relative;
+        }
+        .info-list li::before {
+            content: '–';
+            position: absolute;
+            left: 0;
+            color: var(--lima, #C8D96F);
+        }
+
+        .info-highlight {
+            background: rgba(200,217,111,0.06);
+            border-left: 2px solid var(--lima, #C8D96F);
+            padding: 20px 24px;
+            border-radius: 0 4px 4px 0;
+            margin-top: 24px;
+        }
+        .info-highlight p {
+            font-size: 13px;
+            color: rgba(237,233,231,0.75);
+            line-height: 1.7;
+        }
+
+        /* ── FOOTER ── */
+        .info-footer {
+            padding: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            border-top: 1px solid rgba(237,233,231,0.08);
+        }
+        .info-footer p {
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            color: rgba(237,233,231,0.3);
+        }
+        .info-footer-links {
+            display: flex;
+            gap: 24px;
+        }
+        .info-footer-links a {
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            color: rgba(237,233,231,0.35);
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        .info-footer-links a:hover { color: #EDE9E7; }
+
+        @media (max-width: 768px) {
+            .info-header { padding: 20px 24px; }
+            .info-hero { padding: 120px 24px 60px; }
+            .info-nav { padding: 28px 24px; }
+            .info-section { padding: 60px 24px; }
+            .info-footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="info-header">
+        <a href="index.html" class="info-back">Inicio</a>
+        <div class="info-mark" aria-hidden="true">
+            <div class="info-mark-ring"></div>
+            <div class="info-mark-text">
+                <span>SS · 26</span>
+                <span>Joyería experimental</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="info-hero">
+        <p class="info-hero-label">moldoLab · Información</p>
+        <h1>Todo lo que<br>necesitas saber</h1>
+    </div>
+
+    <nav class="info-nav">
+        <a href="#envios">Envíos</a>
+        <a href="#devoluciones">Cambios y Devoluciones</a>
+        <a href="#cuidados">Cuidados</a>
+    </nav>
+
+    <!-- ENVÍOS -->
+    <section class="info-section" id="envios">
+        <p class="info-section-tag">01 — Logística</p>
+        <h2>Envíos</h2>
+
+        <div class="info-block">
+            <h3>Plazo de elaboración</h3>
+            <p>Cada pieza de moldoLab se fabrica bajo pedido. El tiempo estimado de elaboración es de <strong style="color:#EDE9E7; font-weight:400;">5 a 7 días hábiles</strong> desde la confirmación del pago. Este plazo puede variar ligeramente según la complejidad de la pieza o el volumen de pedidos.</p>
+        </div>
+
+        <div class="info-block">
+            <h3>Métodos y tarifas</h3>
+            <ul class="info-list">
+                <li>Envío estándar (Península): 4,95 € · 2–4 días hábiles desde el despacho</li>
+                <li>Envío exprés (Península): 9,95 € · 1–2 días hábiles desde el despacho</li>
+                <li>Islas Canarias, Baleares, Ceuta y Melilla: 6,95 € · 3–6 días hábiles</li>
+                <li>Europa: desde 12,95 € · 5–10 días hábiles</li>
+                <li>Envío gratuito en pedidos superiores a 120 € (Península)</li>
+            </ul>
+        </div>
+
+        <div class="info-block">
+            <h3>Seguimiento</h3>
+            <p>Una vez despachado tu pedido, recibirás un correo electrónico con el número de seguimiento para que puedas localizar tu envío en todo momento.</p>
+        </div>
+
+        <div class="info-block">
+            <h3>Envíos internacionales</h3>
+            <p>Realizamos envíos a toda Europa. Para destinos fuera de la Unión Europea, escríbenos a <a href="mailto:hola@moldolab.com" style="color:var(--lima,#C8D96F); text-decoration:none;">hola@moldolab.com</a> antes de realizar tu pedido para consultar disponibilidad y costes de aduana.</p>
+        </div>
+
+        <div class="info-highlight">
+            <p>Todos nuestros envíos se realizan en packaging sostenible, diseñado para que la presentación de tu pieza sea parte de la experiencia moldoLab.</p>
+        </div>
+    </section>
+
+    <!-- CAMBIOS Y DEVOLUCIONES -->
+    <section class="info-section" id="devoluciones">
+        <p class="info-section-tag">02 — Postventa</p>
+        <h2>Cambios y<br>Devoluciones</h2>
+
+        <div class="info-block">
+            <h3>Plazo de devolución</h3>
+            <p>Tienes <strong style="color:#EDE9E7; font-weight:400;">14 días naturales</strong> desde la recepción de tu pedido para solicitar una devolución o cambio, conforme a la normativa de consumidores de la Unión Europea.</p>
+        </div>
+
+        <div class="info-block">
+            <h3>Condiciones</h3>
+            <ul class="info-list">
+                <li>La pieza debe encontrarse en perfecto estado, sin señales de uso y con su embalaje original</li>
+                <li>Las piezas personalizadas o hechas a medida no admiten devolución, salvo defecto de fabricación</li>
+                <li>Los gastos de devolución corren a cargo del cliente salvo que la pieza presente un defecto</li>
+            </ul>
+        </div>
+
+        <div class="info-block">
+            <h3>Cómo iniciar una devolución</h3>
+            <p>Escríbenos a <a href="mailto:hola@moldolab.com" style="color:var(--lima,#C8D96F); text-decoration:none;">hola@moldolab.com</a> con el asunto "Devolución – nº de pedido" antes de enviar ningún paquete. Te indicaremos la dirección de envío y el proceso a seguir.</p>
+            <p>Una vez recibida y revisada la pieza, procesaremos el reembolso en el mismo método de pago original en un plazo máximo de 5 días hábiles.</p>
+        </div>
+
+        <div class="info-block">
+            <h3>Cambios de talla o modelo</h3>
+            <p>Dado que cada pieza se fabrica bajo pedido, los cambios de talla implican la elaboración de una nueva pieza. Contáctanos y buscamos la mejor solución juntos.</p>
+        </div>
+
+        <div class="info-block">
+            <h3>Defectos de fabricación</h3>
+            <p>Si tu pieza presenta algún defecto, escríbenos en los primeros <strong style="color:#EDE9E7; font-weight:400;">30 días</strong> desde la recepción con fotografías del problema. Gestionamos el reemplazo o reparación sin coste adicional.</p>
+        </div>
+    </section>
+
+    <!-- CUIDADOS -->
+    <section class="info-section" id="cuidados">
+        <p class="info-section-tag">03 — Mantenimiento</p>
+        <h2>Cuidados</h2>
+
+        <div class="info-block">
+            <h3>Normas generales</h3>
+            <ul class="info-list">
+                <li>Evita el contacto con agua, perfumes, cremas y productos químicos</li>
+                <li>Retira tus joyas antes de ducharte, hacer deporte o dormir</li>
+                <li>Guarda cada pieza por separado para evitar roces y arañazos</li>
+                <li>Usa el estuche moldoLab o una bolsita de tela libre de humedad</li>
+            </ul>
+        </div>
+
+        <div class="info-block">
+            <h3>Plata de ley (925)</h3>
+            <p>La plata puede oxidarse con el tiempo debido al contacto con el aire y la humedad. Para limpiarla, usa un paño de microfibra seco con movimientos suaves. Evita los productos abrasivos. Si la pieza tiene mucho uso, un baño de ultrasonidos en joyería profesional la devuelve a su estado original.</p>
+        </div>
+
+        <div class="info-block">
+            <h3>Baños de oro y vermeil</h3>
+            <p>Las piezas bañadas en oro son más delicadas: el baño puede desgastarse con el tiempo, especialmente en zonas de roce. Para prolongar su vida, evita el contacto con agua y cosméticos, y guárdalas siempre en el estuche. Limpia con un paño suave y seco.</p>
+        </div>
+
+        <div class="info-block">
+            <h3>Piedras semipreciosas</h3>
+            <p>Si tu pieza lleva piedras naturales, evita exponerlas al sol prolongado (pueden decolorarse) y a cambios bruscos de temperatura. Para limpiar, usa un paño húmedo templado. Nunca sumerjas las piezas con piedras en líquidos limpiadores.</p>
+        </div>
+
+        <div class="info-block">
+            <h3>Resinas y materiales experimentales</h3>
+            <p>Las piezas de la línea experimental con resinas o materiales no convencionales requieren cuidados específicos. Evita el calor directo (sol, radiadores) y el contacto con disolventes. Limpia únicamente con paño seco.</p>
+        </div>
+
+        <div class="info-highlight">
+            <p>Una pieza bien cuidada dura toda la vida. Si tienes dudas sobre el cuidado específico de tu joya, escríbenos y te asesoramos.</p>
+        </div>
+    </section>
+
+    <footer class="info-footer">
+        <p>© 2026 moldoLab · Joyería experimental hecha a mano</p>
+        <div class="info-footer-links">
+            <a href="legal.html#aviso-legal">Aviso legal</a>
+            <a href="legal.html#cookies">Cookies</a>
+            <a href="legal.html#privacidad">Privacidad</a>
+        </div>
+    </footer>
+
+    <script src="music.js"></script>
+</body>
+</html>
+

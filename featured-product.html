@@ -1,0 +1,1482 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ANILLO CALA — moldoLab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: auto !important; }
+        body { font-family: 'Poppins', sans-serif; background: #1F2218; color: #EDE9E7; overflow-x: hidden; }
+
+        /* ── VERTICAL PROGRESS LINE ── */
+        .cala-prog {
+            position: fixed;
+            left: 22px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 100px;
+            background: rgba(237,233,231,0.1);
+            z-index: 200;
+            pointer-events: none;
+        }
+        .cala-prog-fill {
+            width: 100%;
+            background: var(--lima);
+            height: 0%;
+        }
+        @media (max-width: 768px) { .cala-prog { display: none; } }
+
+        /* ══════════════════════════════════
+           1. HERO — CINEMATIC FULL VIEWPORT
+        ══════════════════════════════════ */
+        .cala-hero {
+            position: relative;
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 50% 50%;
+            background: #1F2218;
+            overflow: hidden;
+        }
+
+        /* Ambient radial light */
+        .cala-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 75% 25%, rgba(86,95,52,0.18) 0%, transparent 55%),
+                radial-gradient(ellipse at 15% 85%, rgba(120,3,19,0.14) 0%, transparent 50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Ghost title watermark */
+        .cala-bg-word {
+            position: absolute;
+            bottom: -8%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Moldo', 'Poppins', sans-serif;
+            font-size: clamp(10rem, 28vw, 26rem);
+            font-weight: 700;
+            color: rgba(237,233,231,0.025);
+            letter-spacing: -8px;
+            pointer-events: none;
+            white-space: nowrap;
+            z-index: 0;
+            line-height: 1;
+        }
+
+        .cala-hero-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 110px 6% 80px 7%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cala-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--lima);
+            margin-bottom: 28px;
+            opacity: 0;
+        }
+        .cala-eyebrow::before {
+            content: '';
+            display: block;
+            width: 36px;
+            height: 1px;
+            background: var(--lima);
+            flex-shrink: 0;
+        }
+
+        /* Overflow-hidden wrapper so lines animate inside */
+        .cala-title-clip { overflow: hidden; }
+
+        .cala-title {
+            font-size: clamp(5rem, 11vw, 11rem);
+            font-weight: 900;
+            letter-spacing: -5px;
+            line-height: 0.85;
+            color: #EDE9E7;
+            text-transform: uppercase;
+            display: block;
+        }
+
+        .cala-title-line {
+            display: block;
+            transform: translateY(110%);
+            will-change: transform;
+        }
+
+        .cala-title-line.alt {
+            color: transparent;
+            -webkit-text-stroke: 1.5px rgba(237,233,231,0.55);
+        }
+
+        .cala-tagline {
+            font-size: 0.9rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: rgba(237,233,231,0.5);
+            max-width: 340px;
+            margin: 28px 0 40px;
+            opacity: 0;
+        }
+
+        .cala-price-wrap {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            margin-bottom: 38px;
+            opacity: 0;
+        }
+        .cala-price-num {
+            font-size: clamp(3.2rem, 7vw, 5rem);
+            font-weight: 200;
+            letter-spacing: -4px;
+            color: #EDE9E7;
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+        .cala-price-cur {
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: rgba(237,233,231,0.4);
+        }
+
+        .cala-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            opacity: 0;
+        }
+
+        .cala-btn {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            padding: 16px 32px;
+            border-radius: 2px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+            font-family: inherit;
+            text-decoration: none;
+        }
+        .cala-btn-primary { background: #780313; color: #EDE9E7; }
+        .cala-btn-primary:hover { background: #BE1A32; transform: translateY(-2px); }
+        .cala-btn-ghost { background: transparent; color: rgba(237,233,231,0.65); border: 1px solid rgba(237,233,231,0.2); }
+        .cala-btn-ghost:hover { border-color: rgba(237,233,231,0.55); color: #EDE9E7; }
+
+        .cala-hero-right {
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .cala-hero-img {
+            max-height: calc(100vh - 58px);
+            width: 100%;
+            object-fit: contain;
+            object-position: center bottom;
+            display: block;
+            opacity: 0;
+            transform: scale(1.06);
+            will-change: transform;
+        }
+
+        /* Side label vertical */
+        .cala-side-label {
+            position: absolute;
+            right: 6%;
+            top: 42%;
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(237,233,231,0.2);
+            writing-mode: vertical-rl;
+            opacity: 0;
+        }
+
+        /* Scroll hint */
+        .cala-scroll-cue {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: rgba(237,233,231,0.25);
+            z-index: 5;
+            opacity: 0;
+            animation: cueBounce 2.2s ease 2.8s infinite both;
+        }
+        .cala-scroll-bar {
+            width: 1px;
+            height: 36px;
+            background: linear-gradient(to bottom, var(--lima), transparent);
+        }
+        @keyframes cueBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(7px); }
+        }
+
+        /* ══════════════════════════════════
+           2. STATEMENT — CINEMATIC REVEAL
+        ══════════════════════════════════ */
+        .cala-statement {
+            background: #1F2218;
+            padding: 140px 7%;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Orbiting circles */
+        .orbit {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .orbit-1 {
+            width: 500px; height: 500px;
+            border: 1px solid rgba(167,191,102,0.05);
+            top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+            animation: orbit1 35s linear infinite;
+        }
+        .orbit-2 {
+            width: 280px; height: 280px;
+            border: 1px solid rgba(120,3,19,0.08);
+            top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+            animation: orbit1 22s linear infinite reverse;
+        }
+        @keyframes orbit1 {
+            from { transform: translate(-50%,-50%) rotate(0deg); }
+            to   { transform: translate(-50%,-50%) rotate(360deg); }
+        }
+
+        .stmt-eyebrow {
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--lima);
+            margin-bottom: 40px;
+            opacity: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stmt-text {
+            font-size: clamp(2.8rem, 7vw, 6.5rem);
+            font-weight: 900;
+            letter-spacing: -3px;
+            line-height: 1;
+            color: #EDE9E7;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 48px;
+        }
+
+        /* Word wrapper for stagger reveal */
+        .w {
+            display: inline-block;
+            overflow: hidden;
+            vertical-align: bottom;
+            padding-right: 0.18em;
+        }
+        .wi {
+            display: inline-block;
+            transform: translateY(110%);
+            will-change: transform;
+        }
+
+        .stmt-sub {
+            font-size: 1.05rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: rgba(237,233,231,0.42);
+            max-width: 520px;
+            opacity: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ══════════════════════════════════
+           3. EDITORIAL — PARALLAX IMAGE
+        ══════════════════════════════════ */
+        .cala-editorial {
+            background: #EDE9E7;
+            display: grid;
+            grid-template-columns: 55% 45%;
+            min-height: 85vh;
+            position: relative;
+            overflow: hidden;
+        }
+        .cala-editorial--text-only {
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 100px 7%;
+            gap: 80px;
+        }
+
+        .cala-edit-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+        .cala-editorial--text-only .cala-edit-text { padding: 0; }
+
+        .edit-cta-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+        }
+
+        .cala-edit-data {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            border-left: 1px solid rgba(31,34,24,0.1);
+            padding-left: 60px;
+        }
+        .edit-data-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(31,34,24,0.07);
+            gap: 24px;
+        }
+        .edit-data-key {
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(31,34,24,0.4);
+        }
+        .edit-data-val {
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: #1F2218;
+            text-align: right;
+        }
+
+        .edit-label {
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #565F34;
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .edit-label::before {
+            content: '';
+            width: 28px;
+            height: 1px;
+            background: #565F34;
+            flex-shrink: 0;
+        }
+
+        .edit-quote {
+            font-size: clamp(1.8rem, 3.5vw, 3rem);
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            line-height: 1;
+            color: #1F2218;
+            margin-bottom: 26px;
+            text-transform: uppercase;
+        }
+        .edit-quote em {
+            font-style: italic;
+            font-weight: 200;
+            color: #780313;
+        }
+
+        .edit-body {
+            font-size: 0.9rem;
+            font-weight: 300;
+            line-height: 1.85;
+            color: rgba(31,34,24,0.58);
+            max-width: 360px;
+            margin-bottom: 38px;
+        }
+
+        .edit-num {
+            margin-top: auto;
+            align-self: flex-end;
+            text-align: right;
+        }
+        .edit-num-val {
+            font-size: 5rem;
+            font-weight: 900;
+            letter-spacing: -4px;
+            color: rgba(31,34,24,0.05);
+            line-height: 1;
+        }
+        .edit-num-label {
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(86,95,52,0.35);
+        }
+
+        /* ══════════════════════════════════
+           4. MARQUEE ROW
+        ══════════════════════════════════ */
+        /* Uses .ticker-strip.ticker-dark from styles.css */
+
+        /* ══════════════════════════════════
+           5. SPECS — STAGGERED GRID
+        ══════════════════════════════════ */
+        .cala-specs {
+            background: #1F2218;
+            padding: 100px 7%;
+            position: relative;
+            overflow: hidden;
+        }
+        .cala-specs::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 15% 75%, rgba(86,95,52,0.1) 0%, transparent 55%);
+            pointer-events: none;
+        }
+
+        .specs-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: end;
+            margin-bottom: 56px;
+        }
+
+        .specs-title {
+            font-size: clamp(2.5rem, 5vw, 4.8rem);
+            font-weight: 900;
+            letter-spacing: -3px;
+            line-height: 0.88;
+            color: #EDE9E7;
+            text-transform: uppercase;
+        }
+        .specs-title em {
+            display: block;
+            font-style: normal;
+            color: #565F34;
+        }
+
+        .specs-intro {
+            font-size: 0.9rem;
+            font-weight: 300;
+            line-height: 1.75;
+            color: rgba(237,233,231,0.4);
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+        }
+
+        .spec-cell {
+            background: rgba(237,233,231,0.03);
+            padding: 28px 22px;
+            border-top: 1px solid rgba(237,233,231,0.06);
+            transition: background 0.3s ease, border-top-color 0.3s ease;
+            opacity: 0;
+            transform: translateY(28px);
+        }
+        .spec-cell:hover {
+            background: rgba(237,233,231,0.07);
+            border-top-color: var(--lima);
+        }
+
+        .spec-key {
+            font-size: 0.52rem;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #A7BF66;
+            margin-bottom: 10px;
+        }
+        .spec-val {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: #EDE9E7;
+            line-height: 1.45;
+        }
+
+        /* ══════════════════════════════════
+           6. PROCESS — DOTTED TIMELINE
+        ══════════════════════════════════ */
+        .cala-process {
+            background: #161B0F;
+            padding: 100px 7%;
+            position: relative;
+            overflow: hidden;
+        }
+        .cala-process::before {
+            content: 'CALA';
+            font-family: 'Moldo', 'Poppins', sans-serif;
+            font-size: clamp(8rem, 22vw, 20rem);
+            color: rgba(237,233,231,0.018);
+            position: absolute;
+            bottom: -8%;
+            right: 2%;
+            pointer-events: none;
+            letter-spacing: -6px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .process-label {
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--lima);
+            margin-bottom: 64px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .process-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(237,233,231,0.06);
+            max-width: 200px;
+        }
+
+        /* Connecting line above steps */
+        .step-line-wrap {
+            position: relative;
+            margin-bottom: 0;
+        }
+        .step-line-bg {
+            position: absolute;
+            top: 10px;
+            left: calc(2.5% + 4px);
+            width: calc(95% - 8px);
+            height: 1px;
+            background: rgba(237,233,231,0.06);
+            overflow: hidden;
+        }
+        .step-line-fill {
+            height: 100%;
+            background: var(--lima);
+            width: 0%;
+            transition: width 1.6s cubic-bezier(0.16,1,0.3,1);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step {
+            padding: 48px 24px 36px;
+        }
+
+        .step-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(237,233,231,0.15);
+            margin-bottom: 28px;
+            transition: background 0.35s ease, transform 0.35s ease;
+        }
+        .step:hover .step-dot {
+            background: var(--lima);
+            transform: scale(1.5);
+        }
+
+        .step-num {
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: rgba(167,191,102,0.55);
+            margin-bottom: 14px;
+        }
+        .step-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #EDE9E7;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+        .step-desc {
+            font-size: 0.78rem;
+            font-weight: 300;
+            color: rgba(237,233,231,0.38);
+            line-height: 1.65;
+        }
+
+        /* ══════════════════════════════════
+           7. CTA — FINAL BUY
+        ══════════════════════════════════ */
+        .cala-cta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .cta-care {
+            background: #565F34;
+            padding: 90px 7%;
+        }
+        .cta-care h3 {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--lima);
+            margin-bottom: 30px;
+        }
+        .cta-care ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .cta-care li {
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: rgba(237,233,231,0.7);
+            padding-left: 22px;
+            position: relative;
+            line-height: 1.55;
+        }
+        .cta-care li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--lima);
+        }
+
+        .cta-buy {
+            background: #EDE9E7;
+            padding: 90px 7%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 22px;
+            position: relative;
+            overflow: hidden;
+        }
+        /* Ghost 180 watermark */
+        .cta-buy::before {
+            content: '45';
+            position: absolute;
+            right: -4%;
+            bottom: -12%;
+            font-size: clamp(9rem, 20vw, 18rem);
+            font-weight: 900;
+            letter-spacing: -8px;
+            color: rgba(31,34,24,0.04);
+            pointer-events: none;
+            line-height: 1;
+        }
+
+        .cta-buy h3 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 900;
+            letter-spacing: -3px;
+            text-transform: uppercase;
+            line-height: 0.88;
+            color: #1F2218;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .cta-buy-title-inner {
+            display: block;
+            transform: translateY(105%);
+            will-change: transform;
+        }
+
+        .cta-buy p {
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: rgba(31,34,24,0.5);
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+            max-width: 340px;
+        }
+        .cta-micro {
+            font-size: 0.68rem !important;
+            color: rgba(31,34,24,0.35) !important;
+            margin-top: -10px !important;
+        }
+
+        .cta-lab-link {
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #565F34;
+            text-decoration: none;
+            position: relative;
+            z-index: 1;
+            transition: color 0.25s;
+        }
+        .cta-lab-link:hover { color: #780313; }
+
+        /* ══════════════════════════════════
+           8. RELATED PRODUCTS
+        ══════════════════════════════════ */
+        .cala-related {
+            background: #1F2218;
+            padding: 90px 7%;
+        }
+        .related-label {
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #A7BF66;
+            margin-bottom: 36px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .related-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(237,233,231,0.06);
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3px;
+        }
+        .related-card {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            text-decoration: none;
+            display: block;
+        }
+        .related-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: bottom;
+            transition: transform 0.7s cubic-bezier(0.16,1,0.3,1), filter 0.5s ease;
+            filter: grayscale(10%);
+        }
+        .related-card:hover img {
+            transform: scale(1.06);
+            filter: grayscale(0%);
+        }
+        .related-info {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 24px 18px;
+            background: linear-gradient(to top, rgba(31,34,24,0.9) 0%, transparent 100%);
+        }
+        .related-name {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #EDE9E7;
+        }
+        .related-price {
+            font-size: 0.7rem;
+            font-weight: 300;
+            color: rgba(237,233,231,0.5);
+        }
+
+        /* ══════════════════════════════════
+           RESPONSIVE
+        ══════════════════════════════════ */
+        @media (max-width: 900px) {
+            .cala-hero { grid-template-columns: 1fr; }
+            .cala-hero-right { min-height: 55vw; }
+            .cala-hero-img { max-height: 65vw; }
+            .cala-editorial { grid-template-columns: 1fr; padding: 60px 7%; }
+            .cala-editorial--text-only { grid-template-columns: 1fr; gap: 40px; }
+            .cala-edit-data { border-left: none; padding-left: 0; border-top: 1px solid rgba(31,34,24,0.1); padding-top: 32px; }
+            .specs-header { grid-template-columns: 1fr; gap: 20px; }
+            .specs-grid { grid-template-columns: repeat(2, 1fr); }
+            .steps-grid { grid-template-columns: repeat(2, 1fr); }
+            .cala-cta { grid-template-columns: 1fr; }
+            .related-grid { grid-template-columns: repeat(2, 1fr); }
+            .step-line-bg { display: none; }
+        }
+
+        /* ── EFECTO EXCLUSIVO CALA: cursor de anillo ── */
+        #cala-ring-cursor {
+            position: fixed;
+            width: 36px;
+            height: 36px;
+            border: 1.5px solid rgba(200,24,46,0.7);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), opacity 0.3s;
+            opacity: 0;
+        }
+        #cala-ring-cursor::after {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            border-radius: 50%;
+            border: 1px solid rgba(200,24,46,0.3);
+        }
+        body:hover #cala-ring-cursor { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+        /* Tilt 3D en hero image */
+        .cala-hero-right { perspective: 900px; }
+        .cala-hero-img   { transition: transform 0.08s linear, opacity 0.8s ease, filter 0.6s ease; }
+    </style>
+</head>
+<body>
+    <div class="grain-overlay"></div>
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
+
+    <!-- Vertical progress bar -->
+    <div class="cala-prog" aria-hidden="true">
+        <div class="cala-prog-fill" id="cala-prog-fill"></div>
+    </div>
+
+    <!-- ═══ HEADER ═══ -->
+    <header class="header" id="header">
+        <nav class="header-nav">
+            <a href="index.html#coleccion" class="nav-link">COLECCIÓN</a>
+            <a href="color-lab.html" class="nav-link">COLOR LAB</a>
+            <a href="index.html#proceso" class="nav-link">PROCESO</a>
+            <a href="index.html#sobre-la-marca" class="nav-link">SOBRE LA MARCA</a>
+        </nav>
+        <div class="header-logo">
+            <a href="index.html"><span class="logo-svg" aria-label="moldoLab"></span></a>
+        </div>
+        <div class="header-actions">
+            <button class="icon-btn" id="login-btn" style="background:none;border:none;cursor:pointer;" aria-label="Cuenta">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 20c0-3.866 3.134-7 7-7s7 3.134 7 7"/></svg>
+            </button>
+            <button class="icon-btn" id="cart-btn" style="background:none;border:none;cursor:pointer;position:relative;" aria-label="Carrito">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                <sup id="cart-count-badge" style="position:absolute;top:-4px;right:-6px;font-size:0.5rem;font-weight:900;color:var(--lima);display:none;"></sup>
+            </button>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- ═══ 1. HERO ═══ -->
+        <section class="cala-hero" id="cala-hero">
+            <div class="cala-bg-word">CALA</div>
+
+            <div class="cala-hero-left">
+                <div class="cala-eyebrow" id="cala-ey">PIEZA ICÓNICA · SS·26</div>
+                <div class="cala-title-clip">
+                    <span class="cala-title">
+                        <span class="cala-title-line" id="tl1">ANILLO</span>
+                    </span>
+                </div>
+                <div class="cala-title-clip">
+                    <span class="cala-title">
+                        <span class="cala-title-line alt" id="tl2">CALA</span>
+                    </span>
+                </div>
+
+                <p class="cala-tagline" id="cala-tagline">
+                    Forma escultórica trabajada a mano.<br>Volumen irregular, superficie suave, gesto orgánico.
+                </p>
+
+                <div class="cala-price-wrap" id="cala-price-wrap">
+                    <span class="cala-price-num" id="cala-price-num">0</span>
+                    <span class="cala-price-cur">€</span>
+                </div>
+
+                <div class="cala-actions" id="cala-actions">
+                    <button class="cala-btn cala-btn-primary" id="hero-cart-btn" onclick="addToCart('ANILLO CALA',45,'assets/anilloCALA.jpg')" data-magnetic>AÑADIR AL CARRITO</button>
+                    <a href="products.html" class="cala-btn cala-btn-ghost" data-magnetic>VER COLECCIÓN</a>
+                </div>
+            </div>
+
+            <div class="cala-hero-right">
+                <img src="assets/anilloCALA.jpg" alt="ANILLO CALA — moldoLab" class="cala-hero-img" id="cala-hero-img">
+                <div class="cala-side-label" id="cala-side-lbl">HECHO · A · MANO · SS·26</div>
+            </div>
+
+            <div class="cala-scroll-cue" id="cala-cue">
+                <span>SCROLL</span>
+                <div class="cala-scroll-bar"></div>
+            </div>
+        </section>
+
+        <!-- ═══ 2. TICKER ═══ -->
+        <div class="ticker-strip ticker-dark" aria-hidden="true">
+            <div class="ticker-inner">
+                <div class="ticker-item">ANILLO CALA <span class="ticker-sep"></span></div>
+                <div class="ticker-item">PIEZA 01 · SS·26 <span class="ticker-sep"></span></div>
+                <div class="ticker-item">HECHO A MANO <span class="ticker-sep"></span></div>
+                <div class="ticker-item">FORMA ESCULTÓRICA <span class="ticker-sep"></span></div>
+                <div class="ticker-item">POLÍMERO FLEXIBLE <span class="ticker-sep"></span></div>
+                <div class="ticker-item">EDICIÓN LIMITADA <span class="ticker-sep"></span></div>
+                <div class="ticker-item">NO IMITA NADA QUE YA EXISTA <span class="ticker-sep"></span></div>
+                <div class="ticker-item">ANILLO CALA <span class="ticker-sep"></span></div>
+                <div class="ticker-item">PIEZA 01 · SS·26 <span class="ticker-sep"></span></div>
+                <div class="ticker-item">HECHO A MANO <span class="ticker-sep"></span></div>
+                <div class="ticker-item">FORMA ESCULTÓRICA <span class="ticker-sep"></span></div>
+                <div class="ticker-item">POLÍMERO FLEXIBLE <span class="ticker-sep"></span></div>
+                <div class="ticker-item">EDICIÓN LIMITADA <span class="ticker-sep"></span></div>
+                <div class="ticker-item">NO IMITA NADA QUE YA EXISTA <span class="ticker-sep"></span></div>
+            </div>
+        </div>
+
+        <!-- ═══ 3. STATEMENT ═══ -->
+        <section class="cala-statement">
+            <div class="orbit orbit-1"></div>
+            <div class="orbit orbit-2"></div>
+
+            <div class="stmt-eyebrow" id="stmt-ey">SOBRE LA PIEZA</div>
+            <h2 class="stmt-text" id="stmt-text">
+                <span class="w"><span class="wi">NO</span></span>
+                <span class="w"><span class="wi">IMITA</span></span>
+                <span class="w"><span class="wi">NADA</span></span><br>
+                <span class="w"><span class="wi">QUE</span></span>
+                <span class="w"><span class="wi">YA</span></span>
+                <span class="w" style="color:var(--burdeos)"><span class="wi">EXISTA.</span></span>
+            </h2>
+            <p class="stmt-sub" id="stmt-sub">
+                Una pieza diseñada para romper. Forma blanda, presencia imposible de ignorar.<br>
+                CALA no acompaña el look — lo altera.
+            </p>
+        </section>
+
+        <!-- ═══ 4. EDITORIAL ═══ -->
+        <section class="cala-editorial cala-editorial--text-only">
+            <div class="cala-edit-text reveal">
+                <div class="edit-label">NATURALEZA DE LA PIEZA</div>
+                <blockquote class="edit-quote">
+                    Una forma que<br>no pide <em>permiso.</em>
+                </blockquote>
+                <p class="edit-body">
+                    Cala es una pieza de gran volumen y presencia escultórica. Su forma blanda y envolvente rompe con la idea clásica del anillo como pieza discreta, convirtiéndolo en un gesto visual con identidad propia. No acompaña el look: lo altera.
+                </p>
+                <div class="edit-cta-row">
+                    <a href="color-lab.html" class="cala-btn cala-btn-primary" style="color:#EDE9E7;" data-magnetic>PERSONALIZAR EN COLOR LAB</a>
+                    <a href="info.html#cuidados" class="cala-btn cala-btn-ghost" data-magnetic>CUIDADOS</a>
+                </div>
+                <div class="edit-num">
+                    <div class="edit-num-val">01</div>
+                    <div class="edit-num-label">PIEZA ICÓNICA SS·26</div>
+                </div>
+            </div>
+            <div class="cala-edit-data reveal">
+                <div class="edit-data-item"><span class="edit-data-key">Material</span><span class="edit-data-val">Resina experimental</span></div>
+                <div class="edit-data-item"><span class="edit-data-key">Acabado</span><span class="edit-data-val">Mate suave al tacto</span></div>
+                <div class="edit-data-item"><span class="edit-data-key">Producción</span><span class="edit-data-val">Hecha a mano</span></div>
+                <div class="edit-data-item"><span class="edit-data-key">Entrega</span><span class="edit-data-val">5–7 días hábiles</span></div>
+                <div class="edit-data-item"><span class="edit-data-key">Edición</span><span class="edit-data-val">Limitada SS·26</span></div>
+            </div>
+        </section>
+
+        <!-- ═══ 5. SPECS ═══ -->
+        <section class="cala-specs">
+            <div class="specs-header">
+                <div class="reveal">
+                    <h2 class="specs-title">FICHA<em>TÉCNICA</em></h2>
+                </div>
+                <p class="specs-intro reveal">Cada detalle está pensado. Cada material, elegido. Cada acabado, ajustado a mano.</p>
+            </div>
+            <div class="specs-grid" id="specs-grid">
+                <div class="spec-cell"><div class="spec-key">Pieza</div><div class="spec-val">01 / Anillo icónico</div></div>
+                <div class="spec-cell"><div class="spec-key">Material</div><div class="spec-val">Resina experimental / polímero flexible</div></div>
+                <div class="spec-cell"><div class="spec-key">Acabado</div><div class="spec-val">Blanco mate suave</div></div>
+                <div class="spec-cell"><div class="spec-key">Producción</div><div class="spec-val">Hecho a mano</div></div>
+                <div class="spec-cell"><div class="spec-key">Tiempo</div><div class="spec-val">5–7 días hábiles</div></div>
+                <div class="spec-cell"><div class="spec-key">Variaciones</div><div class="spec-val">Disponible en Color Lab</div></div>
+                <div class="spec-cell"><div class="spec-key">Edición</div><div class="spec-val">Limitada SS·26</div></div>
+                <div class="spec-cell"><div class="spec-key">Precio</div><div class="spec-val">45 €</div></div>
+            </div>
+        </section>
+
+        <!-- ═══ 6. TICKER 2 ═══ -->
+        <div class="ticker-strip ticker-olive" aria-hidden="true">
+            <div class="ticker-inner">
+                <div class="ticker-item">DEL GESTO A LA PIEZA <span class="ticker-sep"></span></div>
+                <div class="ticker-item">EXPLORACIÓN <span class="ticker-sep"></span></div>
+                <div class="ticker-item">MOLDEADO A MANO <span class="ticker-sep"></span></div>
+                <div class="ticker-item">TENSIÓN Y AJUSTE <span class="ticker-sep"></span></div>
+                <div class="ticker-item">PULIDO SELECTIVO <span class="ticker-sep"></span></div>
+                <div class="ticker-item">DEL GESTO A LA PIEZA <span class="ticker-sep"></span></div>
+                <div class="ticker-item">EXPLORACIÓN <span class="ticker-sep"></span></div>
+                <div class="ticker-item">MOLDEADO A MANO <span class="ticker-sep"></span></div>
+                <div class="ticker-item">TENSIÓN Y AJUSTE <span class="ticker-sep"></span></div>
+                <div class="ticker-item">PULIDO SELECTIVO <span class="ticker-sep"></span></div>
+            </div>
+        </div>
+
+        <!-- ═══ 7. PROCESS ═══ -->
+        <section class="cala-process">
+            <div class="process-label">DEL GESTO A LA PIEZA</div>
+            <div class="step-line-wrap">
+                <div class="step-line-bg">
+                    <div class="step-line-fill" id="step-line"></div>
+                </div>
+                <div class="steps-grid">
+                    <div class="step reveal">
+                        <div class="step-dot"></div>
+                        <div class="step-num">01 — FORMA</div>
+                        <div class="step-title">Exploración</div>
+                        <p class="step-desc">Una silueta abierta que no parte de ningún molde previo. Se traza a mano hasta encontrar tensión.</p>
+                    </div>
+                    <div class="step reveal delay-1">
+                        <div class="step-dot"></div>
+                        <div class="step-num">02 — MATERIAL</div>
+                        <div class="step-title">Moldeado</div>
+                        <p class="step-desc">Resina y polímero en caliente. El material registra cada gesto y cada presión de los dedos.</p>
+                    </div>
+                    <div class="step reveal delay-2">
+                        <div class="step-dot"></div>
+                        <div class="step-num">03 — TENSIÓN</div>
+                        <div class="step-title">Ajuste</div>
+                        <p class="step-desc">La pieza se prueba en el cuerpo. Se deforma hasta que la forma y la presencia encuentran equilibrio.</p>
+                    </div>
+                    <div class="step reveal delay-2">
+                        <div class="step-dot"></div>
+                        <div class="step-num">04 — ACABADO</div>
+                        <div class="step-title">Pulido</div>
+                        <p class="step-desc">Texturado selectivo y pigmentación del Color Lab. Cada CALA es irrepetible.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ 8. CTA ═══ -->
+        <div class="cala-cta">
+            <div class="cta-care reveal">
+                <h3>CUIDADOS</h3>
+                <ul>
+                    <li>Limpiar con paño seco de microfibra</li>
+                    <li>Evitar exposición prolongada a humedad</li>
+                    <li>No usar productos químicos agresivos</li>
+                    <li>Guardar separado de otras piezas metálicas</li>
+                    <li>Pequeñas variaciones de forma son parte de la pieza</li>
+                </ul>
+            </div>
+            <div class="cta-buy reveal delay-1">
+                <h3>
+                    <span class="cta-buy-title-inner" id="cta-line-1">ANILLO</span>
+                    <span class="cta-buy-title-inner" id="cta-line-2">CALA</span>
+                </h3>
+                <p>Pieza icónica. Forma escultórica en edición limitada SS·26. Disponible mientras dure el stock.</p>
+                <button class="cala-btn cala-btn-primary" id="cta-cart-btn" onclick="addToCart('ANILLO CALA',45,'assets/anilloCALA.jpg')" data-magnetic style="align-self:flex-start;">
+                    AÑADIR AL CARRITO — 45 €
+                </button>
+                <p class="cta-micro">Pieza hecha bajo pedido · Pequeñas variaciones forman parte del proceso · 5–7 días hábiles</p>
+                <a href="color-lab.html" class="cta-lab-link">PERSONALIZAR COLOR EN COLOR LAB →</a>
+            </div>
+        </div>
+
+        <!-- ═══ 9. RELATED ═══ -->
+        <section class="cala-related">
+            <div class="related-label">TAMBIÉN TE PUEDE INTERESAR</div>
+            <div class="related-grid">
+                <a href="product-anillo-amarillo.html" class="related-card reveal">
+                    <img src="assets/AnilloLUA.jpg" alt="Anillo LUA">
+                    <div class="related-info"><div class="related-name">ANILLO LUA</div><div class="related-price">45 €</div></div>
+                </a>
+                <a href="product-anillo-burdeos.html" class="related-card reveal delay-1">
+                    <img src="assets/BrazaleteORA.jpg" alt="Brazalete ORA">
+                    <div class="related-info"><div class="related-name">BRAZALETE ORA</div><div class="related-price">53 €</div></div>
+                </a>
+                <a href="product-anillo-verde.html" class="related-card reveal delay-2">
+                    <img src="assets/CollarNARA.jpg" alt="Collar NARA">
+                    <div class="related-info"><div class="related-name">COLLAR NARA</div><div class="related-price">96 €</div></div>
+                </a>
+                <a href="product-anillo-oliva.html" class="related-card reveal delay-2">
+                    <img src="assets/PendientesSIRA.jpg" alt="Pendientes SIRA">
+                    <div class="related-info"><div class="related-name">PENDIENTES SIRA</div><div class="related-price">45 €</div></div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer" style="padding:60px 5% 40px;">
+        <div class="footer-top" style="padding-bottom:40px;">
+            <div>
+                <div class="footer-logo" style="margin-bottom:16px;"><a href="index.html"><span class="logo-svg" aria-label="moldoLab"></span></a></div>
+                <p class="footer-tagline">Joyas experimentales hechas desde la forma, el gesto y la materia.</p>
+                <p class="footer-brand-claim">"No es para todos. Por suerte."</p>
+            </div>
+            <div>
+                <div class="footer-heading">COLECCIÓN</div>
+                <ul class="footer-links">
+                    <li><a href="featured-product.html">ANILLO CALA <span class="footer-link-price">45 €</span></a></li>
+                    <li><a href="product-anillo-amarillo.html">ANILLO LUA <span class="footer-link-price">45 €</span></a></li>
+                    <li><a href="product-anillo-burdeos.html">BRAZALETE ORA <span class="footer-link-price">53 €</span></a></li>
+                    <li><a href="product-anillo-verde.html">COLLAR NARA <span class="footer-link-price">96 €</span></a></li>
+                    <li><a href="product-anillo-oliva.html">PENDIENTES SIRA <span class="footer-link-price">45 €</span></a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="footer-heading">LABORATORIO</div>
+                <ul class="footer-links">
+                    <li><a href="color-lab.html">Color Lab</a></li>
+                    <li><a href="index.html#proceso">Proceso</a></li>
+                    <li><a href="index.html#sobre-la-marca">Sobre la marca</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="footer-heading">NEWSLETTER</div>
+                <p class="footer-newsletter-desc">Novedades, lanzamientos y procesos. Sin spam.</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Tu email">
+                    <button type="button">→</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span class="footer-legal">© 2026 moldoLab — Todos los derechos reservados</span>
+            <div class="footer-legal-links">
+                <a href="#">Privacidad</a>
+                <a href="#">Cookies</a>
+                <a href="#">Términos</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SIDE CART -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <aside class="side-cart" id="side-cart">
+        <div class="cart-header">
+            <h2>CARRITO</h2>
+            <button class="btn-close-cart" id="close-cart">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="cart-items" id="cart-items-list"></div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>TOTAL</span>
+                <span id="cart-total-val">0 €</span>
+            </div>
+            <a href="checkout.html" class="btn-checkout">FINALIZAR COMPRA</a>
+        </div>
+    </aside>
+
+    <!-- LOGIN MODAL -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">×</button>
+            <div class="modal-logo"><span class="logo-svg" style="background-image:url('assets/Recurso 4.svg');width:120px;height:24px;"></span></div>
+            <h2 class="modal-title">ACCEDER</h2>
+            <p class="modal-subtitle">Accede o crea una cuenta</p>
+            <a href="#" class="btn-google">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="google-icon" alt="Google">
+                Continuar con Google
+            </a>
+            <div class="modal-divider">o</div>
+            <form class="modal-form" onsubmit="return false;">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Contraseña" required>
+                <button type="submit" class="btn-continue">CONTINUAR</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        /* ── CURSOR ── */
+        const dot  = document.getElementById('cursor-dot');
+        const ring = document.getElementById('cursor-ring');
+        let rx = 0, ry = 0;
+        document.addEventListener('mousemove', e => {
+            if (dot)  { dot.style.left  = e.clientX + 'px'; dot.style.top  = e.clientY + 'px'; }
+            rx += (e.clientX - rx) * 0.12;
+            ry += (e.clientY - ry) * 0.12;
+        });
+        (function loop() {
+            if (ring) { ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; }
+            requestAnimationFrame(loop);
+        })();
+
+        /* ── HEADER SCROLL ── */
+        const hdr = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            hdr.classList.toggle('scrolled', window.scrollY > 50);
+        }, { passive: true });
+
+        /* ── SCROLL PROGRESS ── */
+        window.addEventListener('scroll', () => {
+            const total = document.body.scrollHeight - window.innerHeight;
+            const pct   = total > 0 ? (window.scrollY / total) * 100 : 0;
+            document.getElementById('cala-prog-fill').style.height = pct + '%';
+        }, { passive: true });
+
+        /* ── HERO ENTRANCE TIMELINE ── */
+        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        tl
+            .to('#cala-ey',          { opacity: 1, y: 0, duration: 0.7, delay: 0.25 })
+            .to(['#tl1','#tl2'],     { y: '0%', duration: 1.3, stagger: 0.14 }, '-=0.3')
+            .to('#cala-tagline',     { opacity: 1, y: 0, duration: 0.9 }, '-=0.7')
+            .to('#cala-price-wrap',  { opacity: 1, duration: 0.6 }, '-=0.5')
+            .to('#cala-actions',     { opacity: 1, duration: 0.6 }, '-=0.35')
+            .to('#cala-hero-img',    { opacity: 1, scale: 1, duration: 1.5, ease: 'power2.out' }, '-=1.4')
+            .to('#cala-side-lbl',    { opacity: 1, duration: 1 }, '-=0.8')
+            .to('#cala-cue',         { opacity: 1, duration: 0.8 }, '-=0.4');
+
+        /* ── PRICE COUNTER 0 → 45 ── */
+        const priceEl = document.getElementById('cala-price-num');
+        const counter = { v: 0 };
+        gsap.to(counter, {
+            v: 45,
+            duration: 1.9,
+            delay: 1.1,
+            ease: 'power2.inOut',
+            onUpdate: () => { priceEl.textContent = Math.round(counter.v); }
+        });
+
+        /* ── HERO IMAGE PARALLAX ── */
+        gsap.to('#cala-hero-img', {
+            y: '-18%',
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '#cala-hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1.2
+            }
+        });
+
+        /* ── STATEMENT WORD REVEAL ── */
+        gsap.to('#stmt-ey', {
+            opacity: 1, y: 0, duration: 0.7,
+            scrollTrigger: { trigger: '.cala-statement', start: 'top 72%' }
+        });
+        gsap.to('.wi', {
+            y: '0%', duration: 1.1, stagger: 0.1, ease: 'power3.out',
+            scrollTrigger: { trigger: '.cala-statement', start: 'top 62%' }
+        });
+        gsap.to('#stmt-sub', {
+            opacity: 1, y: 0, duration: 0.9,
+            scrollTrigger: { trigger: '.cala-statement', start: 'top 45%' }
+        });
+
+        /* ── EDITORIAL IMAGE PARALLAX ── */
+        gsap.to('#edit-img', {
+            y: '-14%',
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.cala-editorial',
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 1.5
+            }
+        });
+
+        /* ── SPECS CELLS STAGGER ── */
+        gsap.to('.spec-cell', {
+            opacity: 1, y: 0,
+            duration: 0.65, stagger: 0.07, ease: 'power2.out',
+            scrollTrigger: { trigger: '#specs-grid', start: 'top 82%' }
+        });
+
+        /* ── PROCESS LINE DRAW ── */
+        ScrollTrigger.create({
+            trigger: '.cala-process',
+            start: 'top 65%',
+            onEnter: () => {
+                document.getElementById('step-line').style.width = '100%';
+            }
+        });
+
+        /* ── CTA TITLE REVEAL ── */
+        gsap.to(['#cta-line-1','#cta-line-2'], {
+            y: '0%', duration: 1.2, stagger: 0.12, ease: 'power3.out',
+            scrollTrigger: { trigger: '.cta-buy', start: 'top 75%' }
+        });
+
+        /* ── GENERIC REVEALS ── */
+        document.querySelectorAll('.reveal').forEach(el => {
+            const delay = el.classList.contains('delay-1') ? 0.15 :
+                          el.classList.contains('delay-2') ? 0.28 : 0;
+            gsap.from(el, {
+                opacity: 0, y: 38, duration: 0.9,
+                delay, ease: 'power3.out',
+                scrollTrigger: { trigger: el, start: 'top 87%' }
+            });
+        });
+
+        /* ── MAGNETIC BUTTONS ── */
+        document.querySelectorAll('[data-magnetic]').forEach(b => {
+            b.addEventListener('mousemove', e => {
+                const r = b.getBoundingClientRect();
+                gsap.to(b, {
+                    x: (e.clientX - r.left - r.width/2)  * 0.32,
+                    y: (e.clientY - r.top  - r.height/2) * 0.32,
+                    duration: 0.35, ease: 'power2.out'
+                });
+            });
+            b.addEventListener('mouseleave', () => {
+                gsap.to(b, { x: 0, y: 0, duration: 0.55, ease: 'elastic.out(1,0.4)' });
+            });
+        });
+
+        /* ── CART SYSTEM ── */
+        function addToCart(name, price, img) {
+            const cart = JSON.parse(localStorage.getItem('moldo_cart')) || [];
+            cart.push({ name, price, img });
+            localStorage.setItem('moldo_cart', JSON.stringify(cart));
+            renderCart();
+            const btn = event.currentTarget;
+            const orig = btn.textContent;
+            btn.textContent = '¡AÑADIDO!';
+            setTimeout(() => btn.textContent = orig, 2000);
+        }
+
+        function removeFromCart(i) {
+            const cart = JSON.parse(localStorage.getItem('moldo_cart')) || [];
+            cart.splice(i, 1);
+            localStorage.setItem('moldo_cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        function renderCart() {
+            const cart  = JSON.parse(localStorage.getItem('moldo_cart')) || [];
+            const list  = document.getElementById('cart-items-list');
+            const total = document.getElementById('cart-total-val');
+            const badge = document.getElementById('cart-count-badge');
+
+            if (badge) { badge.textContent = cart.length || ''; badge.style.display = cart.length ? 'inline' : 'none'; }
+            if (!list)  return;
+
+            if (!cart.length) {
+                list.innerHTML = '<p class="cart-empty-msg">TU CARRITO ESTÁ VACÍO</p>';
+                if (total) total.textContent = '0 €';
+                return;
+            }
+
+            list.innerHTML = cart.map((item, i) => `
+                <div class="cart-item">
+                    <img class="cart-item-img" src="${item.img}" alt="${item.name}">
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">${item.price} €</div>
+                        <button class="btn-remove-item" onclick="removeFromCart(${i})">ELIMINAR</button>
+                    </div>
+                </div>`).join('');
+
+            const sum = cart.reduce((s, it) => s + it.price, 0);
+            if (total) total.textContent = sum + ' €';
+        }
+
+        /* Cart UI */
+        const cartOverlay = document.getElementById('cart-overlay');
+        const sideCart    = document.getElementById('side-cart');
+        const closeCart   = document.getElementById('close-cart');
+
+        function openCart()  { sideCart.classList.add('active'); cartOverlay.classList.add('active'); }
+        function closeCartFn(){ sideCart.classList.remove('active'); cartOverlay.classList.remove('active'); }
+
+        document.getElementById('cart-btn').addEventListener('click', openCart);
+        closeCart.addEventListener('click', closeCartFn);
+        cartOverlay.addEventListener('click', closeCartFn);
+
+        /* Login Modal */
+        document.getElementById('login-btn').addEventListener('click', () => {
+            document.getElementById('modal-overlay').classList.add('active');
+        });
+        document.getElementById('modal-close').addEventListener('click', () => {
+            document.getElementById('modal-overlay').classList.remove('active');
+        });
+        document.getElementById('modal-overlay').addEventListener('click', e => {
+            if (e.target === e.currentTarget) document.getElementById('modal-overlay').classList.remove('active');
+        });
+
+        /* Init */
+        renderCart();
+
+        /* ── EFECTO EXCLUSIVO CALA: cursor anillo + tilt magnético ── */
+        const calaRingCursor = document.createElement('div');
+        calaRingCursor.id = 'cala-ring-cursor';
+        document.body.appendChild(calaRingCursor);
+
+        let crx = 0, cry = 0;
+        document.addEventListener('mousemove', e => {
+            crx += (e.clientX - crx) * 0.14;
+            cry += (e.clientY - cry) * 0.14;
+        });
+        (function calaLoop() {
+            calaRingCursor.style.left = crx + 'px';
+            calaRingCursor.style.top  = cry + 'px';
+            requestAnimationFrame(calaLoop);
+        })();
+
+        /* Tilt magnético en imagen hero */
+        const heroRight = document.querySelector('.cala-hero-right');
+        const heroImg   = document.getElementById('cala-hero-img');
+        if (heroRight && heroImg) {
+            heroRight.addEventListener('mousemove', e => {
+                const r  = heroRight.getBoundingClientRect();
+                const x  = (e.clientX - r.left) / r.width  - 0.5;   // -0.5 → 0.5
+                const y  = (e.clientY - r.top)  / r.height - 0.5;
+                heroImg.style.transform = `scale(1.03) rotateY(${x * 10}deg) rotateX(${-y * 8}deg)`;
+            });
+            heroRight.addEventListener('mouseleave', () => {
+                heroImg.style.transform = 'scale(1) rotateY(0deg) rotateX(0deg)';
+            });
+        }
+    </script>
+    <script src="music.js"></script>
+</body>
+</html>
+

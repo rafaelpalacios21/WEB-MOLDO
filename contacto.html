@@ -1,0 +1,444 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contacto — moldoLab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; background: #1F2218; color: #EDE9E7; overflow-x: hidden; min-height: 100vh; }
+
+        /* ── HEADER ── */
+        .ct-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 48px;
+            background: linear-gradient(to bottom, #1F2218 60%, transparent);
+        }
+        .ct-back {
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            color: rgba(237,233,231,0.55);
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+        .ct-back:hover { color: #EDE9E7; }
+        .ct-back::before { content: '← '; }
+        .ct-mark {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .ct-mark-ring {
+            width: 22px;
+            height: 22px;
+            border: 1px solid rgba(200,217,111,0.45);
+            border-radius: 50%;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .ct-mark-ring::after {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border-radius: 50%;
+            border: 1px solid rgba(200,217,111,0.2);
+        }
+        .ct-mark-text {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            line-height: 1;
+        }
+        .ct-mark-text span:first-child {
+            font-size: 9px;
+            letter-spacing: 0.28em;
+            color: var(--lima, #C8D96F);
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+        .ct-mark-text span:last-child {
+            font-size: 9px;
+            letter-spacing: 0.22em;
+            color: rgba(237,233,231,0.28);
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        /* ── LAYOUT ── */
+        .ct-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+        }
+
+        /* ── LEFT PANEL ── */
+        .ct-left {
+            padding: 160px 64px 80px 48px;
+            border-right: 1px solid rgba(237,233,231,0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .ct-label {
+            font-size: 10px;
+            letter-spacing: 0.3em;
+            color: var(--lima, #C8D96F);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .ct-title {
+            font-size: clamp(2.6rem, 4vw, 4.8rem);
+            font-weight: 200;
+            letter-spacing: 0.04em;
+            line-height: 1.05;
+            text-transform: uppercase;
+            margin-bottom: 60px;
+        }
+
+        .ct-info-block {
+            margin-bottom: 40px;
+        }
+        .ct-info-block h3 {
+            font-size: 10px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(237,233,231,0.4);
+            margin-bottom: 12px;
+        }
+        .ct-info-block a,
+        .ct-info-block p {
+            font-size: 14px;
+            font-weight: 300;
+            color: rgba(237,233,231,0.75);
+            text-decoration: none;
+            line-height: 1.7;
+            display: block;
+            transition: color 0.3s;
+        }
+        .ct-info-block a:hover { color: #EDE9E7; }
+
+        .ct-social {
+            display: flex;
+            gap: 20px;
+            margin-top: 8px;
+        }
+        .ct-social a {
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(237,233,231,0.45);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(237,233,231,0.15);
+            padding-bottom: 2px;
+            transition: all 0.3s;
+        }
+        .ct-social a:hover {
+            color: #EDE9E7;
+            border-color: #EDE9E7;
+        }
+
+        .ct-response-time {
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            color: rgba(237,233,231,0.25);
+            line-height: 1.6;
+            margin-top: auto;
+            padding-top: 60px;
+        }
+
+        /* ── RIGHT PANEL — FORM ── */
+        .ct-right {
+            padding: 160px 48px 80px 64px;
+        }
+
+        .ct-form-title {
+            font-size: 11px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(237,233,231,0.4);
+            margin-bottom: 48px;
+        }
+
+        .ct-form {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .ct-field {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .ct-field label {
+            font-size: 10px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(237,233,231,0.4);
+        }
+        .ct-field input,
+        .ct-field select,
+        .ct-field textarea {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(237,233,231,0.18);
+            padding: 12px 0;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            color: #EDE9E7;
+            outline: none;
+            transition: border-color 0.3s;
+            width: 100%;
+            appearance: none;
+            -webkit-appearance: none;
+            border-radius: 0;
+        }
+        .ct-field select {
+            background: #1F2218;
+            cursor: pointer;
+        }
+        .ct-field select option {
+            background: #1F2218;
+        }
+        .ct-field input::placeholder,
+        .ct-field textarea::placeholder {
+            color: rgba(237,233,231,0.22);
+        }
+        .ct-field input:focus,
+        .ct-field select:focus,
+        .ct-field textarea:focus {
+            border-color: var(--lima, #C8D96F);
+        }
+        .ct-field textarea {
+            resize: none;
+            height: 120px;
+            line-height: 1.7;
+        }
+
+        .ct-submit {
+            margin-top: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            background: none;
+            border: 1px solid rgba(237,233,231,0.25);
+            color: #EDE9E7;
+            font-family: 'Poppins', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            padding: 16px 32px;
+            cursor: pointer;
+            border-radius: 100px;
+            transition: all 0.35s ease;
+            width: fit-content;
+        }
+        .ct-submit:hover {
+            background: #EDE9E7;
+            color: #1F2218;
+            border-color: #EDE9E7;
+        }
+        .ct-submit .arrow {
+            transition: transform 0.35s ease;
+        }
+        .ct-submit:hover .arrow { transform: translateX(4px); }
+
+        .ct-form-note {
+            font-size: 11px;
+            line-height: 1.7;
+            color: rgba(237,233,231,0.28);
+            margin-top: 24px;
+        }
+
+        /* ── SUCCESS MESSAGE ── */
+        .ct-success {
+            display: none;
+            padding: 28px 32px;
+            border: 1px solid rgba(200,217,111,0.25);
+            background: rgba(200,217,111,0.05);
+            border-radius: 4px;
+            margin-top: 24px;
+        }
+        .ct-success p {
+            font-size: 13px;
+            color: var(--lima, #C8D96F);
+            line-height: 1.7;
+        }
+
+        /* ── FOOTER ── */
+        .ct-footer {
+            padding: 32px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            border-top: 1px solid rgba(237,233,231,0.08);
+        }
+        .ct-footer p {
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            color: rgba(237,233,231,0.25);
+        }
+        .ct-footer-links {
+            display: flex;
+            gap: 20px;
+        }
+        .ct-footer-links a {
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            color: rgba(237,233,231,0.3);
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        .ct-footer-links a:hover { color: #EDE9E7; }
+
+        @media (max-width: 900px) {
+            .ct-wrap { grid-template-columns: 1fr; }
+            .ct-header { padding: 20px 24px; }
+            .ct-left {
+                padding: 120px 24px 60px;
+                border-right: none;
+                border-bottom: 1px solid rgba(237,233,231,0.08);
+            }
+            .ct-right { padding: 60px 24px 80px; }
+            .ct-footer { padding: 28px 24px; flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="ct-header">
+        <a href="index.html" class="ct-back">Inicio</a>
+        <div class="ct-mark" aria-hidden="true">
+            <div class="ct-mark-ring"></div>
+            <div class="ct-mark-text">
+                <span>SS · 26</span>
+                <span>Joyería experimental</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="ct-wrap">
+
+        <!-- LEFT: info -->
+        <div class="ct-left">
+            <div>
+                <p class="ct-label">moldoLab · Contacto</p>
+                <h1 class="ct-title">Hablemos</h1>
+
+                <div class="ct-info-block">
+                    <h3>Email</h3>
+                    <a href="mailto:hola@moldolab.com">hola@moldolab.com</a>
+                </div>
+
+                <div class="ct-info-block">
+                    <h3>Pedidos y logística</h3>
+                    <a href="mailto:pedidos@moldolab.com">pedidos@moldolab.com</a>
+                </div>
+
+                <div class="ct-info-block">
+                    <h3>Encargos y personalización</h3>
+                    <p>Si tienes un encargo especial, escríbenos contando tu idea. Trabajamos con materiales y técnicas no convencionales.</p>
+                </div>
+
+                <div class="ct-info-block">
+                    <h3>Síguenos</h3>
+                    <div class="ct-social">
+                        <a href="#">Instagram</a>
+                        <a href="#">TikTok</a>
+                        <a href="#">Pinterest</a>
+                    </div>
+                </div>
+            </div>
+
+            <p class="ct-response-time">
+                Respondemos en 24–48 h en días hábiles.<br>
+                Los pedidos urgentes los atendemos antes.
+            </p>
+        </div>
+
+        <!-- RIGHT: form -->
+        <div class="ct-right">
+            <p class="ct-form-title">Escríbenos un mensaje</p>
+
+            <form class="ct-form" id="contact-form" onsubmit="handleSubmit(event)">
+                <div class="ct-field">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+                </div>
+
+                <div class="ct-field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+                </div>
+
+                <div class="ct-field">
+                    <label for="asunto">Motivo</label>
+                    <select id="asunto" name="asunto">
+                        <option value="" disabled selected>Selecciona el motivo</option>
+                        <option value="pedido">Consulta sobre pedido</option>
+                        <option value="devolucion">Cambio o devolución</option>
+                        <option value="encargo">Encargo personalizado</option>
+                        <option value="prensa">Prensa y colaboraciones</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+
+                <div class="ct-field">
+                    <label for="mensaje">Mensaje</label>
+                    <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos..." required></textarea>
+                </div>
+
+                <div>
+                    <button type="submit" class="ct-submit">
+                        Enviar mensaje <span class="arrow">→</span>
+                    </button>
+                    <p class="ct-form-note">Al enviar aceptas nuestra <a href="legal.html#privacidad" style="color:rgba(237,233,231,0.45); text-decoration:underline;">política de privacidad</a>.</p>
+                </div>
+            </form>
+
+            <div class="ct-success" id="form-success">
+                <p>Mensaje enviado. Te respondemos en 24–48 horas. Gracias por escribirnos.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="ct-footer">
+        <p>© 2026 moldoLab · Joyería experimental hecha a mano</p>
+        <div class="ct-footer-links">
+            <a href="legal.html#aviso-legal">Aviso legal</a>
+            <a href="legal.html#cookies">Cookies</a>
+            <a href="legal.html#privacidad">Privacidad</a>
+        </div>
+    </footer>
+
+    <script>
+        function handleSubmit(e) {
+            e.preventDefault();
+            document.getElementById('contact-form').style.opacity = '0.4';
+            document.getElementById('contact-form').style.pointerEvents = 'none';
+            setTimeout(() => {
+                document.getElementById('form-success').style.display = 'block';
+            }, 400);
+        }
+    </script>
+
+    <script src="music.js"></script>
+</body>
+</html>
+

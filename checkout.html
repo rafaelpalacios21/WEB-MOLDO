@@ -1,0 +1,518 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Finalizar compra — moldoLab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; background: #1F2218; color: #EDE9E7; overflow-x: hidden; min-height: 100vh; }
+
+        /* ── HEADER ── */
+        .ck-header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 22px 48px;
+            background: #1F2218;
+            border-bottom: 1px solid rgba(237,233,231,0.06);
+        }
+        .ck-back {
+            font-size: 10px; letter-spacing: 0.2em; color: rgba(237,233,231,0.45);
+            text-decoration: none; text-transform: uppercase; transition: color 0.3s;
+        }
+        .ck-back::before { content: '← '; }
+        .ck-back:hover { color: #EDE9E7; }
+        .ck-logo {
+            display: inline-block; width: 120px; height: 24px;
+            background-image: url("assets/Recurso 5.svg");
+            background-size: contain; background-repeat: no-repeat; background-position: center;
+        }
+        .ck-secure {
+            font-size: 10px; letter-spacing: 0.15em; color: rgba(237,233,231,0.3);
+            text-transform: uppercase; display: flex; align-items: center; gap: 6px;
+        }
+        .ck-secure::before {
+            content: '';
+            display: inline-block; width: 8px; height: 8px;
+            border-radius: 50%; background: #A7BF66;
+        }
+
+        /* ── LAYOUT ── */
+        .ck-wrap {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            min-height: 100vh;
+            padding-top: 72px;
+        }
+
+        /* ── LEFT: FORM ── */
+        .ck-form-col {
+            padding: 60px 64px 80px 48px;
+            border-right: 1px solid rgba(237,233,231,0.07);
+        }
+
+        .ck-step {
+            margin-bottom: 52px;
+        }
+        .ck-step-label {
+            font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase;
+            color: var(--lima, #A7BF66); margin-bottom: 22px;
+            display: flex; align-items: center; gap: 12px;
+        }
+        .ck-step-label::after {
+            content: ''; flex: 1; height: 1px; background: rgba(237,233,231,0.07);
+        }
+        .ck-step h2 {
+            font-size: 1.1rem; font-weight: 300; letter-spacing: 0.06em;
+            text-transform: uppercase; margin-bottom: 28px; color: #EDE9E7;
+        }
+
+        .ck-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .ck-row--3 { grid-template-columns: 2fr 1fr 1fr; }
+
+        .ck-field {
+            display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;
+        }
+        .ck-field label {
+            font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+            color: rgba(237,233,231,0.35);
+        }
+        .ck-field input, .ck-field select {
+            background: rgba(237,233,231,0.04);
+            border: 1px solid rgba(237,233,231,0.1);
+            border-radius: 3px;
+            padding: 13px 16px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px; font-weight: 300;
+            color: #EDE9E7;
+            outline: none;
+            transition: border-color 0.3s;
+            appearance: none; -webkit-appearance: none;
+        }
+        .ck-field select { background-color: #252A1C; cursor: pointer; }
+        .ck-field select option { background: #252A1C; }
+        .ck-field input::placeholder { color: rgba(237,233,231,0.2); }
+        .ck-field input:focus, .ck-field select:focus {
+            border-color: rgba(167,191,102,0.5);
+            background: rgba(167,191,102,0.04);
+        }
+
+        /* Card input with icon */
+        .ck-card-wrap { position: relative; }
+        .ck-card-wrap input { padding-right: 48px; letter-spacing: 0.08em; }
+        .ck-card-icon {
+            position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+            display: flex; gap: 4px; pointer-events: none;
+        }
+        .ck-card-icon span {
+            width: 24px; height: 16px; border-radius: 3px;
+            background: rgba(237,233,231,0.12);
+            display: block;
+        }
+
+        /* Shipping options */
+        .ck-shipping-opts { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+        .ck-ship-opt {
+            display: flex; align-items: center; gap: 14px;
+            border: 1px solid rgba(237,233,231,0.1);
+            border-radius: 4px; padding: 14px 18px; cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .ck-ship-opt input[type="radio"] { accent-color: var(--lima, #A7BF66); width: 16px; height: 16px; flex-shrink: 0; }
+        .ck-ship-opt:has(input:checked) {
+            border-color: rgba(167,191,102,0.45);
+            background: rgba(167,191,102,0.04);
+        }
+        .ck-ship-opt-info { flex: 1; }
+        .ck-ship-opt-name { font-size: 13px; font-weight: 400; color: #EDE9E7; }
+        .ck-ship-opt-desc { font-size: 11px; color: rgba(237,233,231,0.4); margin-top: 2px; }
+        .ck-ship-opt-price { font-size: 13px; font-weight: 300; color: rgba(237,233,231,0.65); }
+
+        /* Submit */
+        .ck-submit {
+            width: 100%; padding: 18px 32px;
+            background: #780313; color: #EDE9E7;
+            border: none; border-radius: 3px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 11px; font-weight: 700; letter-spacing: 0.22em;
+            text-transform: uppercase; cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            margin-top: 8px;
+        }
+        .ck-submit:hover { background: #A50820; transform: translateY(-1px); }
+
+        .ck-legal {
+            margin-top: 16px; font-size: 11px; line-height: 1.7;
+            color: rgba(237,233,231,0.25); text-align: center;
+        }
+        .ck-legal a { color: rgba(237,233,231,0.4); text-decoration: underline; }
+
+        /* ── RIGHT: ORDER SUMMARY ── */
+        .ck-summary-col {
+            padding: 60px 48px 80px;
+            background: rgba(237,233,231,0.02);
+        }
+        .ck-sum-title {
+            font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase;
+            color: rgba(237,233,231,0.35); margin-bottom: 32px;
+        }
+
+        .ck-sum-item {
+            display: flex; align-items: center; gap: 16px;
+            padding: 16px 0; border-bottom: 1px solid rgba(237,233,231,0.07);
+        }
+        .ck-sum-img {
+            width: 64px; height: 64px; border-radius: 4px;
+            background: rgba(237,233,231,0.06);
+            object-fit: cover; flex-shrink: 0;
+        }
+        .ck-sum-img-placeholder {
+            width: 64px; height: 64px; border-radius: 4px;
+            background: rgba(167,191,102,0.08);
+            border: 1px solid rgba(167,191,102,0.15);
+            flex-shrink: 0;
+        }
+        .ck-sum-item-info { flex: 1; }
+        .ck-sum-item-name {
+            font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+            text-transform: uppercase; color: #EDE9E7; margin-bottom: 4px;
+        }
+        .ck-sum-item-detail { font-size: 11px; color: rgba(237,233,231,0.35); }
+        .ck-sum-item-price { font-size: 14px; font-weight: 300; color: #EDE9E7; }
+
+        .ck-sum-empty {
+            padding: 40px 0; text-align: center;
+            font-size: 13px; color: rgba(237,233,231,0.25); font-weight: 300;
+        }
+
+        .ck-sum-lines {
+            margin-top: 28px; display: flex; flex-direction: column; gap: 12px;
+        }
+        .ck-sum-line {
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .ck-sum-line span:first-child {
+            font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+            color: rgba(237,233,231,0.35);
+        }
+        .ck-sum-line span:last-child { font-size: 13px; font-weight: 300; color: rgba(237,233,231,0.7); }
+        .ck-sum-line--total {
+            border-top: 1px solid rgba(237,233,231,0.1);
+            padding-top: 16px; margin-top: 4px;
+        }
+        .ck-sum-line--total span:first-child { color: #EDE9E7; font-weight: 600; }
+        .ck-sum-line--total span:last-child {
+            font-size: 1.4rem; font-weight: 200; color: #EDE9E7; letter-spacing: -1px;
+        }
+
+        .ck-promo-wrap {
+            display: flex; gap: 8px; margin-top: 28px;
+        }
+        .ck-promo-input {
+            flex: 1; background: rgba(237,233,231,0.04);
+            border: 1px solid rgba(237,233,231,0.1); border-radius: 3px;
+            padding: 11px 14px; font-family: 'Poppins', sans-serif;
+            font-size: 13px; font-weight: 300; color: #EDE9E7; outline: none;
+        }
+        .ck-promo-input::placeholder { color: rgba(237,233,231,0.2); }
+        .ck-promo-btn {
+            background: transparent; border: 1px solid rgba(237,233,231,0.15);
+            color: rgba(237,233,231,0.55); padding: 11px 18px; border-radius: 3px;
+            font-family: 'Poppins', sans-serif; font-size: 10px; font-weight: 700;
+            letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer;
+            transition: all 0.25s;
+        }
+        .ck-promo-btn:hover { border-color: rgba(237,233,231,0.35); color: #EDE9E7; }
+
+        /* ── SUCCESS STATE ── */
+        .ck-success {
+            display: none;
+            position: fixed; inset: 0; z-index: 500;
+            background: #1F2218;
+            flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: 40px;
+        }
+        .ck-success.show { display: flex; }
+        .ck-success-icon {
+            width: 72px; height: 72px; border-radius: 50%;
+            border: 1px solid rgba(167,191,102,0.35);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 32px;
+        }
+        .ck-success-icon svg { stroke: var(--lima, #A7BF66); }
+        .ck-success h1 {
+            font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 200;
+            letter-spacing: 0.04em; text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .ck-success p { font-size: 14px; font-weight: 300; color: rgba(237,233,231,0.5); line-height: 1.7; max-width: 480px; }
+        .ck-success-ref { font-size: 11px; letter-spacing: 0.2em; color: rgba(237,233,231,0.25); margin: 24px 0 40px; }
+        .ck-success-back {
+            font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+            color: rgba(237,233,231,0.45); text-decoration: none;
+            border-bottom: 1px solid rgba(237,233,231,0.15); padding-bottom: 2px;
+            transition: color 0.3s;
+        }
+        .ck-success-back:hover { color: #EDE9E7; }
+
+        @media (max-width: 900px) {
+            .ck-wrap { grid-template-columns: 1fr; }
+            .ck-header { padding: 18px 24px; }
+            .ck-form-col { padding: 48px 24px 60px; border-right: none; }
+            .ck-summary-col { padding: 40px 24px 60px; border-top: 1px solid rgba(237,233,231,0.07); }
+            .ck-row, .ck-row--3 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="ck-header">
+        <a href="javascript:history.back()" class="ck-back">Volver</a>
+        <a href="index.html" class="ck-logo" aria-label="moldoLab"></a>
+        <span class="ck-secure">Pago seguro</span>
+    </header>
+
+    <div class="ck-wrap">
+
+        <!-- LEFT: formulario -->
+        <div class="ck-form-col">
+            <form id="ck-form" onsubmit="handleOrder(event)">
+
+                <!-- PASO 1: Contacto -->
+                <div class="ck-step">
+                    <div class="ck-step-label">01 — Contacto</div>
+                    <div class="ck-row">
+                        <div class="ck-field">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="ck-field">
+                            <label for="apellidos">Apellidos</label>
+                            <input type="text" id="apellidos" placeholder="Apellidos" required>
+                        </div>
+                    </div>
+                    <div class="ck-field">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="tu@email.com" required>
+                    </div>
+                    <div class="ck-field">
+                        <label for="tel">Teléfono</label>
+                        <input type="tel" id="tel" placeholder="+34 600 000 000">
+                    </div>
+                </div>
+
+                <!-- PASO 2: Envío -->
+                <div class="ck-step">
+                    <div class="ck-step-label">02 — Dirección de envío</div>
+                    <div class="ck-field">
+                        <label for="dir">Dirección</label>
+                        <input type="text" id="dir" placeholder="Calle y número" required>
+                    </div>
+                    <div class="ck-row">
+                        <div class="ck-field">
+                            <label for="ciudad">Ciudad</label>
+                            <input type="text" id="ciudad" placeholder="Ciudad" required>
+                        </div>
+                        <div class="ck-field">
+                            <label for="cp">Código postal</label>
+                            <input type="text" id="cp" placeholder="28000" required>
+                        </div>
+                    </div>
+                    <div class="ck-field">
+                        <label for="pais">País</label>
+                        <select id="pais">
+                            <option value="es">España</option>
+                            <option value="pt">Portugal</option>
+                            <option value="fr">Francia</option>
+                            <option value="de">Alemania</option>
+                            <option value="it">Italia</option>
+                            <option value="other">Otro (consultar)</option>
+                        </select>
+                    </div>
+
+                    <div class="ck-step-label" style="margin-top:28px;">Método de envío</div>
+                    <div class="ck-shipping-opts">
+                        <label class="ck-ship-opt">
+                            <input type="radio" name="ship" value="std" checked>
+                            <div class="ck-ship-opt-info">
+                                <div class="ck-ship-opt-name">Envío estándar</div>
+                                <div class="ck-ship-opt-desc">2–4 días hábiles desde el despacho</div>
+                            </div>
+                            <span class="ck-ship-opt-price">4,95 €</span>
+                        </label>
+                        <label class="ck-ship-opt">
+                            <input type="radio" name="ship" value="exp">
+                            <div class="ck-ship-opt-info">
+                                <div class="ck-ship-opt-name">Envío exprés</div>
+                                <div class="ck-ship-opt-desc">1–2 días hábiles desde el despacho</div>
+                            </div>
+                            <span class="ck-ship-opt-price">9,95 €</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- PASO 3: Pago -->
+                <div class="ck-step">
+                    <div class="ck-step-label">03 — Pago</div>
+                    <div class="ck-field ck-card-wrap">
+                        <label for="card">Número de tarjeta</label>
+                        <input type="text" id="card" placeholder="0000  0000  0000  0000" maxlength="19" required>
+                        <div class="ck-card-icon">
+                            <span></span><span></span>
+                        </div>
+                    </div>
+                    <div class="ck-row ck-row--3">
+                        <div class="ck-field">
+                            <label for="titular">Titular</label>
+                            <input type="text" id="titular" placeholder="Nombre en la tarjeta" required>
+                        </div>
+                        <div class="ck-field">
+                            <label for="exp">Caducidad</label>
+                            <input type="text" id="exp" placeholder="MM / AA" maxlength="7" required>
+                        </div>
+                        <div class="ck-field">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" placeholder="···" maxlength="4" required>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="ck-submit">Confirmar pedido → </button>
+                <p class="ck-legal">
+                    Al confirmar aceptas nuestros <a href="legal.html#aviso-legal">términos y condiciones</a>
+                    y la <a href="legal.html#privacidad">política de privacidad</a>.<br>
+                    Tus datos de pago nunca se almacenan en nuestros servidores.
+                </p>
+            </form>
+        </div>
+
+        <!-- RIGHT: resumen pedido -->
+        <div class="ck-summary-col">
+            <div class="ck-sum-title">Resumen del pedido</div>
+
+            <div id="ck-items-list">
+                <!-- populated by JS from localStorage cart -->
+            </div>
+
+            <div class="ck-sum-lines" id="ck-totals" style="display:none;">
+                <div class="ck-sum-line">
+                    <span>Subtotal</span>
+                    <span id="ck-subtotal">—</span>
+                </div>
+                <div class="ck-sum-line" id="ck-ship-line">
+                    <span>Envío</span>
+                    <span>4,95 €</span>
+                </div>
+                <div class="ck-sum-line ck-sum-line--total">
+                    <span>Total</span>
+                    <span id="ck-total">—</span>
+                </div>
+            </div>
+
+            <div class="ck-promo-wrap">
+                <input class="ck-promo-input" type="text" placeholder="Código promocional">
+                <button class="ck-promo-btn" type="button">Aplicar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="ck-success" id="ck-success">
+        <div class="ck-success-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" width="32" height="32">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+            </svg>
+        </div>
+        <h1>Pedido<br>confirmado</h1>
+        <p>Gracias por tu confianza. Tu pieza está en proceso de elaboración y recibirás un email de confirmación en breve.</p>
+        <div class="ck-success-ref" id="ck-success-ref">REF. ML-000000</div>
+        <a href="index.html" class="ck-success-back">Volver a la tienda</a>
+    </div>
+
+    <script>
+        // ── Read cart from localStorage (same key used by the rest of the site) ──
+        const CART_KEY = 'moldo_cart';
+
+        function getCart() {
+            try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
+            catch(e) { return []; }
+        }
+
+        function renderSummary() {
+            const cart = getCart();
+            const list = document.getElementById('ck-items-list');
+            const totalsEl = document.getElementById('ck-totals');
+
+            if (!cart.length) {
+                list.innerHTML = '<div class="ck-sum-empty">Tu carrito está vacío</div>';
+                return;
+            }
+
+            let subtotal = 0;
+            list.innerHTML = cart.map(item => {
+                subtotal += (item.price || 0) * (item.qty || 1);
+                const imgHtml = item.image
+                    ? `<img src="${item.image}" class="ck-sum-img" alt="${item.name}" onerror="this.style.display='none'">`
+                    : `<div class="ck-sum-img-placeholder"></div>`;
+                return `
+                    <div class="ck-sum-item">
+                        ${imgHtml}
+                        <div class="ck-sum-item-info">
+                            <div class="ck-sum-item-name">${item.name}</div>
+                            <div class="ck-sum-item-detail">Qty: ${item.qty || 1} · Hecho a mano</div>
+                        </div>
+                        <div class="ck-sum-item-price">${(item.price || 0) * (item.qty || 1)} €</div>
+                    </div>`;
+            }).join('');
+
+            const shipCost = 4.95;
+            document.getElementById('ck-subtotal').textContent = subtotal.toFixed(2).replace('.',',') + ' €';
+            document.getElementById('ck-total').textContent    = (subtotal + shipCost).toFixed(2).replace('.',',') + ' €';
+            totalsEl.style.display = 'flex';
+        }
+
+        // Update shipping line when option changes
+        document.querySelectorAll('input[name="ship"]').forEach(r => {
+            r.addEventListener('change', () => {
+                const price = r.value === 'exp' ? 9.95 : 4.95;
+                document.querySelector('#ck-ship-line span:last-child').textContent = price.toFixed(2).replace('.',',') + ' €';
+                // recalc total
+                const cart = getCart();
+                const sub  = cart.reduce((s,i) => s + (i.price||0)*(i.qty||1), 0);
+                document.getElementById('ck-total').textContent = (sub + price).toFixed(2).replace('.',',') + ' €';
+            });
+        });
+
+        // Card number formatting
+        document.getElementById('card').addEventListener('input', e => {
+            let v = e.target.value.replace(/\D/g,'').slice(0,16);
+            e.target.value = v.replace(/(.{4})/g,'$1  ').trim();
+        });
+        // Expiry formatting
+        document.getElementById('exp').addEventListener('input', e => {
+            let v = e.target.value.replace(/\D/g,'').slice(0,4);
+            if (v.length >= 3) v = v.slice(0,2) + ' / ' + v.slice(2);
+            e.target.value = v;
+        });
+
+        function handleOrder(e) {
+            e.preventDefault();
+            const ref = 'ML-' + Date.now().toString(36).toUpperCase().slice(-6);
+            document.getElementById('ck-success-ref').textContent = 'REF. ' + ref;
+            localStorage.removeItem(CART_KEY);
+            document.getElementById('ck-success').classList.add('show');
+            window.scrollTo(0,0);
+        }
+
+        renderSummary();
+    </script>
+
+    <script src="music.js"></script>
+</body>
+</html>
+
