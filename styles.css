@@ -979,13 +979,16 @@ h4 { font-size: 1.1rem; }
 
 #proceso .process-image.process-image--video {
     overflow: visible;
+    aspect-ratio: unset;
+    height: auto;
 }
 
 #proceso .process-image.process-image--video .process-video {
     width: 100%;
     height: auto;
-    object-fit: contain;
+    object-fit: unset;
     transform: none !important;
+    display: block;
 }
 
 .process-img-placeholder {
