@@ -153,15 +153,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Hero Entrance Animations
-        gsap.fromTo('.hero-content > *',
-            { opacity: 0, y: 30 },
-            { opacity: 1, y: 0, duration: 1, stagger: 0.15, ease: 'power3.out' }
-        );
+        const heroContentItems = document.querySelectorAll('.hero-content > *');
+        if (heroContentItems.length) {
+            gsap.fromTo(heroContentItems,
+                { opacity: 0, y: 30 },
+                { opacity: 1, y: 0, duration: 1, stagger: 0.15, ease: 'power3.out' }
+            );
+        }
 
-        gsap.fromTo('.hero-image-wrapper',
-            { opacity: 0, scale: 0.95, y: 20 },
-            { opacity: 1, scale: 1, y: 0, duration: 1.2, ease: 'power3.out', delay: 0.4 }
-        );
+        const heroImageWrapper = document.querySelector('.hero-image-wrapper');
+        if (heroImageWrapper) {
+            gsap.fromTo(heroImageWrapper,
+                { opacity: 0, scale: 0.95, y: 20 },
+                { opacity: 1, scale: 1, y: 0, duration: 1.2, ease: 'power3.out', delay: 0.4 }
+            );
+        }
 
         // Header shrinking scroll effect
         const header = document.getElementById('header');
@@ -198,44 +204,54 @@ document.addEventListener('DOMContentLoaded', () => {
         // Stagger Products in Grid
         const productGrid = document.querySelector('.product-grid');
         if (productGrid) {
-            gsap.fromTo('.product-card',
-                { opacity: 0, y: 40 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.8,
-                    stagger: 0.15,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: productGrid,
-                        start: 'top 85%',
-                        toggleActions: 'play none none none'
+            const productCards = document.querySelectorAll('.product-card');
+            if (productCards.length) {
+                gsap.fromTo(productCards,
+                    { opacity: 0, y: 40 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.8,
+                        stagger: 0.15,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: productGrid,
+                            start: 'top 85%',
+                            toggleActions: 'play none none none'
+                        }
                     }
-                }
-            );
+                );
+            }
         }
 
         // Stickers Section Parallax Background Text
-        gsap.to('.stickers-bg-text', {
-            yPercent: -20,
-            ease: 'none',
-            scrollTrigger: {
-                trigger: '.stickers-section',
-                start: 'top bottom',
-                end: 'bottom top',
-                scrub: true
-            }
-        });
+        const stickersBgText = document.querySelector('.stickers-bg-text');
+        const stickersSection = document.querySelector('.stickers-section');
+        if (stickersBgText && stickersSection) {
+            gsap.to(stickersBgText, {
+                yPercent: -20,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: stickersSection,
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: true
+                }
+            });
+        }
 
         // Stickers Subtle Floating Animation
-        gsap.to('.sticker', {
-            y: '+=12',
-            rotation: '+=1.5',
-            duration: 4,
-            repeat: -1,
-            yoyo: true,
-            ease: 'sine.inOut'
-        });
+        const stickers = document.querySelectorAll('.sticker');
+        if (stickers.length) {
+            gsap.to(stickers, {
+                y: '+=12',
+                rotation: '+=1.5',
+                duration: 4,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut'
+            });
+        }
     }
 
 
@@ -596,20 +612,23 @@ document.addEventListener('DOMContentLoaded', () => {
         // Stagger vertical cards
         const verticalGrid = document.querySelector('.vertical-grid');
         if (verticalGrid) {
-            gsap.fromTo('.vertical-card',
-                { opacity: 0, y: 45 },
-                {
-                    opacity: 1, y: 0,
-                    duration: 0.75,
-                    stagger: 0.1,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: verticalGrid,
-                        start: 'top 88%',
-                        toggleActions: 'play none none none'
+            const verticalCards = document.querySelectorAll('.vertical-card');
+            if (verticalCards.length) {
+                gsap.fromTo(verticalCards,
+                    { opacity: 0, y: 45 },
+                    {
+                        opacity: 1, y: 0,
+                        duration: 0.75,
+                        stagger: 0.1,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: verticalGrid,
+                            start: 'top 88%',
+                            toggleActions: 'play none none none'
+                        }
                     }
-                }
-            );
+                );
+            }
         }
 
         // Statement headline: clip reveal
@@ -632,7 +651,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Micro blocks stagger
         const microBlocks = document.querySelectorAll('.micro-block');
-        if (microBlocks.length) {
+        const microBlocksContainer = document.querySelector('.micro-blocks');
+        if (microBlocks.length && microBlocksContainer) {
             gsap.fromTo(microBlocks,
                 { opacity: 0, x: -20 },
                 {
@@ -641,7 +661,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     stagger: 0.15,
                     ease: 'power3.out',
                     scrollTrigger: {
-                        trigger: '.micro-blocks',
+                        trigger: microBlocksContainer,
                         start: 'top 85%',
                         toggleActions: 'play none none none'
                     }
