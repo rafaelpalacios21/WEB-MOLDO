@@ -35,7 +35,7 @@
 /* Moldo brand font (added to /assets) */
 @font-face {
     font-family: 'Moldo';
-    src: url('assets/Moldo-Regular%20(2).otf') format('opentype');
+    src: url('assets/moldo-regular.otf') format('opentype');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -164,7 +164,7 @@ h4 { font-size: 1.1rem; }
     display: inline-block;
     width: 128px;
     height: 26px;
-    background-image: url("assets/Recurso 4.svg");
+    background-image: url("assets/recurso-4.svg");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: left center;
@@ -173,36 +173,36 @@ h4 { font-size: 1.1rem; }
 
 /* Header logo: light version by default (transparent header on dark heroes) */
 .header-logo .logo-svg {
-    background-image: url("assets/Recurso 5.svg");
+    background-image: url("assets/recurso-5.svg");
 }
 
 /* Header logo interactive hover */
 .header-logo:hover .logo-svg {
-    background-image: url("assets/Recurso 2.svg");
+    background-image: url("assets/recurso-2.svg");
 }
 
 /* When header is scrolled: switch to dark logo */
 .header.scrolled .header-logo .logo-svg,
 .header.shrink .header-logo .logo-svg {
-    background-image: url("assets/Recurso 4.svg");
+    background-image: url("assets/recurso-4.svg");
 }
 
 .header.scrolled .header-logo:hover .logo-svg,
 .header.shrink .header-logo:hover .logo-svg {
-    background-image: url("assets/Recurso 1.svg");
+    background-image: url("assets/recurso-1.svg");
 }
 
 .footer .logo-svg {
-    background-image: url("assets/Recurso 5.svg");
+    background-image: url("assets/recurso-5.svg");
 }
 
 /* Footer logo interactive hover */
 .footer-logo:hover .logo-svg {
-    background-image: url("assets/Recurso 2.svg");
+    background-image: url("assets/recurso-2.svg");
 }
 
 .modal-logo .logo-svg {
-    background-image: url("assets/Recurso 4.svg");
+    background-image: url("assets/recurso-4.svg");
     background-position: center;
 }
 
@@ -465,7 +465,7 @@ h4 { font-size: 1.1rem; }
 .hero-logo .logo-svg {
     width: 320px;
     height: 65px;
-    background-image: url("assets/Recurso 4.svg");
+    background-image: url("assets/recurso-4.svg");
 }
 
 .hero-text {

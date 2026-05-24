@@ -2,7 +2,7 @@
 (function () {
     if (document.getElementById('moldo-music-widget')) return;
 
-    const TRACK      = 'assets/NATHY PELUSO, Rawayana - MALPORTADA (Video Oficial).mp3';
+    const TRACK      = './assets/malportada.mp3';
     const wasPlaying = sessionStorage.getItem('moldo_music_playing') === '1';
     const wasMuted   = sessionStorage.getItem('moldo_music_muted')   === '1';
     const savedTime  = parseFloat(sessionStorage.getItem('moldo_music_time') || '0');
