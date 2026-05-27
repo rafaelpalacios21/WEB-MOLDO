@@ -253,10 +253,7 @@
 
         <!-- Process -->
         <section class="process" id="proceso">
-            <div class="process-container">
-                <div class="process-image process-image--video reveal">
-                    <img src="assets/8.jpg" alt="Proceso moldoLab" class="process-video">
-                </div>
+            <div class="process-container process-container--solo">
 
                 <div class="process-content reveal delay-1">
                     <h2 class="section-title text-light">DEL GESTO A LA PIEZA</h2>
@@ -297,6 +294,7 @@
 
             <!-- Contenedor 2: zona interactiva — trail del logo -->
             <div class="iprocess-trail-wrap" id="logo-trail-zone">
+                <img src="assets/8.jpg" alt="" class="trail-bg-img" aria-hidden="true">
                 <div class="trail-bg-word" aria-hidden="true">MOLDO</div>
                 <div class="trail-crosshair" aria-hidden="true"></div>
                 <div class="trail-info">
@@ -460,7 +458,7 @@
                     <div class="mat-tag">LIGERO</div>
                     <div class="mat-tag">SENSORIAL</div>
                     <div class="mat-tag">ESCULTÓRICO</div>
-                    <div class="mat-tag">NO PRECIOSO,<br>PERO VALIOSO</div>
+                    <div class="mat-tag">GENUINO</div>
                 </div>
             </div>
         </section>
@@ -833,60 +831,130 @@
     </script>
 
     <script>
-    /* ── GALERÍA EN MOVIMIENTO: infinite hover-scroll ── */
+    /* ── GALERÍA EN MOVIMIENTO: infinite hover-scroll + drag inertia ── */
     (function() {
         const container = document.getElementById('hover-carousel');
         const track = document.getElementById('carousel-track');
         if (!container || !track) return;
 
-        /* Duplicate items: [clone-left][originals][clone-right]
-           Use fragments so order is preserved (prepend loop reverses) */
+        /* Triple items: [clone-left][originals][clone-right] */
         const originals = Array.from(track.children);
-
         const leftFrag = document.createDocumentFragment();
         originals.forEach(el => leftFrag.appendChild(el.cloneNode(true)));
         track.insertBefore(leftFrag, track.firstChild);
-
         const rightFrag = document.createDocumentFragment();
         originals.forEach(el => rightFrag.appendChild(el.cloneNode(true)));
         track.appendChild(rightFrag);
 
-        /* Start scrolled to the original (middle) set */
         const goMiddle = () => { track.scrollLeft = track.scrollWidth / 3; };
         setTimeout(goMiddle, 0);
 
-        let speed = 0;
-        let active = false;
+        /* Hover-scroll state */
+        let hoverSpeed = 0;
+        let hoverActive = false;
 
-        container.addEventListener('mouseenter', () => { active = true; });
-        container.addEventListener('mouseleave', () => { active = false; speed = 0; });
+        /* Drag + inertia state */
+        let isDragging = false;
+        let dragStartX = 0;
+        let dragScrollStart = 0;
+        let velX = 0;
+        let lastDragX = 0;
+        let inertiaRaf = null;
 
+        function wrapInfinite(scrollDelta) {
+            const oneSet = track.scrollWidth / 3;
+            if (track.scrollLeft < oneSet * 0.25) {
+                track.scrollLeft += oneSet;
+                dragScrollStart += oneSet;
+            } else if (track.scrollLeft > oneSet * 1.75) {
+                track.scrollLeft -= oneSet;
+                dragScrollStart -= oneSet;
+            }
+        }
+
+        function startInertia() {
+            if (inertiaRaf) cancelAnimationFrame(inertiaRaf);
+            function step() {
+                velX *= 0.93;
+                if (Math.abs(velX) < 0.3) return;
+                track.scrollLeft -= velX;
+                wrapInfinite();
+                inertiaRaf = requestAnimationFrame(step);
+            }
+            inertiaRaf = requestAnimationFrame(step);
+        }
+
+        /* Mouse drag */
+        container.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            dragStartX = e.clientX;
+            dragScrollStart = track.scrollLeft;
+            lastDragX = e.clientX;
+            velX = 0;
+            if (inertiaRaf) cancelAnimationFrame(inertiaRaf);
+            container.style.cursor = 'grabbing';
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            velX = e.clientX - lastDragX;
+            lastDragX = e.clientX;
+            track.scrollLeft = dragScrollStart - (e.clientX - dragStartX);
+            wrapInfinite();
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            container.style.cursor = '';
+            if (Math.abs(velX) > 1) startInertia();
+        });
+
+        /* Touch drag */
+        let touchStartX = 0;
+        let touchScrollStart = 0;
+        let touchLastX = 0;
+        let touchVel = 0;
+
+        container.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchScrollStart = track.scrollLeft;
+            touchLastX = touchStartX;
+            touchVel = 0;
+            if (inertiaRaf) cancelAnimationFrame(inertiaRaf);
+        }, { passive: true });
+
+        container.addEventListener('touchmove', (e) => {
+            touchVel = e.touches[0].clientX - touchLastX;
+            touchLastX = e.touches[0].clientX;
+            track.scrollLeft = touchScrollStart - (e.touches[0].clientX - touchStartX);
+            wrapInfinite();
+        }, { passive: true });
+
+        container.addEventListener('touchend', () => {
+            velX = touchVel;
+            if (Math.abs(velX) > 1) startInertia();
+        });
+
+        /* Hover-zone scroll */
+        container.addEventListener('mouseenter', () => { hoverActive = true; });
+        container.addEventListener('mouseleave', () => { hoverActive = false; hoverSpeed = 0; });
         container.addEventListener('mousemove', (e) => {
+            if (isDragging) return;
             const rect = container.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const w = rect.width;
             const zone = w * 0.28;
-
-            if (x < zone) {
-                speed = -((zone - x) / zone) * 7;
-            } else if (x > w - zone) {
-                speed = ((x - (w - zone)) / zone) * 7;
-            } else {
-                speed = 0;
-            }
+            if (x < zone)          hoverSpeed = -((zone - x) / zone) * 7;
+            else if (x > w - zone) hoverSpeed = ((x - (w - zone)) / zone) * 7;
+            else                   hoverSpeed = 0;
         });
 
         function tick() {
-            if (active && speed !== 0) {
-                track.scrollLeft += speed;
-
-                /* Seamless infinite jump */
-                const oneSet = track.scrollWidth / 3;
-                if (track.scrollLeft < oneSet * 0.25) {
-                    track.scrollLeft += oneSet;
-                } else if (track.scrollLeft > oneSet * 1.75) {
-                    track.scrollLeft -= oneSet;
-                }
+            if (!isDragging && !inertiaRaf && hoverActive && hoverSpeed !== 0) {
+                track.scrollLeft += hoverSpeed;
+                wrapInfinite();
             }
             requestAnimationFrame(tick);
         }

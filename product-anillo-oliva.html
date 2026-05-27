@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8">
@@ -13,68 +13,51 @@
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
         body{font-family:'Poppins',sans-serif;background:#EDE9E7;color:#1F2218;overflow-x:hidden}
 
-        /* HERO — crudo a izquierda, oscuro a derecha */
-        .pp-hero{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;padding-top:80px}
-        .pp-left{display:flex;flex-direction:column;justify-content:center;padding:70px 7%;background:#EDE9E7}
+        .pp-hero{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;background:#ffffff;padding-top:80px;position:relative}
+        .pp-left{display:flex;flex-direction:column;justify-content:center;padding:70px 7%}
         .pp-eyebrow{font-size:.58rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#565F34;margin-bottom:18px;opacity:0}
         .pp-name{font-size:clamp(3rem,6vw,6rem);font-weight:900;letter-spacing:-2.5px;line-height:.92;color:#1F2218;text-transform:uppercase;margin-bottom:24px;overflow:hidden}
         .pp-name span{display:block;transform:translateY(110%)}
-        .pp-tagline{font-size:.95rem;font-weight:300;line-height:1.7;color:rgba(31,34,24,.52);max-width:340px;margin-bottom:28px;opacity:0}
+        .pp-tagline{font-size:.9rem;font-weight:300;line-height:1.8;color:rgba(31,34,24,.6);max-width:360px;margin-bottom:28px;opacity:0}
         .pp-price{font-size:2.5rem;font-weight:200;color:#1F2218;letter-spacing:-1.5px;margin-bottom:24px;opacity:0}
         .pp-actions{display:flex;gap:10px;flex-wrap:wrap;opacity:0}
         .pp-btn{display:inline-flex;align-items:center;font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px 26px;border-radius:2px;text-decoration:none;border:none;cursor:pointer;transition:background .3s,transform .25s;font-family:inherit}
-        .pp-btn-primary{background:#1F2218;color:#EDE9E7}.pp-btn-primary:hover{background:#565F34;transform:translateY(-2px)}
-        .pp-btn-outline{background:transparent;color:#1F2218;border:1px solid rgba(31,34,24,.25)}.pp-btn-outline:hover{border-color:rgba(31,34,24,.7);transform:translateY(-2px)}
-        .pp-right{display:flex;align-items:flex-end;justify-content:center;padding:40px 5% 0;overflow:hidden;background:#1F2218}
-        .pp-right img{max-height:calc(100vh - 120px);width:100%;object-fit:contain;object-position:center bottom;display:block}
+        .pp-btn-primary{background:#780313;color:#EDE9E7}.pp-btn-primary:hover{background:#565F34;transform:translateY(-2px)}
+        .pp-btn-outline{background:transparent;color:#1F2218;border:1px solid rgba(31,34,24,.25)}.pp-btn-outline:hover{border-color:#1F2218;transform:translateY(-2px)}
+        .pp-right{overflow:hidden;height:100%;display:flex;align-items:stretch}
+        .pp-right img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
 
-        /* STRIP — oliva */
+        .header--light .nav-link{color:#1F2218 !important}
+        .header--light .icon-btn{color:#1F2218 !important}
+        .header--light.scrolled .nav-link{color:#1F2218 !important}
+        .header--light.scrolled .icon-btn{color:#1F2218 !important}
+
+        .pp-bg-word{position:absolute;bottom:-8%;left:50%;transform:translateX(-50%);font-family:'Poppins',sans-serif;font-size:clamp(8rem,24vw,22rem);font-weight:900;color:rgba(31,34,24,0.028);letter-spacing:-8px;pointer-events:none;white-space:nowrap;z-index:0;line-height:1;text-transform:uppercase}
+
         .pp-strip{background:#565F34;display:grid;grid-template-columns:repeat(3,1fr);padding:28px 7%}
         .pp-stat{padding:0 28px;border-left:1px solid rgba(237,233,231,.15)}
         .pp-stat:first-child{border-left:none;padding-left:0}
         .pp-stat-num{font-size:1.8rem;font-weight:800;color:#EDE9E7;letter-spacing:-1px;line-height:1}
         .pp-stat-label{font-size:.58rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(237,233,231,.4);margin-top:3px}
 
-        /* DESC — invertido: imagen izquierda, texto derecha */
-        .pp-desc-section{display:grid;grid-template-columns:1fr 1fr;background:#EDE9E7}
-        .pp-desc-text{padding:80px 7%;display:flex;flex-direction:column;justify-content:center}
+        .pd-story-editorial{display:grid;grid-template-columns:55fr 45fr;min-height:78vh;background:#f8f6f3;overflow:hidden}
+        .pd-story-editorial .pd-story-img{overflow:hidden}
+        .pd-story-editorial .pd-story-img img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+        .pd-story-editorial .pd-ed-text{display:flex;flex-direction:column;justify-content:center;padding:64px 56px;gap:32px}
+        .pd-ed-eyebrow{font-size:.52rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#A7BF66}
+        .pd-ed-headline{font-size:clamp(2rem,3.5vw,3rem);font-weight:900;letter-spacing:-1.5px;line-height:.95;text-transform:uppercase;color:#1F2218}
+        .pd-ed-headline em{display:block;font-weight:200;font-style:italic;color:#780313;letter-spacing:0;font-size:.65em}
+        .pd-ed-body{font-size:.85rem;font-weight:300;line-height:1.85;color:rgba(31,34,24,.55);max-width:340px}
+        .pd-ed-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+        .pd-ed-tag{font-size:.52rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 14px;border:1px solid rgba(31,34,24,.15);color:rgba(31,34,24,.5)}
+
+        .pp-desc-section{background:#EDE9E7;padding:90px 7%}
+        .pp-desc-text{max-width:780px}
         .pp-section-label{font-size:.58rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#565F34;margin-bottom:16px}
         .pp-desc-quote{font-size:clamp(1.5rem,2.8vw,2.3rem);font-weight:800;letter-spacing:-1px;line-height:1.05;color:#1F2218;margin-bottom:20px}
         .pp-desc-quote em{font-style:italic;font-weight:200;color:#780313}
-        .pp-desc-body{font-size:.87rem;font-weight:300;line-height:1.75;color:rgba(31,34,24,.58);max-width:360px;margin-bottom:28px}
-        .pp-desc-img{overflow:hidden;min-height:440px;order:-1}
-        .pp-desc-img img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .7s ease}
-        .pp-desc-img:hover img{transform:scale(1.04)}
+        .pp-desc-body{font-size:.87rem;font-weight:300;line-height:1.75;color:rgba(31,34,24,.58);max-width:480px;margin-bottom:28px}
 
-        /* Ghost watermark */
-        .pp-bg-word{position:absolute;bottom:-8%;left:50%;transform:translateX(-50%);font-family:'Poppins',sans-serif;font-size:clamp(8rem,24vw,22rem);font-weight:900;color:rgba(31,34,24,0.045);letter-spacing:-8px;pointer-events:none;white-space:nowrap;z-index:0;line-height:1;text-transform:uppercase}
-        .pp-hero{position:relative}
-        /* Progress line */
-        .pp-prog{position:fixed;left:22px;top:50%;transform:translateY(-50%);width:1px;height:100px;background:rgba(31,34,24,0.1);z-index:200;pointer-events:none}
-        .pp-prog-fill{width:100%;background:var(--lima);height:0%}
-        @media(max-width:768px){.pp-prog{display:none}}
-        /* PARES — sección única de pendientes */
-        .pp-pairs{background:#1F2218;padding:70px 7%}
-        .pp-pairs-label{font-size:.58rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#A7BF66;margin-bottom:36px}
-        .pp-pairs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
-        .pp-pair-card{position:relative;overflow:hidden;aspect-ratio:4/5;background:#2C3A1A}
-        .pp-pair-card img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .7s cubic-bezier(.16,1,.3,1);filter:grayscale(.2)}
-        .pp-pair-card:hover img{transform:scale(1.06);filter:grayscale(0)}
-        .pp-pair-info{position:absolute;bottom:0;left:0;right:0;padding:20px 16px;background:linear-gradient(to top,rgba(31,34,24,.85) 0%,transparent 100%)}
-        .pp-pair-name{font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#EDE9E7}
-        .pp-pair-desc{font-size:.6rem;font-weight:300;color:rgba(237,233,231,.45);margin-top:3px}
-
-        /* EDITORIAL asimétrico */
-        .pp-editorial{display:grid;grid-template-columns:55% 45%;background:#EDE9E7}
-        .pp-ed-img{overflow:hidden;min-height:420px}
-        .pp-ed-img img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .8s ease}
-        .pp-ed-img:hover img{transform:scale(1.04)}
-        .pp-ed-text{padding:70px 6%;display:flex;flex-direction:column;justify-content:center;background:#EDE9E7;border-left:1px solid rgba(31,34,24,.08)}
-        .pp-ed-label{font-size:.55rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#565F34;margin-bottom:14px}
-        .pp-ed-title{font-size:clamp(1.6rem,2.8vw,2.4rem);font-weight:900;color:#1F2218;line-height:1;letter-spacing:-1.5px;text-transform:uppercase;margin-bottom:18px}
-        .pp-ed-body{font-size:.85rem;font-weight:300;line-height:1.75;color:rgba(31,34,24,.52);max-width:300px}
-
-        /* COLORES */
         .pp-colors{padding:70px 7%;background:#1F2218}
         .pp-colors-label{font-size:.58rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#A7BF66;margin-bottom:28px}
         .pp-swatches{display:flex;gap:14px;flex-wrap:wrap}
@@ -82,7 +65,6 @@
         .pp-swatch:hover{transform:scale(1.15);box-shadow:0 8px 20px rgba(0,0,0,.3)}
         .pp-swatch-label{font-size:.58rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(237,233,231,.35);margin-top:18px}
 
-        /* SPECS */
         .pp-specs{padding:70px 7%;background:#EDE9E7;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}
         .pp-specs-title{font-size:clamp(2rem,4vw,3.5rem);font-weight:900;letter-spacing:-2.5px;line-height:.9;text-transform:uppercase}
         .pp-specs-title em{display:block;font-style:normal;color:#565F34}
@@ -92,35 +74,35 @@
         .pp-spec-key{font-size:.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#565F34;margin-bottom:4px}
         .pp-spec-val{font-size:.83rem;font-weight:300;color:#1F2218;line-height:1.4}
 
-        /* PROCESO */
-        .pp-process{background:#1F2218;padding:90px 7%;position:relative;overflow:hidden}
-        .pp-process::before{content:'SIRA';position:absolute;right:-2%;top:50%;transform:translateY(-50%);font-size:22vw;font-weight:900;color:rgba(167,191,102,.05);letter-spacing:-6px;text-transform:uppercase;pointer-events:none;line-height:1}
-        .pp-process-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
-        .pp-process-label{font-size:.55rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#A7BF66;margin-bottom:16px}
-        .pp-process-title{font-size:clamp(2rem,3.5vw,3rem);font-weight:900;color:#EDE9E7;letter-spacing:-1.5px;line-height:.95;text-transform:uppercase;margin-bottom:20px}
-        .pp-process-body{font-size:.87rem;font-weight:300;line-height:1.8;color:rgba(237,233,231,.5);margin-bottom:28px}
-        .pp-process-steps{display:flex;flex-direction:column;gap:16px}
-        .pp-process-step{display:flex;gap:16px;align-items:flex-start}
-        .pp-step-num{font-size:.55rem;font-weight:700;letter-spacing:2px;color:#A7BF66;padding-top:4px;min-width:22px}
-        .pp-step-text{font-size:.82rem;font-weight:300;line-height:1.6;color:rgba(237,233,231,.55)}
+        .pp-prog{position:fixed;left:22px;top:50%;transform:translateY(-50%);width:1px;height:100px;background:rgba(31,34,24,0.1);z-index:200;pointer-events:none}
+        .pp-prog-fill{width:100%;background:var(--lima);height:0%}
+        @media(max-width:768px){.pp-prog{display:none}}
 
-        /* CTA */
-        .pp-cta{display:grid;grid-template-columns:1fr 1fr;background:#EDE9E7}
-        .pp-cta-care{padding:70px 7%;border-right:1px solid rgba(31,34,24,.08)}
-        .pp-cta-care-label{font-size:.55rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#565F34;margin-bottom:22px}
-        .pp-care-list{list-style:none;display:flex;flex-direction:column;gap:10px}
-        .pp-care-list li{font-size:.83rem;font-weight:300;line-height:1.5;color:rgba(31,34,24,.62);padding-left:14px;position:relative}
-        .pp-care-list li::before{content:'—';position:absolute;left:0;color:#565F34;font-weight:700}
-        .pp-cta-buy{padding:70px 7%;display:flex;flex-direction:column;justify-content:center}
-        .pp-cta-price{font-size:clamp(3.5rem,7vw,6rem);font-weight:200;color:#1F2218;letter-spacing:-3px;line-height:1;margin-bottom:14px}
-        .pp-cta-note{font-size:.72rem;font-weight:300;color:rgba(31,34,24,.45);margin-bottom:28px;line-height:1.6}
-        .pp-cta-btns{display:flex;gap:10px;flex-wrap:wrap}
+        .pp-cta{background:#EDE9E7}
+        .pp-care-section{padding:80px 7%}
+        .pp-care-header{display:flex;align-items:baseline;gap:24px;margin-bottom:52px}
+        .pp-care-title{font-size:clamp(2rem,3.5vw,3rem);font-weight:900;letter-spacing:-2px;line-height:.95;text-transform:uppercase}
+        .pp-care-subtitle{font-size:.58rem;font-weight:700;letter-spacing:3px;color:#565F34;text-transform:uppercase}
+        .pp-care-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+        .pp-care-card{background:#fff;padding:36px 28px;display:flex;flex-direction:column;gap:16px;transition:background .3s}
+        .pp-care-card:hover{background:#F0EEE9}
+        .pp-care-num{font-size:clamp(2.5rem,4vw,4rem);font-weight:900;letter-spacing:-2px;color:rgba(31,34,24,.06);line-height:1}
+        .pp-care-icon{font-size:1.5rem;line-height:1}
+        .pp-care-label{font-size:.6rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#565F34}
+        .pp-care-text{font-size:.8rem;font-weight:300;line-height:1.65;color:rgba(31,34,24,.58)}
+        .pp-care-note{padding:32px 7%;background:#1F2218;font-size:.72rem;font-weight:300;color:rgba(237,233,231,.42);line-height:1.7;border-top:1px solid rgba(237,233,231,.06)}
+        .pp-care-note strong{color:rgba(237,233,231,.7);font-weight:600}
+
+        .pp-buy-bar{padding:60px 7%;background:#EDE9E7;display:flex;align-items:center;gap:48px;flex-wrap:wrap;border-top:1px solid rgba(31,34,24,.08)}
+        .pp-buy-price{font-size:clamp(3rem,6vw,5.5rem);font-weight:200;color:#1F2218;letter-spacing:-3px;line-height:1}
+        .pp-buy-info{flex:1;min-width:200px}
+        .pp-buy-note{font-size:.72rem;font-weight:300;color:rgba(31,34,24,.45);line-height:1.7;margin-bottom:20px}
+        .pp-buy-btns{display:flex;gap:10px;flex-wrap:wrap}
         .pp-cta-btn{display:inline-flex;justify-content:center;align-items:center;font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:18px 34px;border-radius:2px;background:#1F2218;color:#EDE9E7;border:none;cursor:pointer;font-family:inherit;transition:background .3s,transform .25s;text-decoration:none}
         .pp-cta-btn:hover{background:#565F34;transform:translateY(-2px)}
         .pp-cta-btn-outline{background:transparent;border:1px solid rgba(31,34,24,.3);color:#1F2218}
         .pp-cta-btn-outline:hover{border-color:#1F2218;background:rgba(31,34,24,.05)}
 
-        /* RELACIONADOS */
         .pp-related{background:#1F2218;padding:70px 7%}
         .pp-related-label{font-size:.58rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#A7BF66;margin-bottom:28px}
         .pp-related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
@@ -133,15 +115,16 @@
 
         @media(max-width:900px){
             .pp-hero{grid-template-columns:1fr;min-height:auto}
-            .pp-right img{max-height:65vw}
-            .pp-desc-section,.pp-editorial,.pp-process-inner,.pp-cta{grid-template-columns:1fr}
-            .pp-desc-img{order:0}
-            .pp-pairs-grid{grid-template-columns:1fr 1fr}
+            .pp-right{min-height:60vw}
+            .pp-desc-section{padding:60px 7%}
             .pp-specs{grid-template-columns:1fr;gap:30px}
             .pp-related-grid{grid-template-columns:repeat(2,1fr)}
             .pp-strip{grid-template-columns:1fr}
-            .pp-cta-care{border-right:none;border-bottom:1px solid rgba(31,34,24,.08)}
-            .pp-editorial{grid-template-columns:1fr}
+            .pp-care-grid{grid-template-columns:repeat(2,1fr)}
+            .pp-buy-bar{gap:28px}
+            .pd-story-editorial{grid-template-columns:1fr;min-height:auto}
+            .pd-story-editorial .pd-story-img{min-height:60vw}
+            .pd-story-editorial .pd-ed-text{padding:40px 28px}
         }
     </style>
 </head>
@@ -152,7 +135,7 @@
 
     <div class="pp-prog"><div class="pp-prog-fill" id="pp-prog-fill"></div></div>
 
-    <header class="header" id="header">
+    <header class="header header--light" id="header">
         <nav class="header-nav">
             <a href="index.html#coleccion" class="nav-link">COLECCIÓN</a>
             <a href="color-lab.html" class="nav-link">COLOR LAB</a>
@@ -172,7 +155,6 @@
     </header>
 
     <main>
-        <!-- HERO -->
         <section class="pp-hero">
             <div class="pp-bg-word">SIRA</div>
             <div class="pp-left">
@@ -181,7 +163,7 @@
                     <span>PENDIENTES</span>
                     <span>SIRA</span>
                 </h1>
-                <p class="pp-tagline" id="pp-tag">Volumen compacto, carácter escultórico y forma cerrada. Una pieza pequeña, pero con mucha intención.</p>
+                <p class="pp-tagline" id="pp-tag">Sira es un par de pendientes de volumen compacto y carácter escultórico, donde los pliegues se entrelazan generando una forma cerrada, densa y expresiva. Pensada para aportar personalidad y presencia en un formato contenido.</p>
                 <div class="pp-price" id="pp-price">45 €</div>
                 <div class="pp-actions" id="pp-act">
                     <button class="pp-btn pp-btn-primary" onclick="addToCart('PENDIENTES SIRA',45,'assets/PendientesSIRA.jpg')" data-magnetic>AÑADIR AL CARRITO</button>
@@ -193,69 +175,43 @@
             </div>
         </section>
 
-        <!-- STRIP -->
         <div class="pp-strip">
             <div class="pp-stat"><div class="pp-stat-num">45 €</div><div class="pp-stat-label">El par completo</div></div>
             <div class="pp-stat"><div class="pp-stat-num">100%</div><div class="pp-stat-label">Hecho a mano</div></div>
             <div class="pp-stat"><div class="pp-stat-num">SS·26</div><div class="pp-stat-label">Colección</div></div>
         </div>
 
-        <!-- DESC — imagen a la izquierda -->
-        <section class="pp-desc-section">
-            <div class="pp-desc-img">
-                <img src="assets/PendientesSIRAdet.PNG" alt="Detalle PENDIENTES SIRA">
+        <section class="pd-story-editorial">
+            <div class="pd-story-img">
+                <img src="assets/pendientes-sira.png" alt="PENDIENTES SIRA — moldoLab detalle">
             </div>
-            <div class="pp-desc-text reveal">
+            <div class="pd-ed-text">
+                <span class="pd-ed-eyebrow">Pieza 05 · Pendientes de autor</span>
+                <h2 class="pd-ed-headline">
+                    Lo impar<br>como decisión
+                    <em>y forma de presencia</em>
+                </h2>
+                <p class="pd-ed-body">SIRA no busca la simetría. Sus pliegues se entrelazan generando una forma cerrada, densa y expresiva. Una pieza pequeña que concentra todo el carácter de la colección en el punto más íntimo del cuerpo.</p>
+                <div class="pd-ed-tags">
+                    <span class="pd-ed-tag">Asimétrica</span>
+                    <span class="pd-ed-tag">Compacta</span>
+                    <span class="pd-ed-tag">Expresiva</span>
+                    <span class="pd-ed-tag">Resina</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="pp-desc-section reveal">
+            <div class="pp-desc-text">
                 <div class="pp-section-label">SOBRE LA PIEZA</div>
                 <blockquote class="pp-desc-quote">Dos piezas,<br><em>una sola voz.</em></blockquote>
                 <p class="pp-desc-body">Los PENDIENTES SIRA rechazan la simetría como norma. Cada pieza del par tiene su propia forma, su propio peso, su propio carácter. Juntas construyen un diálogo que convierte el lóbulo en el punto focal del gesto.</p>
-                <a href="color-lab.html" class="pp-btn pp-btn-primary" style="align-self:flex-start;margin-top:8px;">VER EN COLOR LAB</a>
+                <a href="color-lab.html" class="pp-btn pp-btn-primary" style="align-self:flex-start;margin-top:8px;">EXPLORAR COLOR LAB</a>
             </div>
         </section>
 
-        <!-- PARES / VARIANTES -->
-        <div class="pp-pairs">
-            <div class="pp-pairs-label">COMBINACIONES DE PAR</div>
-            <div class="pp-pairs-grid">
-                <div class="pp-pair-card reveal">
-                    <img src="assets/PendientesSIRA.jpg" alt="SIRA — Burdeos + Oliva">
-                    <div class="pp-pair-info">
-                        <div class="pp-pair-name">BURDEOS + OLIVA</div>
-                        <div class="pp-pair-desc">Contraste cálido</div>
-                    </div>
-                </div>
-                <div class="pp-pair-card reveal delay-1">
-                    <img src="assets/PendientesSIRA.jpg" alt="SIRA — Oscuro + Lima">
-                    <div class="pp-pair-info">
-                        <div class="pp-pair-name">OSCURO + LIMA</div>
-                        <div class="pp-pair-desc">Tensión cromática</div>
-                    </div>
-                </div>
-                <div class="pp-pair-card reveal delay-2">
-                    <img src="assets/PendientesSIRA.jpg" alt="SIRA — Crudo + Crudo">
-                    <div class="pp-pair-info">
-                        <div class="pp-pair-name">CRUDO + CRUDO</div>
-                        <div class="pp-pair-desc">Mínimo puro</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- EDITORIAL ASIMÉTRICO -->
-        <section class="pp-editorial">
-            <div class="pp-ed-img reveal">
-                <img src="assets/PendientesSIRA.jpg" alt="PENDIENTES SIRA editorial">
-            </div>
-            <div class="pp-ed-text reveal delay-1">
-                <div class="pp-ed-label">DISEÑO ASIMÉTRICO</div>
-                <h2 class="pp-ed-title">LO IMPAR<br>COMO<br>DECISIÓN</h2>
-                <p class="pp-ed-body">La asimetría en los PENDIENTES SIRA no es un error ni un accidente. Es la proposición central del diseño: que lo imperfectamente pareado puede ser más honesto que lo exactamente idéntico.</p>
-            </div>
-        </section>
-
-        <!-- COLORES -->
         <div class="pp-colors">
-            <div class="pp-colors-label">ACABADOS DISPONIBLES</div>
+            <div class="pp-colors-label">COMBINA COLORES EN EL PAR</div>
             <div class="pp-swatches">
                 <div class="pp-swatch" style="background:#780313;" title="Burdeos"></div>
                 <div class="pp-swatch" style="background:#565F34;" title="Oliva"></div>
@@ -263,96 +219,77 @@
                 <div class="pp-swatch" style="background:#1F2218;" title="Oscuro"></div>
                 <div class="pp-swatch" style="background:#EDE9E7;outline:1px solid rgba(86,95,52,.2);" title="Crudo"></div>
             </div>
-            <div class="pp-swatch-label">COMBINA COLORES EN EL PAR · <a href="color-lab.html" style="color:#A7BF66;text-decoration:none;">COLOR LAB →</a></div>
+            <div class="pp-swatch-label">ELIGE COLORES DISTINTOS PARA CADA PIEZA · <a href="color-lab.html" style="color:#A7BF66;text-decoration:none;">COLOR LAB →</a></div>
         </div>
 
-        <!-- SPECS -->
         <section class="pp-specs">
-            <div class="reveal">
-                <h2 class="pp-specs-title">FICHA<em>TÉCNICA</em></h2>
-            </div>
+            <div class="reveal"><h2 class="pp-specs-title">FICHA<em>TÉCNICA</em></h2></div>
             <div class="pp-specs-grid reveal delay-1">
+                <div class="pp-spec-cell"><div class="pp-spec-key">Pieza</div><div class="pp-spec-val">05 / Pendientes</div></div>
                 <div class="pp-spec-cell"><div class="pp-spec-key">Material</div><div class="pp-spec-val">Resina experimental</div></div>
                 <div class="pp-spec-cell"><div class="pp-spec-key">Tipo</div><div class="pp-spec-val">Pendientes de presión</div></div>
-                <div class="pp-spec-cell"><div class="pp-spec-key">Acabado</div><div class="pp-spec-val">Pulido / texturado</div></div>
                 <div class="pp-spec-cell"><div class="pp-spec-key">Par</div><div class="pp-spec-val">Asimétrico intencional</div></div>
                 <div class="pp-spec-cell"><div class="pp-spec-key">Peso c/u</div><div class="pp-spec-val">Aprox. 6–10 g</div></div>
                 <div class="pp-spec-cell"><div class="pp-spec-key">Edición</div><div class="pp-spec-val">Limitada SS·26</div></div>
             </div>
         </section>
 
-        <!-- PROCESO -->
-        <section class="pp-process">
-            <div class="pp-process-inner">
-                <div class="reveal">
-                    <div class="pp-process-label">EL PROCESO</div>
-                    <h2 class="pp-process-title">CADA PAR,<br>ÚNICO</h2>
-                    <p class="pp-process-body">Los PENDIENTES SIRA se crean en dos moldes distintos para cada pieza del par. El vertido manual de resina garantiza que ningún par sea exactamente igual al anterior. La producción es pequeña y controlada.</p>
-                    <a href="index.html#proceso" class="pp-btn" style="background:transparent;color:#EDE9E7;border:1px solid rgba(237,233,231,.2);align-self:flex-start;" data-magnetic>VER PROCESO COMPLETO</a>
-                </div>
-                <div class="pp-process-steps reveal delay-1">
-                    <div class="pp-process-step">
-                        <span class="pp-step-num">01</span>
-                        <span class="pp-step-text">Diseño de dos formas complementarias pero distintas para cada pieza del par.</span>
-                    </div>
-                    <div class="pp-process-step">
-                        <span class="pp-step-num">02</span>
-                        <span class="pp-step-text">Creación de moldes independientes que preservan la asimetría intencional.</span>
-                    </div>
-                    <div class="pp-process-step">
-                        <span class="pp-step-num">03</span>
-                        <span class="pp-step-text">Vertido y pigmentación manual, pieza a pieza, con selección del color de par.</span>
-                    </div>
-                    <div class="pp-process-step">
-                        <span class="pp-step-num">04</span>
-                        <span class="pp-step-text">Acabado y colocación artesanal del sistema de cierre de presión.</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA -->
         <div class="pp-cta">
-            <div class="pp-cta-care">
-                <div class="pp-cta-care-label">CUIDADO DE LA PIEZA</div>
-                <ul class="pp-care-list">
-                    <li>Evitar contacto prolongado con agua y humedad extrema.</li>
-                    <li>Guardar en la bolsa de tela incluida, separadas para evitar arañazos.</li>
-                    <li>Limpiar con paño suave seco; no usar productos químicos.</li>
-                    <li>El sistema de presión no requiere agujero en el lóbulo.</li>
-                    <li>Ajustar la presión con suavidad para mayor comodidad.</li>
-                </ul>
+            <div class="pp-care-section">
+                <div class="pp-care-header">
+                    <h2 class="pp-care-title">CUIDAR<br>LA PIEZA</h2>
+                    <span class="pp-care-subtitle">Protocolo de uso</span>
+                </div>
+                <div class="pp-care-grid">
+                    <div class="pp-care-card">
+                        <div class="pp-care-num">01</div>
+                        <div class="pp-care-icon">💧</div>
+                        <div class="pp-care-label">Agua y humedad</div>
+                        <p class="pp-care-text">Evita el contacto prolongado con agua, sudor o humedad extrema. Retíralos antes de ducharte o nadar.</p>
+                    </div>
+                    <div class="pp-care-card">
+                        <div class="pp-care-num">02</div>
+                        <div class="pp-care-icon">🌿</div>
+                        <div class="pp-care-label">Almacenamiento</div>
+                        <p class="pp-care-text">Guárdalos en la bolsa de tela incluida, separados entre sí. Evita superficies duras que puedan rayar el acabado.</p>
+                    </div>
+                    <div class="pp-care-card">
+                        <div class="pp-care-num">03</div>
+                        <div class="pp-care-icon">✦</div>
+                        <div class="pp-care-label">Limpieza</div>
+                        <p class="pp-care-text">Limpia con un paño suave y seco. No uses productos químicos, alcohol ni disolventes. La resina es sensible a agentes abrasivos.</p>
+                    </div>
+                    <div class="pp-care-card">
+                        <div class="pp-care-num">04</div>
+                        <div class="pp-care-icon">☀</div>
+                        <div class="pp-care-label">Luz y calor</div>
+                        <p class="pp-care-text">Evita exposición directa al sol durante períodos prolongados. El calor extremo puede afectar la forma y el color del material.</p>
+                    </div>
+                </div>
+                <div class="pp-care-note">
+                    <strong>Nota sobre el material:</strong> Las pequeñas variaciones en la superficie, el tono o la textura no son defectos — son parte del proceso artesanal que hace de cada pieza algo único.
+                </div>
             </div>
-            <div class="pp-cta-buy">
-                <div class="pp-cta-price">45 €</div>
-                <p class="pp-cta-note">El par completo · Envío en 5–7 días hábiles<br>Pieza hecha bajo pedido · Pequeñas variaciones forman parte del proceso.</p>
-                <div class="pp-cta-btns">
+        </div>
+
+        <div class="pp-buy-bar">
+            <div class="pp-buy-price">45 €</div>
+            <div class="pp-buy-info">
+                <p class="pp-buy-note">El par completo · Envío en 5–7 días hábiles<br>Pieza hecha bajo pedido · Pequeñas variaciones forman parte del proceso.</p>
+                <div class="pp-buy-btns">
                     <button class="pp-cta-btn" onclick="addToCart('PENDIENTES SIRA',45,'assets/PendientesSIRA.jpg')" data-magnetic>AÑADIR AL CARRITO</button>
                     <a href="checkout.html" class="pp-cta-btn pp-cta-btn-outline" data-magnetic>FINALIZAR COMPRA</a>
                 </div>
             </div>
         </div>
 
-        <!-- RELACIONADOS -->
         <section class="pp-related">
             <div class="pp-related-label">TAMBIÉN TE PUEDE INTERESAR</div>
             <div class="pp-related-grid">
-                <a href="featured-product.html" class="pp-rel-card">
-                    <img src="assets/anilloCALA.jpg" alt="Anillo CALA">
-                    <div class="pp-rel-info"><div class="pp-rel-name">ANILLO CALA</div><div class="pp-rel-price">45 € · Icónico</div></div>
-                </a>
-                <a href="product-anillo-amarillo.html" class="pp-rel-card">
-                    <img src="assets/AnilloLUA.jpg" alt="Anillo LUA">
-                    <div class="pp-rel-info"><div class="pp-rel-name">ANILLO LUA</div><div class="pp-rel-price">45 €</div></div>
-                </a>
-                <a href="product-anillo-burdeos.html" class="pp-rel-card">
-                    <img src="assets/BrazaleteORA.jpg" alt="Brazalete ORA">
-                    <div class="pp-rel-info"><div class="pp-rel-name">BRAZALETE ORA</div><div class="pp-rel-price">53 €</div></div>
-                </a>
-                <a href="product-anillo-verde.html" class="pp-rel-card">
-                    <img src="assets/CollarNARA.jpg" alt="Collar NARA">
-                    <div class="pp-rel-info"><div class="pp-rel-name">COLLAR NARA</div><div class="pp-rel-price">96 €</div></div>
-                </a>
+                <a href="featured-product.html" class="pp-rel-card"><img src="assets/anilloCALA.jpg" alt="Anillo CALA"><div class="pp-rel-info"><div class="pp-rel-name">ANILLO CALA</div><div class="pp-rel-price">45 € · Icónico</div></div></a>
+                <a href="product-anillo-amarillo.html" class="pp-rel-card"><img src="assets/AnilloLUA.jpg" alt="Anillo LUA"><div class="pp-rel-info"><div class="pp-rel-name">ANILLO LUA</div><div class="pp-rel-price">45 €</div></div></a>
+                <a href="product-anillo-burdeos.html" class="pp-rel-card"><img src="assets/BrazaleteORA.jpg" alt="Brazalete ORA"><div class="pp-rel-info"><div class="pp-rel-name">BRAZALETE ORA</div><div class="pp-rel-price">53 €</div></div></a>
+                <a href="product-anillo-verde.html" class="pp-rel-card"><img src="assets/CollarNARA.jpg" alt="Collar NARA"><div class="pp-rel-info"><div class="pp-rel-name">COLLAR NARA</div><div class="pp-rel-price">96 €</div></div></a>
             </div>
         </section>
     </main>
@@ -402,8 +339,9 @@
           .to('#pp-act',       { opacity: 1, duration: .5 }, '-=.3');
 
         document.querySelectorAll('.reveal').forEach(el => {
-            const delay = el.classList.contains('delay-1') ? .18 : el.classList.contains('delay-2') ? .36 : 0;
-            gsap.from(el, { opacity: 0, y: 28, duration: .8, ease: 'power3.out', delay, scrollTrigger: { trigger: el, start: 'top 87%' } });
+            const delay = el.classList.contains('delay-1') ? .18 : 0;
+            gsap.from(el, { opacity: 0, y: 28, duration: .8, ease: 'power3.out', delay,
+                scrollTrigger: { trigger: el, start: 'top 87%' } });
         });
 
         document.querySelectorAll('[data-magnetic]').forEach(b => {
@@ -414,11 +352,11 @@
             b.addEventListener('mouseleave', () => gsap.to(b, { x: 0, y: 0, duration: .5, ease: 'elastic.out(1,.4)' }));
         });
 
-        const dot  = document.getElementById('cursor-dot');
+        const dot = document.getElementById('cursor-dot');
         const ring = document.getElementById('cursor-ring');
         let rx = 0, ry = 0;
         document.addEventListener('mousemove', e => {
-            if (dot)  { dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px'; }
+            if (dot) { dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px'; }
             rx += (e.clientX - rx) * .12; ry += (e.clientY - ry) * .12;
         });
         (function rafCursor() { if (ring) { ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; } requestAnimationFrame(rafCursor); })();
@@ -444,4 +382,3 @@
     <script src="music.js"></script>
 </body>
 </html>
-

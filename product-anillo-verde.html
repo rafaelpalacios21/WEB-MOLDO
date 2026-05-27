@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8">
@@ -13,50 +13,51 @@
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
         body{font-family:'Poppins',sans-serif;background:#EDE9E7;color:#1F2218;overflow-x:hidden}
 
-        /* HERO */
-        .pp-hero{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;background:#2C3A1A;padding-top:80px}
+        .pp-hero{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;background:#ffffff;padding-top:80px;position:relative}
         .pp-left{display:flex;flex-direction:column;justify-content:center;padding:70px 7%}
-        .pp-eyebrow{font-size:.58rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#A7BF66;margin-bottom:18px;opacity:0}
-        .pp-name{font-size:clamp(3rem,6vw,6rem);font-weight:900;letter-spacing:-2.5px;line-height:.92;color:#EDE9E7;text-transform:uppercase;margin-bottom:24px;overflow:hidden}
+        .pp-eyebrow{font-size:.58rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#565F34;margin-bottom:18px;opacity:0}
+        .pp-name{font-size:clamp(3rem,6vw,6rem);font-weight:900;letter-spacing:-2.5px;line-height:.92;color:#1F2218;text-transform:uppercase;margin-bottom:24px;overflow:hidden}
         .pp-name span{display:block;transform:translateY(110%)}
-        .pp-tagline{font-size:.95rem;font-weight:300;line-height:1.7;color:rgba(237,233,231,.55);max-width:340px;margin-bottom:28px;opacity:0}
-        .pp-price{font-size:2.5rem;font-weight:200;color:#EDE9E7;letter-spacing:-1.5px;margin-bottom:24px;opacity:0}
+        .pp-tagline{font-size:.9rem;font-weight:300;line-height:1.8;color:rgba(31,34,24,.6);max-width:360px;margin-bottom:28px;opacity:0}
+        .pp-price{font-size:2.5rem;font-weight:200;color:#1F2218;letter-spacing:-1.5px;margin-bottom:24px;opacity:0}
         .pp-actions{display:flex;gap:10px;flex-wrap:wrap;opacity:0}
         .pp-btn{display:inline-flex;align-items:center;font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px 26px;border-radius:2px;text-decoration:none;border:none;cursor:pointer;transition:background .3s,transform .25s;font-family:inherit}
-        .pp-btn-primary{background:#565F34;color:#EDE9E7}.pp-btn-primary:hover{background:#780313;transform:translateY(-2px)}
-        .pp-btn-outline{background:transparent;color:#EDE9E7;border:1px solid rgba(237,233,231,.2)}.pp-btn-outline:hover{border-color:rgba(237,233,231,.6);transform:translateY(-2px)}
-        .pp-right{display:flex;align-items:flex-end;justify-content:center;padding:40px 5% 0;overflow:hidden;background:#1F2218}
-        .pp-right img{max-height:calc(100vh - 120px);width:100%;object-fit:contain;object-position:center bottom;display:block}
+        .pp-btn-primary{background:#780313;color:#EDE9E7}.pp-btn-primary:hover{background:#565F34;transform:translateY(-2px)}
+        .pp-btn-outline{background:transparent;color:#1F2218;border:1px solid rgba(31,34,24,.25)}.pp-btn-outline:hover{border-color:#1F2218;transform:translateY(-2px)}
+        .pp-right{overflow:hidden;height:100%;display:flex;align-items:stretch}
+        .pp-right img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
 
-        /* STRIP */
+        .header--light .nav-link{color:#1F2218 !important}
+        .header--light .icon-btn{color:#1F2218 !important}
+        .header--light.scrolled .nav-link{color:#1F2218 !important}
+        .header--light.scrolled .icon-btn{color:#1F2218 !important}
+
+        .pp-bg-word{position:absolute;bottom:-8%;left:50%;transform:translateX(-50%);font-family:'Poppins',sans-serif;font-size:clamp(8rem,24vw,22rem);font-weight:900;color:rgba(31,34,24,0.028);letter-spacing:-8px;pointer-events:none;white-space:nowrap;z-index:0;line-height:1;text-transform:uppercase}
+
         .pp-strip{background:#565F34;display:grid;grid-template-columns:repeat(3,1fr);padding:28px 7%}
         .pp-stat{padding:0 28px;border-left:1px solid rgba(237,233,231,.15)}
         .pp-stat:first-child{border-left:none;padding-left:0}
         .pp-stat-num{font-size:1.8rem;font-weight:800;color:#EDE9E7;letter-spacing:-1px;line-height:1}
         .pp-stat-label{font-size:.58rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(237,233,231,.4);margin-top:3px}
 
-        /* DESC */
-        .pp-desc-section{display:grid;grid-template-columns:1fr 1fr;background:#EDE9E7}
-        .pp-desc-text{padding:80px 7%;display:flex;flex-direction:column;justify-content:center}
+        .pd-story-editorial{display:grid;grid-template-columns:55fr 45fr;min-height:78vh;background:#f8f6f3;overflow:hidden}
+        .pd-story-editorial .pd-story-img{overflow:hidden}
+        .pd-story-editorial .pd-story-img img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+        .pd-story-editorial .pd-ed-text{display:flex;flex-direction:column;justify-content:center;padding:64px 56px;gap:32px}
+        .pd-ed-eyebrow{font-size:.52rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#A7BF66}
+        .pd-ed-headline{font-size:clamp(2rem,3.5vw,3rem);font-weight:900;letter-spacing:-1.5px;line-height:.95;text-transform:uppercase;color:#1F2218}
+        .pd-ed-headline em{display:block;font-weight:200;font-style:italic;color:#780313;letter-spacing:0;font-size:.65em}
+        .pd-ed-body{font-size:.85rem;font-weight:300;line-height:1.85;color:rgba(31,34,24,.55);max-width:340px}
+        .pd-ed-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+        .pd-ed-tag{font-size:.52rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 14px;border:1px solid rgba(31,34,24,.15);color:rgba(31,34,24,.5)}
+
+        .pp-desc-section{background:#EDE9E7;padding:90px 7%}
+        .pp-desc-text{max-width:780px}
         .pp-section-label{font-size:.58rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#565F34;margin-bottom:16px}
         .pp-desc-quote{font-size:clamp(1.5rem,2.8vw,2.3rem);font-weight:800;letter-spacing:-1px;line-height:1.05;color:#1F2218;margin-bottom:20px}
-        .pp-desc-quote em{font-style:italic;font-weight:200;color:#2C3A1A}
-        .pp-desc-body{font-size:.87rem;font-weight:300;line-height:1.75;color:rgba(31,34,24,.58);max-width:360px;margin-bottom:28px}
-        .pp-desc-img{overflow:hidden;min-height:440px}
-        .pp-desc-img img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .7s ease}
-        .pp-desc-img:hover img{transform:scale(1.04)}
+        .pp-desc-quote em{font-style:italic;font-weight:200;color:#780313}
+        .pp-desc-body{font-size:.87rem;font-weight:300;line-height:1.75;color:rgba(31,34,24,.58);max-width:480px;margin-bottom:28px}
 
-        /* EDITORIAL INVERSO */
-        .pp-editorial{display:grid;grid-template-columns:1fr 1fr;background:#2C3A1A;min-height:380px}
-        .pp-ed-img{overflow:hidden}
-        .pp-ed-img img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .8s ease}
-        .pp-ed-img:hover img{transform:scale(1.05)}
-        .pp-ed-text{padding:70px 7%;display:flex;flex-direction:column;justify-content:center}
-        .pp-ed-label{font-size:.55rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#A7BF66;margin-bottom:14px}
-        .pp-ed-title{font-size:clamp(1.6rem,3vw,2.6rem);font-weight:900;color:#EDE9E7;line-height:1;letter-spacing:-1.5px;text-transform:uppercase;margin-bottom:18px}
-        .pp-ed-body{font-size:.85rem;font-weight:300;line-height:1.75;color:rgba(237,233,231,.52);max-width:340px}
-
-        /* COLORES */
         .pp-colors{padding:70px 7%;background:#1F2218}
         .pp-colors-label{font-size:.58rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#A7BF66;margin-bottom:28px}
         .pp-swatches{display:flex;gap:14px;flex-wrap:wrap}
@@ -64,7 +65,6 @@
         .pp-swatch:hover{transform:scale(1.15);box-shadow:0 8px 20px rgba(0,0,0,.3)}
         .pp-swatch-label{font-size:.58rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(237,233,231,.35);margin-top:18px}
 
-        /* SPECS */
         .pp-specs{padding:70px 7%;background:#EDE9E7;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}
         .pp-specs-title{font-size:clamp(2rem,4vw,3.5rem);font-weight:900;letter-spacing:-2.5px;line-height:.9;text-transform:uppercase}
         .pp-specs-title em{display:block;font-style:normal;color:#565F34}
@@ -74,42 +74,35 @@
         .pp-spec-key{font-size:.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#565F34;margin-bottom:4px}
         .pp-spec-val{font-size:.83rem;font-weight:300;color:#1F2218;line-height:1.4}
 
-        /* Ghost watermark */
-        .pp-bg-word{position:absolute;bottom:-8%;left:50%;transform:translateX(-50%);font-family:'Poppins',sans-serif;font-size:clamp(8rem,24vw,22rem);font-weight:900;color:rgba(237,233,231,0.025);letter-spacing:-8px;pointer-events:none;white-space:nowrap;z-index:0;line-height:1;text-transform:uppercase}
-        .pp-hero{position:relative}
-        /* Progress line */
-        .pp-prog{position:fixed;left:22px;top:50%;transform:translateY(-50%);width:1px;height:100px;background:rgba(237,233,231,0.1);z-index:200;pointer-events:none}
+        .pp-prog{position:fixed;left:22px;top:50%;transform:translateY(-50%);width:1px;height:100px;background:rgba(31,34,24,0.1);z-index:200;pointer-events:none}
         .pp-prog-fill{width:100%;background:var(--lima);height:0%}
         @media(max-width:768px){.pp-prog{display:none}}
-        /* PROCESO */
-        .pp-process{background:#1F2218;padding:90px 7%;position:relative;overflow:hidden}
-        .pp-process::before{content:'NARA';position:absolute;right:-2%;top:50%;transform:translateY(-50%);font-size:22vw;font-weight:900;color:rgba(167,191,102,.06);letter-spacing:-6px;text-transform:uppercase;pointer-events:none;line-height:1}
-        .pp-process-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
-        .pp-process-label{font-size:.55rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#A7BF66;margin-bottom:16px}
-        .pp-process-title{font-size:clamp(2rem,3.5vw,3rem);font-weight:900;color:#EDE9E7;letter-spacing:-1.5px;line-height:.95;text-transform:uppercase;margin-bottom:20px}
-        .pp-process-body{font-size:.87rem;font-weight:300;line-height:1.8;color:rgba(237,233,231,.5);margin-bottom:28px}
-        .pp-process-steps{display:flex;flex-direction:column;gap:16px}
-        .pp-process-step{display:flex;gap:16px;align-items:flex-start}
-        .pp-step-num{font-size:.55rem;font-weight:700;letter-spacing:2px;color:#A7BF66;padding-top:4px;min-width:22px}
-        .pp-step-text{font-size:.82rem;font-weight:300;line-height:1.6;color:rgba(237,233,231,.55)}
 
-        /* CTA */
-        .pp-cta{display:grid;grid-template-columns:1fr 1fr;background:#EDE9E7}
-        .pp-cta-care{padding:70px 7%;border-right:1px solid rgba(31,34,24,.08)}
-        .pp-cta-care-label{font-size:.55rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#565F34;margin-bottom:22px}
-        .pp-care-list{list-style:none;display:flex;flex-direction:column;gap:10px}
-        .pp-care-list li{font-size:.83rem;font-weight:300;line-height:1.5;color:rgba(31,34,24,.62);padding-left:14px;position:relative}
-        .pp-care-list li::before{content:'—';position:absolute;left:0;color:#565F34;font-weight:700}
-        .pp-cta-buy{padding:70px 7%;display:flex;flex-direction:column;justify-content:center}
-        .pp-cta-price{font-size:clamp(3.5rem,7vw,6rem);font-weight:200;color:#1F2218;letter-spacing:-3px;line-height:1;margin-bottom:14px}
-        .pp-cta-note{font-size:.72rem;font-weight:300;color:rgba(31,34,24,.45);margin-bottom:28px;line-height:1.6}
-        .pp-cta-btns{display:flex;gap:10px;flex-wrap:wrap}
-        .pp-cta-btn{display:inline-flex;justify-content:center;align-items:center;font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:18px 34px;border-radius:2px;background:#2C3A1A;color:#EDE9E7;border:none;cursor:pointer;font-family:inherit;transition:background .3s,transform .25s;text-decoration:none}
+        .pp-cta{background:#EDE9E7}
+        .pp-care-section{padding:80px 7%}
+        .pp-care-header{display:flex;align-items:baseline;gap:24px;margin-bottom:52px}
+        .pp-care-title{font-size:clamp(2rem,3.5vw,3rem);font-weight:900;letter-spacing:-2px;line-height:.95;text-transform:uppercase}
+        .pp-care-subtitle{font-size:.58rem;font-weight:700;letter-spacing:3px;color:#565F34;text-transform:uppercase}
+        .pp-care-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+        .pp-care-card{background:#fff;padding:36px 28px;display:flex;flex-direction:column;gap:16px;transition:background .3s}
+        .pp-care-card:hover{background:#F0EEE9}
+        .pp-care-num{font-size:clamp(2.5rem,4vw,4rem);font-weight:900;letter-spacing:-2px;color:rgba(31,34,24,.06);line-height:1}
+        .pp-care-icon{font-size:1.5rem;line-height:1}
+        .pp-care-label{font-size:.6rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#565F34}
+        .pp-care-text{font-size:.8rem;font-weight:300;line-height:1.65;color:rgba(31,34,24,.58)}
+        .pp-care-note{padding:32px 7%;background:#1F2218;font-size:.72rem;font-weight:300;color:rgba(237,233,231,.42);line-height:1.7;border-top:1px solid rgba(237,233,231,.06)}
+        .pp-care-note strong{color:rgba(237,233,231,.7);font-weight:600}
+
+        .pp-buy-bar{padding:60px 7%;background:#EDE9E7;display:flex;align-items:center;gap:48px;flex-wrap:wrap;border-top:1px solid rgba(31,34,24,.08)}
+        .pp-buy-price{font-size:clamp(3rem,6vw,5.5rem);font-weight:200;color:#1F2218;letter-spacing:-3px;line-height:1}
+        .pp-buy-info{flex:1;min-width:200px}
+        .pp-buy-note{font-size:.72rem;font-weight:300;color:rgba(31,34,24,.45);line-height:1.7;margin-bottom:20px}
+        .pp-buy-btns{display:flex;gap:10px;flex-wrap:wrap}
+        .pp-cta-btn{display:inline-flex;justify-content:center;align-items:center;font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:18px 34px;border-radius:2px;background:#1F2218;color:#EDE9E7;border:none;cursor:pointer;font-family:inherit;transition:background .3s,transform .25s;text-decoration:none}
         .pp-cta-btn:hover{background:#565F34;transform:translateY(-2px)}
         .pp-cta-btn-outline{background:transparent;border:1px solid rgba(31,34,24,.3);color:#1F2218}
         .pp-cta-btn-outline:hover{border-color:#1F2218;background:rgba(31,34,24,.05)}
 
-        /* RELACIONADOS */
         .pp-related{background:#1F2218;padding:70px 7%}
         .pp-related-label{font-size:.58rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#A7BF66;margin-bottom:28px}
         .pp-related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
@@ -122,12 +115,16 @@
 
         @media(max-width:900px){
             .pp-hero{grid-template-columns:1fr;min-height:auto}
-            .pp-right img{max-height:65vw}
-            .pp-desc-section,.pp-editorial,.pp-process-inner,.pp-cta{grid-template-columns:1fr}
+            .pp-right{min-height:60vw}
+            .pp-desc-section{padding:60px 7%}
             .pp-specs{grid-template-columns:1fr;gap:30px}
             .pp-related-grid{grid-template-columns:repeat(2,1fr)}
             .pp-strip{grid-template-columns:1fr}
-            .pp-cta-care{border-right:none;border-bottom:1px solid rgba(31,34,24,.08)}
+            .pp-care-grid{grid-template-columns:repeat(2,1fr)}
+            .pp-buy-bar{gap:28px}
+            .pd-story-editorial{grid-template-columns:1fr;min-height:auto}
+            .pd-story-editorial .pd-story-img{min-height:60vw}
+            .pd-story-editorial .pd-ed-text{padding:40px 28px}
         }
     </style>
 </head>
@@ -138,7 +135,7 @@
 
     <div class="pp-prog"><div class="pp-prog-fill" id="pp-prog-fill"></div></div>
 
-    <header class="header" id="header">
+    <header class="header header--light" id="header">
         <nav class="header-nav">
             <a href="index.html#coleccion" class="nav-link">COLECCIÓN</a>
             <a href="color-lab.html" class="nav-link">COLOR LAB</a>
@@ -158,7 +155,6 @@
     </header>
 
     <main>
-        <!-- HERO -->
         <section class="pp-hero">
             <div class="pp-bg-word">NARA</div>
             <div class="pp-left">
@@ -167,7 +163,7 @@
                     <span>COLLAR</span>
                     <span>NARA</span>
                 </h1>
-                <p class="pp-tagline" id="pp-tag">Una pieza construida desde la continuidad y la torsión. Limpia en su forma general, expresiva en su gesto.</p>
+                <p class="pp-tagline" id="pp-tag">Nara es un collar que se construye desde la continuidad y la torsión, integrando una forma central envolvente que concentra toda la atención de la pieza. Convierte el collar en una pieza de presencia: limpia en su forma general, pero expresiva en su gesto.</p>
                 <div class="pp-price" id="pp-price">96 €</div>
                 <div class="pp-actions" id="pp-act">
                     <button class="pp-btn pp-btn-primary" onclick="addToCart('COLLAR NARA',96,'assets/CollarNARA.jpg')" data-magnetic>AÑADIR AL CARRITO</button>
@@ -179,39 +175,41 @@
             </div>
         </section>
 
-        <!-- STRIP -->
         <div class="pp-strip">
             <div class="pp-stat"><div class="pp-stat-num">96 €</div><div class="pp-stat-label">Precio pieza</div></div>
             <div class="pp-stat"><div class="pp-stat-num">100%</div><div class="pp-stat-label">Hecho a mano</div></div>
             <div class="pp-stat"><div class="pp-stat-num">SS·26</div><div class="pp-stat-label">Colección</div></div>
         </div>
 
-        <!-- DESC -->
-        <section class="pp-desc-section">
-            <div class="pp-desc-text reveal">
+        <section class="pd-story-editorial">
+            <div class="pd-story-img">
+                <img src="assets/collarnara.png" alt="COLLAR NARA — moldoLab detalle">
+            </div>
+            <div class="pd-ed-text">
+                <span class="pd-ed-eyebrow">Pieza 04 · Collar escultórico</span>
+                <h2 class="pd-ed-headline">
+                    Construida desde<br>la continuidad
+                    <em>y la torsión del gesto</em>
+                </h2>
+                <p class="pd-ed-body">NARA no rodea: enmarca. Su estructura concentra toda la atención en el cuello con una presencia que va más allá del ornamento. Limpia en su forma general, pero expresiva en cada detalle. Una pieza de actitud máxima.</p>
+                <div class="pd-ed-tags">
+                    <span class="pd-ed-tag">Geométrica</span>
+                    <span class="pd-ed-tag">Continua</span>
+                    <span class="pd-ed-tag">Arquitectónica</span>
+                    <span class="pd-ed-tag">Resina</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="pp-desc-section reveal">
+            <div class="pp-desc-text">
                 <div class="pp-section-label">SOBRE LA PIEZA</div>
-                <blockquote class="pp-desc-quote">Geometría <em>abierta,<br>presencia firme.</em></blockquote>
-                <p class="pp-desc-body">El COLLAR NARA es una estructura que no rodea: enmarca. Sus líneas rectas interrumpen la suavidad del cuello con una intención arquitectónica que convierte cada movimiento en un gesto deliberado. Pieza de volumen contenido y actitud máxima.</p>
-                <a href="color-lab.html" class="pp-btn pp-btn-primary" style="align-self:flex-start;margin-top:8px;">VER EN COLOR LAB</a>
-            </div>
-            <div class="pp-desc-img">
-                <img src="assets/CollarNARAdet.PNG" alt="Detalle COLLAR NARA">
+                <blockquote class="pp-desc-quote">Geometría abierta,<br><em>presencia firme.</em></blockquote>
+                <p class="pp-desc-body">NARA es una estructura que no rodea: enmarca. Sus líneas interrumpen la suavidad del cuello con una intención arquitectónica que convierte cada movimiento en un gesto deliberado. Volumen contenido, actitud máxima.</p>
+                <a href="color-lab.html" class="pp-btn pp-btn-primary" style="align-self:flex-start;margin-top:8px;">EXPLORAR COLOR LAB</a>
             </div>
         </section>
 
-        <!-- EDITORIAL -->
-        <section class="pp-editorial">
-            <div class="pp-ed-img reveal">
-                <img src="assets/CollarNARA.jpg" alt="COLLAR NARA en uso">
-            </div>
-            <div class="pp-ed-text reveal delay-1">
-                <div class="pp-ed-label">CONCEPTO DE DISEÑO</div>
-                <h2 class="pp-ed-title">EL CUELLO<br>COMO LIENZO</h2>
-                <p class="pp-ed-body">El NARA nace de la observación de la arquitectura brutalista: la estructura como ornamento. No hay adornos superfluos. Solo la fuerza de la forma y la decisión del material, que en este caso es resina pigmentada procesada en moldes únicos.</p>
-            </div>
-        </section>
-
-        <!-- COLORES -->
         <div class="pp-colors">
             <div class="pp-colors-label">ACABADOS DISPONIBLES</div>
             <div class="pp-swatches">
@@ -225,93 +223,74 @@
             <div class="pp-swatch-label">PERSONALIZA TU COLOR EN <a href="color-lab.html" style="color:#A7BF66;text-decoration:none;">COLOR LAB →</a></div>
         </div>
 
-        <!-- SPECS -->
         <section class="pp-specs">
-            <div class="reveal">
-                <h2 class="pp-specs-title">FICHA<em>TÉCNICA</em></h2>
-            </div>
+            <div class="reveal"><h2 class="pp-specs-title">FICHA<em>TÉCNICA</em></h2></div>
             <div class="pp-specs-grid reveal delay-1">
+                <div class="pp-spec-cell"><div class="pp-spec-key">Pieza</div><div class="pp-spec-val">04 / Collar</div></div>
                 <div class="pp-spec-cell"><div class="pp-spec-key">Material</div><div class="pp-spec-val">Resina experimental</div></div>
                 <div class="pp-spec-cell"><div class="pp-spec-key">Tipo</div><div class="pp-spec-val">Collar abierto</div></div>
-                <div class="pp-spec-cell"><div class="pp-spec-key">Acabado</div><div class="pp-spec-val">Pulido / texturado</div></div>
                 <div class="pp-spec-cell"><div class="pp-spec-key">Apertura</div><div class="pp-spec-val">Ajustable por presión</div></div>
                 <div class="pp-spec-cell"><div class="pp-spec-key">Peso</div><div class="pp-spec-val">Aprox. 28–38 g</div></div>
                 <div class="pp-spec-cell"><div class="pp-spec-key">Edición</div><div class="pp-spec-val">Limitada SS·26</div></div>
             </div>
         </section>
 
-        <!-- PROCESO -->
-        <section class="pp-process">
-            <div class="pp-process-inner">
-                <div class="reveal">
-                    <div class="pp-process-label">EL PROCESO</div>
-                    <h2 class="pp-process-title">DE LA IDEA<br>A LA PIEZA</h2>
-                    <p class="pp-process-body">Cada COLLAR NARA comienza como un boceto geométrico. La forma se traduce en molde y el molde recibe la resina pigmentada a mano. Sin automatización que uniformice lo que debe ser singular.</p>
-                    <a href="index.html#proceso" class="pp-btn pp-btn-outline" style="align-self:flex-start;">VER PROCESO COMPLETO</a>
-                </div>
-                <div class="pp-process-steps reveal delay-1">
-                    <div class="pp-process-step">
-                        <span class="pp-step-num">01</span>
-                        <span class="pp-step-text">Diseño de la estructura geométrica mediante bocetos y modelos de papel.</span>
-                    </div>
-                    <div class="pp-process-step">
-                        <span class="pp-step-num">02</span>
-                        <span class="pp-step-text">Fabricación del molde artesanal a partir del prototipo físico.</span>
-                    </div>
-                    <div class="pp-process-step">
-                        <span class="pp-step-num">03</span>
-                        <span class="pp-step-text">Vertido y pigmentación manual de la resina con control total del color.</span>
-                    </div>
-                    <div class="pp-process-step">
-                        <span class="pp-step-num">04</span>
-                        <span class="pp-step-text">Desmoldado, lijado y pulido a mano hasta obtener el acabado final.</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA -->
         <div class="pp-cta">
-            <div class="pp-cta-care">
-                <div class="pp-cta-care-label">CUIDADO DE LA PIEZA</div>
-                <ul class="pp-care-list">
-                    <li>Evitar contacto prolongado con agua y humedad extrema.</li>
-                    <li>Guardar en la bolsa de tela incluida para proteger el acabado.</li>
-                    <li>Limpiar con paño suave seco; no usar productos químicos.</li>
-                    <li>Evitar exposición directa al sol durante períodos largos.</li>
-                    <li>La resina puede desarrollar pequeñas marcas de uso que son parte de la pieza.</li>
-                </ul>
+            <div class="pp-care-section">
+                <div class="pp-care-header">
+                    <h2 class="pp-care-title">CUIDAR<br>LA PIEZA</h2>
+                    <span class="pp-care-subtitle">Protocolo de uso</span>
+                </div>
+                <div class="pp-care-grid">
+                    <div class="pp-care-card">
+                        <div class="pp-care-num">01</div>
+                        <div class="pp-care-icon">💧</div>
+                        <div class="pp-care-label">Agua y humedad</div>
+                        <p class="pp-care-text">Evita el contacto prolongado con agua, sudor o humedad extrema. Retírala antes de ducharte o nadar.</p>
+                    </div>
+                    <div class="pp-care-card">
+                        <div class="pp-care-num">02</div>
+                        <div class="pp-care-icon">🌿</div>
+                        <div class="pp-care-label">Almacenamiento</div>
+                        <p class="pp-care-text">Guárdala en la bolsa de tela incluida, separada de otras piezas. Evita superficies duras que puedan rayar el acabado.</p>
+                    </div>
+                    <div class="pp-care-card">
+                        <div class="pp-care-num">03</div>
+                        <div class="pp-care-icon">✦</div>
+                        <div class="pp-care-label">Limpieza</div>
+                        <p class="pp-care-text">Limpia con un paño suave y seco. No uses productos químicos, alcohol ni disolventes. La resina es sensible a agentes abrasivos.</p>
+                    </div>
+                    <div class="pp-care-card">
+                        <div class="pp-care-num">04</div>
+                        <div class="pp-care-icon">☀</div>
+                        <div class="pp-care-label">Luz y calor</div>
+                        <p class="pp-care-text">Evita exposición directa al sol durante períodos prolongados. El calor extremo puede afectar la forma y el color del material.</p>
+                    </div>
+                </div>
+                <div class="pp-care-note">
+                    <strong>Nota sobre el material:</strong> Las pequeñas variaciones en la superficie, el tono o la textura no son defectos — son parte del proceso artesanal que hace de cada pieza algo único.
+                </div>
             </div>
-            <div class="pp-cta-buy">
-                <div class="pp-cta-price">96 €</div>
-                <p class="pp-cta-note">Edición limitada · Envío en 5–7 días hábiles<br>Pieza hecha bajo pedido · Pequeñas variaciones forman parte del proceso.</p>
-                <div class="pp-cta-btns">
+        </div>
+
+        <div class="pp-buy-bar">
+            <div class="pp-buy-price">96 €</div>
+            <div class="pp-buy-info">
+                <p class="pp-buy-note">Edición limitada · Envío en 5–7 días hábiles<br>Pieza hecha bajo pedido · Pequeñas variaciones forman parte del proceso.</p>
+                <div class="pp-buy-btns">
                     <button class="pp-cta-btn" onclick="addToCart('COLLAR NARA',96,'assets/CollarNARA.jpg')" data-magnetic>AÑADIR AL CARRITO</button>
                     <a href="checkout.html" class="pp-cta-btn pp-cta-btn-outline" data-magnetic>FINALIZAR COMPRA</a>
                 </div>
             </div>
         </div>
 
-        <!-- RELACIONADOS -->
         <section class="pp-related">
             <div class="pp-related-label">TAMBIÉN TE PUEDE INTERESAR</div>
             <div class="pp-related-grid">
-                <a href="featured-product.html" class="pp-rel-card">
-                    <img src="assets/anilloCALA.jpg" alt="Anillo CALA">
-                    <div class="pp-rel-info"><div class="pp-rel-name">ANILLO CALA</div><div class="pp-rel-price">45 € · Icónico</div></div>
-                </a>
-                <a href="product-anillo-amarillo.html" class="pp-rel-card">
-                    <img src="assets/AnilloLUA.jpg" alt="Anillo LUA">
-                    <div class="pp-rel-info"><div class="pp-rel-name">ANILLO LUA</div><div class="pp-rel-price">45 €</div></div>
-                </a>
-                <a href="product-anillo-burdeos.html" class="pp-rel-card">
-                    <img src="assets/BrazaleteORA.jpg" alt="Brazalete ORA">
-                    <div class="pp-rel-info"><div class="pp-rel-name">BRAZALETE ORA</div><div class="pp-rel-price">53 €</div></div>
-                </a>
-                <a href="product-anillo-oliva.html" class="pp-rel-card">
-                    <img src="assets/PendientesSIRA.jpg" alt="Pendientes SIRA">
-                    <div class="pp-rel-info"><div class="pp-rel-name">PENDIENTES SIRA</div><div class="pp-rel-price">45 €</div></div>
-                </a>
+                <a href="featured-product.html" class="pp-rel-card"><img src="assets/anilloCALA.jpg" alt="Anillo CALA"><div class="pp-rel-info"><div class="pp-rel-name">ANILLO CALA</div><div class="pp-rel-price">45 € · Icónico</div></div></a>
+                <a href="product-anillo-amarillo.html" class="pp-rel-card"><img src="assets/AnilloLUA.jpg" alt="Anillo LUA"><div class="pp-rel-info"><div class="pp-rel-name">ANILLO LUA</div><div class="pp-rel-price">45 €</div></div></a>
+                <a href="product-anillo-burdeos.html" class="pp-rel-card"><img src="assets/BrazaleteORA.jpg" alt="Brazalete ORA"><div class="pp-rel-info"><div class="pp-rel-name">BRAZALETE ORA</div><div class="pp-rel-price">53 €</div></div></a>
+                <a href="product-anillo-oliva.html" class="pp-rel-card"><img src="assets/PendientesSIRA.jpg" alt="Pendientes SIRA"><div class="pp-rel-info"><div class="pp-rel-name">PENDIENTES SIRA</div><div class="pp-rel-price">45 €</div></div></a>
             </div>
         </section>
     </main>
@@ -362,7 +341,8 @@
 
         document.querySelectorAll('.reveal').forEach(el => {
             const delay = el.classList.contains('delay-1') ? .18 : 0;
-            gsap.from(el, { opacity: 0, y: 28, duration: .8, ease: 'power3.out', delay, scrollTrigger: { trigger: el, start: 'top 87%' } });
+            gsap.from(el, { opacity: 0, y: 28, duration: .8, ease: 'power3.out', delay,
+                scrollTrigger: { trigger: el, start: 'top 87%' } });
         });
 
         document.querySelectorAll('[data-magnetic]').forEach(b => {
@@ -373,11 +353,11 @@
             b.addEventListener('mouseleave', () => gsap.to(b, { x: 0, y: 0, duration: .5, ease: 'elastic.out(1,.4)' }));
         });
 
-        const dot  = document.getElementById('cursor-dot');
+        const dot = document.getElementById('cursor-dot');
         const ring = document.getElementById('cursor-ring');
         let rx = 0, ry = 0;
         document.addEventListener('mousemove', e => {
-            if (dot)  { dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px'; }
+            if (dot) { dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px'; }
             rx += (e.clientX - rx) * .12; ry += (e.clientY - ry) * .12;
         });
         (function rafCursor() { if (ring) { ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; } requestAnimationFrame(rafCursor); })();
@@ -403,4 +383,3 @@
     <script src="music.js"></script>
 </body>
 </html>
-

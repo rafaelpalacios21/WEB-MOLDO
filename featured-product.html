@@ -877,6 +877,74 @@
         /* Tilt 3D en hero image */
         .cala-hero-right { perspective: 900px; }
         .cala-hero-img   { transition: transform 0.08s linear, opacity 0.8s ease, filter 0.6s ease; }
+
+        /* ── Hero override: fondo blanco, texto oscuro ── */
+        .cala-hero { background: #ffffff !important; }
+        .cala-hero::before { display: none; }
+        .cala-bg-word { color: rgba(31,34,24,0.028); }
+        .cala-eyebrow { color: #565F34; }
+        .cala-title { color: #1F2218; }
+        .cala-title-line.alt { color: transparent; -webkit-text-stroke: 1.5px rgba(31,34,24,0.55); }
+        .cala-tagline { color: rgba(31,34,24,.6); }
+        .cala-price-num { color: #1F2218; }
+        .cala-price-cur { color: rgba(31,34,24,.4); }
+        .cala-btn-ghost { color: rgba(31,34,24,.65); border-color: rgba(31,34,24,.2); }
+        .cala-btn-ghost:hover { color: #1F2218; border-color: rgba(31,34,24,.55); }
+        .cala-side-label { color: rgba(31,34,24,.2); }
+        .cala-scroll-cue { color: rgba(31,34,24,.25); }
+        .cala-hero-img { object-fit: cover; object-position: center top; }
+
+        /* ── Header --light ── */
+        .header--light .nav-link { color: #1F2218 !important; }
+        .header--light .icon-btn { color: #1F2218 !important; }
+        .header--light.scrolled .nav-link { color: #1F2218 !important; }
+        .header--light.scrolled .icon-btn { color: #1F2218 !important; }
+
+        /* ── Editorial section ── */
+        .pd-story-editorial { display: grid; grid-template-columns: 55fr 45fr; min-height: 78vh; background: #f8f6f3; overflow: hidden; }
+        .pd-story-editorial .pd-story-img { overflow: hidden; }
+        .pd-story-editorial .pd-story-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+        .pd-story-editorial .pd-ed-text { display: flex; flex-direction: column; justify-content: center; padding: 64px 56px; gap: 32px; }
+        .pd-ed-eyebrow { font-size: .52rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: #A7BF66; }
+        .pd-ed-headline { font-size: clamp(2rem,3.5vw,3rem); font-weight: 900; letter-spacing: -1.5px; line-height: .95; text-transform: uppercase; color: #1F2218; }
+        .pd-ed-headline em { display: block; font-weight: 200; font-style: italic; color: #780313; letter-spacing: 0; font-size: .65em; }
+        .pd-ed-body { font-size: .85rem; font-weight: 300; line-height: 1.85; color: rgba(31,34,24,.55); max-width: 340px; }
+        .pd-ed-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+        .pd-ed-tag { font-size: .52rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 6px 14px; border: 1px solid rgba(31,34,24,.15); color: rgba(31,34,24,.5); }
+
+        /* ── Care cards ── */
+        .pp-care-section { padding: 80px 7%; background: #EDE9E7; }
+        .pp-care-header { display: flex; align-items: baseline; gap: 24px; margin-bottom: 52px; }
+        .pp-care-title { font-size: clamp(2rem,3.5vw,3rem); font-weight: 900; letter-spacing: -2px; line-height: .95; text-transform: uppercase; color: #1F2218; }
+        .pp-care-subtitle { font-size: .58rem; font-weight: 700; letter-spacing: 3px; color: #565F34; text-transform: uppercase; }
+        .pp-care-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; }
+        .pp-care-card { background: #fff; padding: 36px 28px; display: flex; flex-direction: column; gap: 16px; transition: background .3s; }
+        .pp-care-card:hover { background: #F0EEE9; }
+        .pp-care-num { font-size: clamp(2.5rem,4vw,4rem); font-weight: 900; letter-spacing: -2px; color: rgba(31,34,24,.06); line-height: 1; }
+        .pp-care-icon { font-size: 1.5rem; line-height: 1; }
+        .pp-care-label { font-size: .6rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #565F34; }
+        .pp-care-text { font-size: .8rem; font-weight: 300; line-height: 1.65; color: rgba(31,34,24,.58); }
+        .pp-care-note { padding: 32px 7%; background: #1F2218; font-size: .72rem; font-weight: 300; color: rgba(237,233,231,.42); line-height: 1.7; border-top: 1px solid rgba(237,233,231,.06); }
+        .pp-care-note strong { color: rgba(237,233,231,.7); font-weight: 600; }
+
+        /* ── Buy bar ── */
+        .pp-buy-bar { padding: 60px 7%; background: #EDE9E7; display: flex; align-items: center; gap: 48px; flex-wrap: wrap; border-top: 1px solid rgba(31,34,24,.08); }
+        .pp-buy-price { font-size: clamp(3rem,6vw,5.5rem); font-weight: 200; color: #1F2218; letter-spacing: -3px; line-height: 1; }
+        .pp-buy-info { flex: 1; min-width: 200px; }
+        .pp-buy-note { font-size: .72rem; font-weight: 300; color: rgba(31,34,24,.45); line-height: 1.7; margin-bottom: 20px; }
+        .pp-buy-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+        .pp-buy-btn { display: inline-flex; justify-content: center; align-items: center; font-size: .68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 18px 34px; border-radius: 2px; background: #1F2218; color: #EDE9E7; border: none; cursor: pointer; font-family: inherit; transition: background .3s,transform .25s; text-decoration: none; }
+        .pp-buy-btn:hover { background: #565F34; transform: translateY(-2px); }
+        .pp-buy-btn-outline { background: transparent; border: 1px solid rgba(31,34,24,.3); color: #1F2218; }
+        .pp-buy-btn-outline:hover { border-color: #1F2218; background: rgba(31,34,24,.05); }
+
+        @media(max-width:900px) {
+            .pp-care-grid { grid-template-columns: repeat(2,1fr); }
+            .pp-buy-bar { gap: 28px; }
+            .pd-story-editorial { grid-template-columns: 1fr; min-height: auto; }
+            .pd-story-editorial .pd-story-img { min-height: 60vw; }
+            .pd-story-editorial .pd-ed-text { padding: 40px 28px; }
+        }
     </style>
 </head>
 <body>
@@ -890,7 +958,7 @@
     </div>
 
     <!-- ═══ HEADER ═══ -->
-    <header class="header" id="header">
+    <header class="header header--light" id="header">
         <nav class="header-nav">
             <a href="index.html#coleccion" class="nav-link">COLECCIÓN</a>
             <a href="color-lab.html" class="nav-link">COLOR LAB</a>
@@ -930,9 +998,7 @@
                     </span>
                 </div>
 
-                <p class="cala-tagline" id="cala-tagline">
-                    Forma escultórica trabajada a mano.<br>Volumen irregular, superficie suave, gesto orgánico.
-                </p>
+                <p class="cala-tagline" id="cala-tagline">Cala es un anillo de gran volumen y presencia escultórica. Su forma blanda y envolvente rompe con la idea clásica del anillo como pieza discreta, convirtiéndolo en un gesto visual con identidad propia. No acompaña el look: lo altera.</p>
 
                 <div class="cala-price-wrap" id="cala-price-wrap">
                     <span class="cala-price-num" id="cala-price-num">0</span>
@@ -953,6 +1019,27 @@
             <div class="cala-scroll-cue" id="cala-cue">
                 <span>SCROLL</span>
                 <div class="cala-scroll-bar"></div>
+            </div>
+        </section>
+
+        <!-- ═══ EDITORIAL STORY ═══ -->
+        <section class="pd-story-editorial">
+            <div class="pd-story-img">
+                <img src="assets/anillocala.png" alt="ANILLO CALA — moldoLab detalle">
+            </div>
+            <div class="pd-ed-text">
+                <span class="pd-ed-eyebrow">Pieza 01 · La pieza icónica</span>
+                <h2 class="pd-ed-headline">
+                    No imita nada<br>que ya exista
+                    <em>y no pide permiso</em>
+                </h2>
+                <p class="pd-ed-body">CALA no acompaña el look: lo altera. Su forma blanda y envolvente rompe con la idea clásica del anillo como pieza discreta. Presencia imposible de ignorar, gesto visual con identidad propia que no necesita contexto.</p>
+                <div class="pd-ed-tags">
+                    <span class="pd-ed-tag">Escultórica</span>
+                    <span class="pd-ed-tag">Orgánica</span>
+                    <span class="pd-ed-tag">Icónica</span>
+                    <span class="pd-ed-tag">Polímero</span>
+                </div>
             </div>
         </section>
 
@@ -1096,29 +1183,51 @@
             </div>
         </section>
 
-        <!-- ═══ 8. CTA ═══ -->
-        <div class="cala-cta">
-            <div class="cta-care reveal">
-                <h3>CUIDADOS</h3>
-                <ul>
-                    <li>Limpiar con paño seco de microfibra</li>
-                    <li>Evitar exposición prolongada a humedad</li>
-                    <li>No usar productos químicos agresivos</li>
-                    <li>Guardar separado de otras piezas metálicas</li>
-                    <li>Pequeñas variaciones de forma son parte de la pieza</li>
-                </ul>
+        <!-- ═══ 8. CUIDADOS + COMPRA ═══ -->
+        <div class="pp-care-section">
+            <div class="pp-care-header">
+                <h2 class="pp-care-title">CUIDAR<br>LA PIEZA</h2>
+                <span class="pp-care-subtitle">Protocolo de uso</span>
             </div>
-            <div class="cta-buy reveal delay-1">
-                <h3>
-                    <span class="cta-buy-title-inner" id="cta-line-1">ANILLO</span>
-                    <span class="cta-buy-title-inner" id="cta-line-2">CALA</span>
-                </h3>
-                <p>Pieza icónica. Forma escultórica en edición limitada SS·26. Disponible mientras dure el stock.</p>
-                <button class="cala-btn cala-btn-primary" id="cta-cart-btn" onclick="addToCart('ANILLO CALA',45,'assets/anilloCALA.jpg')" data-magnetic style="align-self:flex-start;">
-                    AÑADIR AL CARRITO — 45 €
-                </button>
-                <p class="cta-micro">Pieza hecha bajo pedido · Pequeñas variaciones forman parte del proceso · 5–7 días hábiles</p>
-                <a href="color-lab.html" class="cta-lab-link">PERSONALIZAR COLOR EN COLOR LAB →</a>
+            <div class="pp-care-grid">
+                <div class="pp-care-card">
+                    <div class="pp-care-num">01</div>
+                    <div class="pp-care-icon">💧</div>
+                    <div class="pp-care-label">Agua y humedad</div>
+                    <p class="pp-care-text">Evita el contacto prolongado con agua, sudor o humedad extrema. Retírala antes de ducharte o nadar.</p>
+                </div>
+                <div class="pp-care-card">
+                    <div class="pp-care-num">02</div>
+                    <div class="pp-care-icon">🌿</div>
+                    <div class="pp-care-label">Almacenamiento</div>
+                    <p class="pp-care-text">Guárdala en la bolsa de tela incluida, separada de otras piezas. Evita superficies duras que puedan rayar el acabado.</p>
+                </div>
+                <div class="pp-care-card">
+                    <div class="pp-care-num">03</div>
+                    <div class="pp-care-icon">✦</div>
+                    <div class="pp-care-label">Limpieza</div>
+                    <p class="pp-care-text">Limpia con un paño suave y seco. No uses productos químicos, alcohol ni disolventes. La resina es sensible a agentes abrasivos.</p>
+                </div>
+                <div class="pp-care-card">
+                    <div class="pp-care-num">04</div>
+                    <div class="pp-care-icon">☀</div>
+                    <div class="pp-care-label">Luz y calor</div>
+                    <p class="pp-care-text">Evita exposición directa al sol durante períodos prolongados. El calor extremo puede afectar la forma y el color del material.</p>
+                </div>
+            </div>
+            <div class="pp-care-note">
+                <strong>Nota sobre el material:</strong> Las pequeñas variaciones en la superficie, el tono o la textura no son defectos — son parte del proceso artesanal que hace de cada pieza algo único.
+            </div>
+        </div>
+
+        <div class="pp-buy-bar">
+            <div class="pp-buy-price">45 €</div>
+            <div class="pp-buy-info">
+                <p class="pp-buy-note">Edición limitada · Envío en 5–7 días hábiles<br>Pieza hecha bajo pedido · Pequeñas variaciones forman parte del proceso.</p>
+                <div class="pp-buy-btns">
+                    <button class="pp-buy-btn" onclick="addToCart('ANILLO CALA',45,'assets/anilloCALA.jpg')" data-magnetic>AÑADIR AL CARRITO</button>
+                    <a href="checkout.html" class="pp-buy-btn pp-buy-btn-outline" data-magnetic>FINALIZAR COMPRA</a>
+                </div>
             </div>
         </div>
 
@@ -1339,11 +1448,6 @@
             }
         });
 
-        /* ── CTA TITLE REVEAL ── */
-        gsap.to(['#cta-line-1','#cta-line-2'], {
-            y: '0%', duration: 1.2, stagger: 0.12, ease: 'power3.out',
-            scrollTrigger: { trigger: '.cta-buy', start: 'top 75%' }
-        });
 
         /* ── GENERIC REVEALS ── */
         document.querySelectorAll('.reveal').forEach(el => {
