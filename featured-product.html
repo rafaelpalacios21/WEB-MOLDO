@@ -977,6 +977,11 @@
                 <sup id="cart-count-badge" style="position:absolute;top:-4px;right:-6px;font-size:0.5rem;font-weight:900;color:var(--lima);display:none;"></sup>
             </button>
         </div>
+        <button class="mobile-menu-btn" aria-label="Menú">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6h16.5m-16.5 5.25h16.5m-16.5 5.25h16.5"/>
+            </svg>
+        </button>
     </header>
 
     <main>
@@ -1579,6 +1584,27 @@
                 heroImg.style.transform = 'scale(1) rotateY(0deg) rotateX(0deg)';
             });
         }
+
+        // Mobile nav drawer
+        (function() {
+            var b = document.querySelector('.mobile-menu-btn');
+            var n = document.querySelector('.header-nav');
+            if (!b || !n) return;
+            b.addEventListener('click', function() {
+                n.classList.toggle('active');
+                var open = n.classList.contains('active');
+                b.innerHTML = open
+                    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>'
+                    : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6h16.5m-16.5 5.25h16.5m-16.5 5.25h16.5"/></svg>';
+                document.body.style.overflow = open ? 'hidden' : '';
+            });
+            document.addEventListener('click', function(e) {
+                if (n.classList.contains('active') && !n.contains(e.target) && !b.contains(e.target)) {
+                    n.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        })();
     </script>
     <script src="music.js"></script>
 </body>

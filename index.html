@@ -303,38 +303,10 @@
             </div>
         </section>
 
-        <!-- Feature Text & Image Split -->
-        <section class="feature-split">
-            <div class="split-row reveal">
-                <div class="split-text">
-                    <h2 class="section-title">EL MATERIAL NO DEFINE EL VALOR</h2>
-                    <p>moldoLab no trabaja con oro ni plata. Trabaja con polímeros, resinas y materiales experimentales porque la apuesta no es el metal: es la forma. Cada pieza vale por lo que transmite, no por lo que está hecha.</p>
-                    <p style="margin-top:16px;font-size:.82rem;font-weight:600;color:var(--oliva);letter-spacing:1px;">— No apto para quien busca pasar desapercibido.</p>
-                </div>
-                <div class="split-image">
-                    <img src="assets/8.jpg" alt="Proceso moldoLab — material experimental"
-                        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                    <div class="placeholder-img"></div>
-                </div>
-            </div>
-
-            <div class="split-row reverse reveal delay-1">
-                <div class="split-text">
-                    <h2 class="section-title">UN MISMO GESTO.<br>TODOS LOS COLORES.</h2>
-                    <p>El Color Lab permite imaginar las piezas desde diferentes tonos y estados visuales. moldoLab no pertenece a un único color: cada tono construye una actitud distinta. La misma forma puede sentirse más cruda, más divertida, más rara o más tuya.</p>
-                    <a href="color-lab.html" class="btn btn-secondary" style="margin-top:24px;align-self:flex-start;" data-magnetic>PROBAR COLOR LAB</a>
-                </div>
-                <div class="split-image">
-                    <img src="assets/9.jpg" alt="Color Lab moldoLab"
-                        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                    <div class="placeholder-img"></div>
-                </div>
-            </div>
-        </section>
-
         <!-- Hover Carousel -->
         <section class="hover-carousel-section reveal delay-2">
             <h2 class="carousel-title">GALERÍA EN MOVIMIENTO</h2>
+            <p class="carousel-hint">Haz clic en una imagen para ampliarla</p>
             <div class="carousel-container" id="hover-carousel">
                 <div class="carousel-track" id="carousel-track">
                     <div class="carousel-item">
@@ -421,6 +393,35 @@
                             <span class="carousel-label-date">SS·26</span>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Text & Image Split -->
+        <section class="feature-split">
+            <div class="split-row reveal">
+                <div class="split-text">
+                    <h2 class="section-title">EL MATERIAL NO DEFINE EL VALOR</h2>
+                    <p>moldoLab no trabaja con oro ni plata. Trabaja con polímeros, resinas y materiales experimentales porque la apuesta no es el metal: es la forma. Cada pieza vale por lo que transmite, no por lo que está hecha.</p>
+                    <p style="margin-top:16px;font-size:.82rem;font-weight:600;color:var(--oliva);letter-spacing:1px;">— No apto para quien busca pasar desapercibido.</p>
+                </div>
+                <div class="split-image">
+                    <img src="assets/8.jpg" alt="Proceso moldoLab — material experimental"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="placeholder-img"></div>
+                </div>
+            </div>
+
+            <div class="split-row reverse reveal delay-1">
+                <div class="split-text">
+                    <h2 class="section-title">UN MISMO GESTO.<br>TODOS LOS COLORES.</h2>
+                    <p>El Color Lab permite imaginar las piezas desde diferentes tonos y estados visuales. moldoLab no pertenece a un único color: cada tono construye una actitud distinta. La misma forma puede sentirse más cruda, más divertida, más rara o más tuya.</p>
+                    <a href="color-lab.html" class="btn btn-secondary" style="margin-top:24px;align-self:flex-start;" data-magnetic>PROBAR COLOR LAB</a>
+                </div>
+                <div class="split-image">
+                    <img src="assets/9.jpg" alt="Color Lab moldoLab"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="placeholder-img"></div>
                 </div>
             </div>
         </section>
@@ -717,6 +718,7 @@
                     <img src="${item.img}" class="cart-item-img" alt="${item.name}">
                     <div class="cart-item-info">
                         <div class="cart-item-name">${item.name}</div>
+                        ${item.size ? `<div class="cart-item-size">TALLA ${item.size}</div>` : ''}
                         <div class="cart-item-price">${item.price}€</div>
                         <button class="btn-remove-item" onclick="removeItem(${index})">ELIMINAR</button>
                     </div>
@@ -732,11 +734,31 @@
             updateCart();
         };
 
-        function addToCart(name, price, img) {
-            cart.push({ name, price, img });
+        function addToCart(name, price, img, size) {
+            cart.push({ name, price, img, size: size || null });
             updateCart();
             toggleCart(true);
         }
+
+        // Size modal for landing
+        let _pendingItem = null;
+        function openSizePicker(name, price, img) {
+            _pendingItem = { name, price, img };
+            document.getElementById('slm-name').textContent = name;
+            document.querySelectorAll('.slm-btn').forEach(b => b.classList.remove('slm-active'));
+            document.getElementById('slm-overlay').classList.add('open');
+        }
+        function closeSizePicker() {
+            document.getElementById('slm-overlay').classList.remove('open');
+            _pendingItem = null;
+        }
+        function confirmSize(s) {
+            document.querySelectorAll('.slm-btn').forEach(b => b.classList.toggle('slm-active', b.dataset.s === s));
+            if (!_pendingItem) return;
+            addToCart(_pendingItem.name, _pendingItem.price, _pendingItem.img, s);
+            closeSizePicker();
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSizePicker(); });
 
         // Add to cart buttons listeners
         document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
@@ -765,7 +787,7 @@
                     img   = card.querySelector('img').src;
                 }
 
-                addToCart(name, price, img);
+                openSizePicker(name, price, img);
             });
         });
 
@@ -1010,6 +1032,40 @@
     </script>
 
     <script src="music.js"></script>
+
+    <!-- ── MODAL TALLA LANDING ── -->
+    <style>
+        .slm-overlay{position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;background:rgba(31,34,24,.55);backdrop-filter:blur(5px);opacity:0;pointer-events:none;transition:opacity .3s}
+        .slm-overlay.open{opacity:1;pointer-events:all}
+        .slm-box{background:#EDE9E7;padding:40px 44px;min-width:300px;position:relative;transform:translateY(20px);transition:transform .35s cubic-bezier(.16,1,.3,1)}
+        .slm-overlay.open .slm-box{transform:translateY(0)}
+        .slm-close{position:absolute;top:14px;right:16px;background:none;border:none;cursor:pointer;font-size:.75rem;font-weight:700;letter-spacing:1px;color:rgba(31,34,24,.3);font-family:'Poppins',sans-serif}
+        .slm-close:hover{color:#1F2218}
+        .slm-label{font-size:.5rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#565F34;margin-bottom:6px}
+        .slm-name{font-size:1.1rem;font-weight:900;letter-spacing:-1px;text-transform:uppercase;color:#1F2218;margin-bottom:24px}
+        .slm-sub{font-size:.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(31,34,24,.4);margin-bottom:14px}
+        .slm-sizes{display:flex;gap:8px;margin-bottom:20px}
+        .slm-btn{width:52px;height:52px;border:1px solid rgba(31,34,24,.2);background:transparent;color:rgba(31,34,24,.6);font-size:.65rem;font-weight:700;letter-spacing:1px;cursor:pointer;transition:background .2s,border-color .2s,color .2s;font-family:'Poppins',sans-serif}
+        .slm-btn:hover{border-color:#1F2218;color:#1F2218}
+        .slm-btn.slm-active{background:#1F2218;border-color:#1F2218;color:#EDE9E7}
+        .slm-guide{font-size:.55rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#565F34;text-decoration:none;display:block}
+        .slm-guide:hover{text-decoration:underline}
+        .cart-item-size{font-size:.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(31,34,24,.4);margin-bottom:2px}
+    </style>
+    <div id="slm-overlay" class="slm-overlay" onclick="if(event.target===this)closeSizePicker()">
+        <div class="slm-box">
+            <button class="slm-close" onclick="closeSizePicker()">✕</button>
+            <div class="slm-label">Añadir al carrito</div>
+            <div class="slm-name" id="slm-name"></div>
+            <div class="slm-sub">Selecciona tu talla</div>
+            <div class="slm-sizes">
+                <button class="slm-btn" data-s="S" onclick="confirmSize('S')">S</button>
+                <button class="slm-btn" data-s="M" onclick="confirmSize('M')">M</button>
+                <button class="slm-btn" data-s="L" onclick="confirmSize('L')">L</button>
+            </div>
+            <a href="product-anillo-amarillo.html" class="slm-guide">¿Cuál es mi talla? →</a>
+        </div>
+    </div>
 
 </body>
 

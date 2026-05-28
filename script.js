@@ -184,6 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
         reveals.forEach((element) => {
             // Avoid conflict with specific grids or layouts
             if (element.classList.contains('product-grid')) return;
+            if (element.classList.contains('split-row')) return;
 
             gsap.fromTo(element,
                 { opacity: 0, y: 40 },
@@ -359,6 +360,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightboxClose = document.getElementById('lightbox-close');
 
     // Drag to scroll carousel logic
+    let carouselDragMoved = false;
+
     if (carouselTrack) {
         let isDown = false;
         let startX;
@@ -366,6 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         carouselTrack.addEventListener('mousedown', (e) => {
             isDown = true;
+            carouselDragMoved = false;
             carouselTrack.style.cursor = 'grabbing';
             startX = e.pageX - carouselTrack.offsetLeft;
             scrollLeft = carouselTrack.scrollLeft;
@@ -386,10 +390,24 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const x = e.pageX - carouselTrack.offsetLeft;
             const walk = (x - startX) * 2;
+            if (Math.abs(walk) > 5) carouselDragMoved = true;
             carouselTrack.scrollLeft = scrollLeft - walk;
         });
 
         carouselTrack.style.cursor = 'grab';
+    }
+
+    /* Touch drag tracking for lightbox suppression */
+    const _carouselContainer = document.getElementById('hover-carousel');
+    let _touchStartX = 0;
+    if (_carouselContainer) {
+        _carouselContainer.addEventListener('touchstart', (e) => {
+            _touchStartX = e.touches[0].clientX;
+            carouselDragMoved = false;
+        }, { passive: true });
+        _carouselContainer.addEventListener('touchmove', (e) => {
+            if (Math.abs(e.touches[0].clientX - _touchStartX) > 5) carouselDragMoved = true;
+        }, { passive: true });
     }
 
     // Carousel Arrows Logic
@@ -439,6 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (carouselItems && lightboxOverlay && lightboxImg) {
         carouselItems.forEach(item => {
             item.addEventListener('click', () => {
+                if (carouselDragMoved) return;
                 const img = item.querySelector('img');
 
                 if (img && img.style.display !== 'none') {
@@ -580,18 +599,37 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Parallax: split-row images
-        document.querySelectorAll('.split-image img').forEach(img => {
-            gsap.to(img, {
-                yPercent: -10,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: img.closest('.split-row') || img,
-                    start: 'top bottom',
-                    end: 'bottom top',
-                    scrub: true
-                }
-            });
+        // Split-row: text fades up, image slides in from its side
+        document.querySelectorAll('.split-row').forEach(row => {
+            const isReverse = row.classList.contains('reverse');
+            const img = row.querySelector('.split-image');
+            const text = row.querySelector('.split-text');
+
+            // make sure opacity is visible (was 0 from .reveal skipped above)
+            gsap.set(row, { opacity: 1 });
+
+            if (text) {
+                gsap.fromTo(text,
+                    { opacity: 0, y: 30 },
+                    {
+                        opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
+                        scrollTrigger: { trigger: row, start: 'top 80%', toggleActions: 'play none none none' }
+                    }
+                );
+            }
+
+            if (img) {
+                // normal row: image on right → enters from right
+                // reverse row: image on left → enters from left
+                const fromX = isReverse ? -80 : 80;
+                gsap.fromTo(img,
+                    { opacity: 0, x: fromX },
+                    {
+                        opacity: 1, x: 0, duration: 1, ease: 'power3.out',
+                        scrollTrigger: { trigger: row, start: 'top 80%', toggleActions: 'play none none none' }
+                    }
+                );
+            }
         });
 
         // Parallax: hero image

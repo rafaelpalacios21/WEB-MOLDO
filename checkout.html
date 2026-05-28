@@ -456,15 +456,19 @@
             let subtotal = 0;
             list.innerHTML = cart.map(item => {
                 subtotal += (item.price || 0) * (item.qty || 1);
-                const imgHtml = item.image
-                    ? `<img src="${item.image}" class="ck-sum-img" alt="${item.name}" onerror="this.style.display='none'">`
+                const src = item.img || item.image;
+                const imgHtml = src
+                    ? `<img src="${src}" class="ck-sum-img" alt="${item.name}" onerror="this.style.display='none'">`
                     : `<div class="ck-sum-img-placeholder"></div>`;
+                const sizeStr = item.size ? `Talla ${item.size}` : '';
+                const finishStr = item.finish ? `${item.finish}` : '';
+                const detailParts = [sizeStr, finishStr, 'Hecho a mano'].filter(Boolean);
                 return `
                     <div class="ck-sum-item">
                         ${imgHtml}
                         <div class="ck-sum-item-info">
                             <div class="ck-sum-item-name">${item.name}</div>
-                            <div class="ck-sum-item-detail">Qty: ${item.qty || 1} · Hecho a mano</div>
+                            <div class="ck-sum-item-detail">${detailParts.join(' · ')}</div>
                         </div>
                         <div class="ck-sum-item-price">${(item.price || 0) * (item.qty || 1)} €</div>
                     </div>`;
