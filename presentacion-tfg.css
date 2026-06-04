@@ -44,7 +44,13 @@
 
 /* ── RESET ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; }
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    /* Presentación por diapositivas: cada sección encaja en pantalla */
+    scroll-snap-type: y proximity;
+    scroll-padding-top: 0;
+}
 body {
     font-family: var(--f-main);
     background: var(--cream);
@@ -245,42 +251,59 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 ================================================================ */
 .tfg-section {
     position: relative;
-    min-height: 100vh;
-    min-height: 100svh;
-    display: flex; flex-direction: column; justify-content: center;
-    padding: calc(var(--hdr) + 3rem) 7% 5rem;
-    scroll-margin-top: 0;
+    height: 100vh;
+    height: 100svh;
+    display: flex; flex-direction: column;
+    justify-content: center;
+    justify-content: safe center;   /* centra, pero no recorta por arriba si excede */
+    padding: calc(var(--hdr) + 1.25rem) 6% 4.25rem;
+    scroll-snap-align: start;
+    overflow: hidden;               /* rectángulo cerrado: sin scroll interno */
 }
+/* Contenedor interno de contenido — alto máximo controlado por pantalla */
+.tfg-section > .reveal,
+.tfg-section > .spot-grid,
+.tfg-section > .hero-grid,
+.tfg-section > .origen-grid,
+.tfg-section > .inv-grid,
+.tfg-section > .visual-grid,
+.tfg-section > .mat-grid,
+.tfg-section > .camp-grid,
+.tfg-section > .web-grid,
+.tfg-section > .strat-grid,
+.tfg-section > .cierre-inner,
+.tfg-section > #social-showcase,
+.tfg-section > #campaign-sequence { width: 100%; }
 
 /* Eyebrow */
 .s-eyebrow {
     font-family: var(--f-mono); font-size: .55rem; letter-spacing: 3px;
     text-transform: uppercase; color: var(--red);
-    margin-bottom: 1.25rem; display: flex; align-items: center; gap: 10px;
+    margin-bottom: clamp(.5rem, 1.4vh, 1.1rem); display: flex; align-items: center; gap: 10px;
 }
 .s-eyebrow::before {
     content: ''; width: 24px; height: 1px; background: currentColor; flex-shrink: 0;
 }
 
-/* Title */
+/* Title — escala con ancho Y alto de pantalla para encajar siempre */
 .s-title {
-    font-size: clamp(2.2rem, 5.5vw, 5rem);
-    font-weight: 900; letter-spacing: -3px; line-height: .9;
-    text-transform: uppercase; margin-bottom: 1.5rem;
+    font-size: clamp(1.8rem, 2.4vw + 1.5vh, 4.2rem);
+    font-weight: 900; letter-spacing: -2px; line-height: .94;
+    text-transform: uppercase; margin-bottom: clamp(.6rem, 1.6vh, 1.2rem);
 }
 .s-title--moldo { font-family: var(--f-moldo); letter-spacing: -2px; }
 
 .s-body {
-    font-size: clamp(.85rem, 1.3vw, 1rem);
-    font-weight: 300; line-height: 1.85; max-width: 560px;
+    font-size: clamp(.82rem, .5vw + .55vh, 1rem);
+    font-weight: 300; line-height: 1.65; max-width: 560px;
 }
 .s-casual { font-family: var(--f-casual); }
 .s-sub {
-    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-size: clamp(.95rem, 1vw + .6vh, 1.3rem);
     font-weight: 200; font-style: italic; color: var(--red);
-    margin-bottom: 1.25rem; line-height: 1.3;
+    margin-bottom: clamp(.5rem, 1.3vh, 1.1rem); line-height: 1.25;
 }
-.s-divider { width: 40px; height: 1px; background: var(--red); margin: 1.5rem 0; }
+.s-divider { width: 40px; height: 1px; background: var(--red); margin: clamp(.8rem,2vh,1.5rem) 0; }
 
 /* Botones */
 .btn {
@@ -298,13 +321,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .btn-outline-dark { background: transparent; color: var(--text); border: 1px solid rgba(30,32,24,.25); }
 .btn-outline-dark:hover { background: var(--green); color: var(--beige); }
 
-/* Botón "siguiente sección" */
+/* Botón "siguiente sección" — anclado al fondo, no ocupa altura de contenido */
 .next-cue {
-    margin-top: 2.5rem;
+    position: absolute; left: 6%; bottom: 1.3rem; margin: 0;
     display: inline-flex; align-items: center; gap: 10px;
     font-family: var(--f-mono); font-size: .55rem; letter-spacing: 2px;
     text-transform: uppercase; color: var(--muted);
-    transition: color .25s; align-self: flex-start;
+    transition: color .25s; z-index: 5;
 }
 .next-cue:hover { color: var(--red); }
 .next-cue .arrow {
@@ -680,80 +703,88 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .cartel-claim span { font-family: var(--f-mono); font-size: .55rem; color: var(--lima); }
 
 /* ================================================================
-   SECCIÓN RRSS — social showcase doble carrusel
+   SECCIÓN RRSS — muro de 3 columnas inclinadas
 ================================================================ */
-#rrss { background: var(--black); color: var(--beige); }
+#rrss { background: var(--black); color: var(--beige); overflow: hidden; }
 #social-showcase { width: 100%; margin-top: 2rem; }
 
-.social-tabs { display: flex; gap: 2px; margin-bottom: 1.5rem; flex-wrap: wrap; }
-.social-tab {
-    font-size: .6rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-    color: rgba(237,233,206,.35); padding: 8px 16px;
-    border: 1px solid rgba(237,233,206,.12); transition: all .25s;
+.scw-frame {
+    position: relative;
+    width: 100%;
+    height: clamp(420px, 58vh, 640px);
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(180deg, transparent, #000 12%, #000 86%, transparent);
+    mask-image: linear-gradient(180deg, transparent, #000 12%, #000 86%, transparent);
 }
-.social-tab.active { background: var(--lima); color: var(--black); border-color: var(--lima); }
-.social-tab:hover { color: var(--beige); }
-.social-tab.active:hover { color: var(--black); }
-
-.social-panels { position: relative; min-height: clamp(380px, 46vw, 540px); }
-.social-panel {
-    position: absolute; inset: 0; opacity: 0; pointer-events: none;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 5%; align-items: center;
-    transition: opacity .6s ease;
+.scw-wall {
+    position: absolute; inset: -12% -4%;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+    transform: rotate(-7deg) scale(1.12);
+    transform-origin: center center;
 }
-.social-panel.active { opacity: 1; pointer-events: all; position: relative; }
+.scw-col { overflow: hidden; }
+/* abanico: columna central elevada, laterales caídas */
+.scw-col--1 { margin-top: -36px; }
+.scw-col--2 { margin-top: 20px; }
+.scw-col--3 { margin-top: -28px; }
 
-.social-type { font-family: var(--f-mono); font-size: .55rem; letter-spacing: 3px; text-transform: uppercase; color: var(--lima); margin-bottom: .5rem; }
-.social-name { font-family: var(--f-moldo); font-size: clamp(3rem, 7vw, 6rem); letter-spacing: -3px; line-height: .85; text-transform: uppercase; color: var(--beige); margin-bottom: 1rem; }
-.social-text { font-size: .85rem; font-weight: 300; line-height: 1.7; color: rgba(237,233,206,.5); max-width: 360px; margin-bottom: 1.25rem; }
-.social-count { font-family: var(--f-mono); font-size: .6rem; letter-spacing: 2px; color: rgba(237,233,206,.35); }
-.social-count .sc-cur { color: var(--lima); }
+.scw-track { display: flex; flex-direction: column; gap: 14px; will-change: transform; }
+.scw-col--1 .scw-track { animation: scwUp   34s linear infinite; }
+.scw-col--2 .scw-track { animation: scwDown 40s linear infinite; }
+.scw-col--3 .scw-track { animation: scwUp   30s linear infinite; }
+.scw-frame:hover .scw-track { animation-play-state: paused; }
 
-.social-inner { position: relative; aspect-ratio: 4/5; overflow: hidden; background: #1a1c12; }
-.social-inner-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .8s ease, transform 4s ease; }
-.social-inner-img.active { opacity: 1; transform: scale(1.05); }
-.social-inner-tag {
-    position: absolute; bottom: 1rem; left: 1rem; z-index: 2;
-    font-family: var(--f-mono); font-size: .5rem; letter-spacing: 2px; text-transform: uppercase;
-    color: var(--beige); background: rgba(23,23,19,.6); padding: 5px 10px; backdrop-filter: blur(4px);
+.scw-item { position: relative; flex-shrink: 0; overflow: hidden; border-radius: 6px; box-shadow: 0 14px 34px rgba(0,0,0,.4); }
+.scw-item img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; transition: filter .4s; filter: grayscale(12%); }
+.scw-item:hover img { filter: grayscale(0%); }
+.scw-tag {
+    position: absolute; top: 8px; left: 8px;
+    font-family: var(--f-mono); font-size: .46rem; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--beige); background: rgba(23,23,19,.6); padding: 3px 8px; backdrop-filter: blur(3px);
 }
+.scw-legend { display: flex; flex-wrap: wrap; gap: 14px 24px; margin-top: 1.5rem; }
+.scw-legend-item { font-family: var(--f-casual); font-size: .8rem; color: rgba(237,233,206,.4); }
+.scw-legend-item b { font-family: var(--f-main); font-weight: 800; color: var(--lima); letter-spacing: -.3px; }
 
-/* Marquee secundario RRSS */
-.social-marquee { margin-top: 1.5rem; overflow: hidden; width: 100%; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-.social-marquee-track { display: flex; gap: 4px; width: max-content; animation: marqueeL 40s linear infinite; }
-.social-marquee-track img { height: 90px; width: auto; aspect-ratio: 4/5; object-fit: cover; flex-shrink: 0; }
-.social-marquee:hover .social-marquee-track { animation-play-state: paused; }
+@keyframes scwUp   { from { transform: translateY(0); }    to { transform: translateY(-50%); } }
+@keyframes scwDown { from { transform: translateY(-50%); } to { transform: translateY(0); } }
 
 /* ================================================================
-   SECCIÓN CAMPAÑA — secuencia visual fotos 1-12
+   SECCIÓN CAMPAÑA — carrusel continuo destacado (fotos 1-12)
+   Full-bleed: es el carrusel protagonista de la página.
 ================================================================ */
-#campaign-sequence { width: 100%; margin-top: 2rem; }
-.cseq-stack {
-    position: relative; width: 100%;
-    height: clamp(340px, 50vw, 580px);
-    perspective: 1600px;
+#campaign-sequence.campaign-marquee {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);   /* full-bleed centrado al viewport */
+    margin-top: 2rem;
+    padding: 1.75rem 0;
+    overflow: hidden;
+    border-top: 1px solid rgba(167,191,103,.25);
+    border-bottom: 1px solid rgba(167,191,103,.25);
+    background: linear-gradient(180deg, rgba(167,191,103,.04), transparent 40%, rgba(120,3,19,.05));
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
 }
-.cseq-photo {
-    position: absolute; top: 50%; left: 50%;
-    width: clamp(200px, 26vw, 330px);
-    margin: 0; background: var(--cream); padding: 8px;
-    box-shadow: 0 22px 50px rgba(0,0,0,.35);
-    transition: transform .9s var(--ease), opacity .9s var(--ease), filter .7s;
-    cursor: zoom-in;
+.cm-track { display: flex; gap: 16px; width: max-content; animation: marqueeL 55s linear infinite; padding: 0 8px; }
+.campaign-marquee:hover .cm-track { animation-play-state: paused; }
+.cm-item {
+    position: relative; flex-shrink: 0; margin: 0;
+    border-radius: 4px; overflow: hidden;
+    box-shadow: 0 22px 55px rgba(0,0,0,.4);
 }
-.cseq-photo img { width: 100%; display: block; aspect-ratio: 3/4; object-fit: cover; }
-.cseq-tag { font-family: var(--f-casual); font-size: .6rem; color: var(--green); text-align: center; padding: 6px 0 2px; letter-spacing: .5px; }
-.cseq-photo.layer-0 { transform: translate(-50%,-50%) rotate(-2deg) scale(1); opacity: 1; z-index: 50; filter: none; }
-.cseq-photo.layer-1 { transform: translate(-24%,-54%) rotate(6deg) scale(.85); opacity: .8; filter: brightness(.82); }
-.cseq-photo.layer-2 { transform: translate(-76%,-46%) rotate(-8deg) scale(.78); opacity: .6; filter: brightness(.72); }
-.cseq-photo.layer-3 { transform: translate(-40%,-40%) rotate(3deg) scale(.7); opacity: .35; filter: brightness(.6); }
-.cseq-photo.layer-4 { transform: translate(-60%,-60%) rotate(-4deg) scale(.66); opacity: .18; filter: brightness(.5); }
-
-/* Marquee inferior campaña */
-.cseq-marquee { margin-top: 1.25rem; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-.cseq-marquee-track { display: flex; gap: 4px; width: max-content; animation: marqueeL 50s linear infinite; }
-.cseq-marquee-track img { height: 84px; width: auto; aspect-ratio: 3/4; object-fit: cover; flex-shrink: 0; filter: grayscale(20%); }
-.cseq-marquee:hover .cseq-marquee-track { animation-play-state: paused; }
+.cm-item img {
+    height: clamp(300px, 42vw, 480px); width: auto; aspect-ratio: 3/4;
+    object-fit: cover; display: block; transition: transform .6s var(--ease), filter .5s;
+    filter: grayscale(8%);
+}
+.cm-item:hover img { transform: scale(1.04); filter: grayscale(0%); }
+.cm-tag {
+    position: absolute; bottom: 12px; left: 12px;
+    font-family: var(--f-mono); font-size: .55rem; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--beige); background: rgba(23,23,19,.55); padding: 5px 11px; backdrop-filter: blur(4px);
+}
+.cm-tag b { color: var(--lima); margin-right: 6px; }
 
 /* ================================================================
    ARCHIVO — marquee visual doble fila
@@ -771,7 +802,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 @keyframes marqueeR { from { transform: translateX(-50%); } to { transform: translateX(0); } }
 
 @media (prefers-reduced-motion: reduce) {
-    .social-marquee-track, .cseq-marquee-track, .vm-track { animation: none !important; }
+    .cm-track, .scw-track, .vm-track { animation: none !important; }
+    .scw-frame { overflow: auto; }
 }
 
 /* ================================================================
@@ -808,7 +840,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
    BACK TO TOP
 ================================================================ */
 #back-to-top {
-    position: fixed; bottom: 1.5rem; left: 1.5rem; width: 42px; height: 42px;
+    position: fixed; bottom: 1.5rem; right: 1.5rem; width: 42px; height: 42px;
     background: var(--green); color: var(--beige); font-size: 1rem;
     display: flex; align-items: center; justify-content: center; z-index: 470;
     opacity: 0; transform: translateY(12px); pointer-events: none;
@@ -818,16 +850,99 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 #back-to-top:hover { background: var(--wine); }
 
 /* ================================================================
+   SLIDE FIT — encaja el contenido de cada sección en una pantalla
+   (alturas máximas con vh + jerarquías compactas, sin scroll interno)
+================================================================ */
+
+/* Display headings: techo controlado por alto de pantalla */
+.hero-name   { font-size: clamp(3.5rem, 6vw + 3vh, 8rem); margin-bottom: clamp(.6rem,1.6vh,1.25rem); }
+.cierre-frase{ font-size: clamp(2.2rem, 4vw + 2.5vh, 5rem); margin: clamp(1rem,2.4vh,2rem) 0; }
+.col-car-name{ font-size: clamp(2.4rem, 4vw + 2vh, 5.2rem); margin-bottom: clamp(.5rem,1.4vh,1rem); }
+.social-name { font-size: clamp(2.4rem, 4vw + 2vh, 5.2rem); }
+.cword       { font-size: clamp(2rem, 3vw + 2vh, 4.6rem); }
+.cword--xl   { font-size: clamp(3rem, 5vw + 3vh, 7rem); }
+.origen-quote{ font-size: clamp(1.2rem, 1.6vw + 1.4vh, 2.2rem); margin-top: clamp(.8rem,2vh,1.8rem); }
+.camp-closing, .verbal-closing { font-size: clamp(1.5rem, 2.4vw + 1.4vh, 3rem); }
+
+/* Medios pesados: altura máxima relativa a la pantalla */
+.campaign-marquee .cm-item img { height: clamp(180px, 36vh, 400px); }
+#campaign-sequence.campaign-marquee { margin-top: clamp(.8rem,2vh,2rem); padding: clamp(.8rem,2vh,1.75rem) 0; }
+.scw-frame { height: clamp(260px, 48vh, 520px); }
+.mat-img   { aspect-ratio: auto; max-height: 62vh; }
+.mat-img img { height: 100%; }
+.material-image { max-height: 62vh; }
+
+/* Colección: imagen del carrusel acotada en alto */
+.col-carousel .carousel-item { align-items: center; }
+.col-car-img { aspect-ratio: auto; height: clamp(240px, 52vh, 440px); }
+.col-car-img img { height: 100%; }
+.col-car-desc { max-width: 340px; margin-bottom: clamp(.5rem,1.4vh,1rem); }
+
+/* Identidad verbal: cards compactas para que entren las 5 + arquetipos */
+.verbal-cards { gap: 2px; margin-top: clamp(.6rem,1.6vh,1.2rem); }
+.vcard { padding: clamp(.9rem,2vh,1.6rem) clamp(.9rem,2vw,1.4rem); }
+.vcard-num { font-size: clamp(1.6rem,3vh,2.4rem); margin-bottom: clamp(.3rem,1vh,.7rem); }
+.vcard-text { font-size: clamp(.8rem,.5vw+.5vh,1rem); }
+.archetypes { gap: clamp(.8rem,2vw,1.5rem); margin-top: clamp(.8rem,2vh,1.5rem); }
+.atype { padding-top: clamp(.6rem,1.4vh,1rem); }
+
+/* Investigación: acordeones compactos */
+.acc-trigger { padding: clamp(.55rem,1.4vh,1rem) 0; }
+.inv-intro-quote { padding: clamp(.8rem,1.8vh,1.25rem); margin-top: clamp(.8rem,1.8vh,1.5rem); }
+
+/* Material: lista de proceso compacta */
+.process-list { margin-top: clamp(.6rem,1.4vh,1.5rem); }
+.pstep { padding: clamp(.5rem,1.1vh,.8rem) 0; }
+.mat-words { margin: clamp(.6rem,1.6vh,1.5rem) 0; }
+
+/* Estrategia: bloques y precios compactos */
+.strat-blocks .sblock { padding: clamp(.6rem,1.3vh,1rem) 1.25rem; }
+.price-row { padding: clamp(.5rem,1.2vh,.85rem) 1.25rem; }
+.strat-note { padding: clamp(.7rem,1.6vh,1.25rem); margin-top: 2px; }
+
+/* Identidad visual: color/typo compactos */
+.color-chip { height: clamp(56px, 9vh, 84px); }
+.typo-row { padding: clamp(.5rem,1.3vh,.75rem) 0; }
+.identity-block { margin-bottom: clamp(.7rem,1.6vh,1.5rem); }
+
+/* Cuidados/concepto/cierre: textos contenidos */
+.cierre-text { margin: 0 auto clamp(.5rem,1.2vh,1rem); }
+.concepto-words { margin: clamp(.6rem,1.6vh,1.5rem) 0; }
+
+/* Aplicaciones / RRSS / colección: el carrusel manda, texto previo corto */
+#aplicaciones .s-body, #rrss .s-body, #coleccion .s-body, #carteleria .s-body { margin-bottom: clamp(.4rem,1vh,.8rem); }
+
+/* Archivo: marquee + docs deben caber juntos */
+#archive-marquee { margin-top: clamp(.6rem,1.4vh,1.5rem); }
+.vm-track img { height: clamp(96px, 13vh, 150px); }
+.docs-grid { margin-top: clamp(.6rem,1.4vh,1.2rem); gap: 2px; }
+.doc-item { padding: clamp(.6rem,1.3vh,1rem) 1.1rem; }
+
+/* ================================================================
    RESPONSIVE
 ================================================================ */
 @media (max-width: 1024px) {
+    /* Por debajo de 1025px los grids se apilan a 1 columna y el contenido
+       crece: desactivamos el modo "diapositiva de altura fija" y volvemos
+       a flujo natural (cada sección ocupa al menos una pantalla, pero puede
+       crecer si lo necesita). Los portátiles (≥1025px) mantienen el modo slide. */
+    html { scroll-snap-type: none; }
+    .tfg-section {
+        height: auto;
+        min-height: 100svh;
+        overflow: visible;
+        padding: calc(var(--hdr) + 2rem) 6% 3.5rem;
+    }
+    .next-cue { position: static; margin-top: 1.75rem; align-self: flex-start; }
+
     .col-carousel .carousel-item { grid-template-columns: 1fr; }
     .camp-grid { grid-template-columns: 1fr; }
     .camp-grid .camp-carousel { order: -1; }
     .strat-grid { grid-template-columns: 1fr; }
     .web-grid { grid-template-columns: 1fr; }
     .cartel-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .social-panel { grid-template-columns: 1fr; }
+    /* Muro RRSS: menos inclinación y escala en pantallas medianas */
+    .scw-wall { transform: rotate(-5deg) scale(1.1); }
 }
 @media (max-width: 768px) {
     #section-dots { display: none; }
@@ -851,12 +966,16 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     .poster { width: clamp(220px, 62vw, 320px); }
     .poster.pos-1 { transform: translate(-46%,-52%) rotate(5deg) scale(.88); }
     .poster.pos-2 { transform: translate(-54%,-48%) rotate(-6deg) scale(.82); }
-    /* Secuencia campaña: reducir solape */
-    .cseq-stack { height: clamp(360px, 95vw, 520px); }
-    .cseq-photo { width: clamp(200px, 58vw, 300px); }
-    .cseq-photo.layer-1 { transform: translate(-44%,-54%) rotate(6deg) scale(.86); }
-    .cseq-photo.layer-2 { transform: translate(-56%,-46%) rotate(-7deg) scale(.8); }
-    .social-name { font-size: clamp(2.6rem, 12vw, 4rem); }
+
+    /* Carrusel campaña destacado: imágenes algo más bajas */
+    .cm-item img { height: clamp(260px, 64vw, 380px); }
+
+    /* Muro RRSS: 2 columnas, menos inclinación para que no se corte */
+    .scw-frame { height: clamp(440px, 82vh, 560px); }
+    .scw-wall { grid-template-columns: repeat(2, 1fr); transform: rotate(-5deg) scale(1.14); }
+    .scw-col--3 { display: none; }       /* en móvil basta con 2 columnas */
+    .scw-col--1 { margin-top: -24px; }
+    .scw-col--2 { margin-top: 16px; }
 }
 @media (max-width: 640px) {
     .verbal-cards { grid-template-columns: 1fr; }
@@ -866,14 +985,14 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     .color-row { flex-wrap: wrap; }
     .color-chip { min-width: 60px; height: 66px; }
     .col-car-name { font-size: 3rem; }
-    .social-tabs { gap: 1px; }
-    .social-tab { padding: 7px 11px; font-size: .55rem; }
     .vm-track img { height: 110px; }
+    .cm-item img { height: clamp(230px, 70vw, 320px); }
+    .scw-legend-item { font-size: .72rem; }
 }
 @media (max-width: 420px) {
     .s-title { font-size: 2rem; letter-spacing: -2px; }
     .spot-actions { flex-direction: column; }
     .spot-actions .btn { width: 100%; justify-content: center; }
     .poster { width: 78vw; }
-    .cseq-photo { width: 74vw; }
+    .scw-frame { height: 64vh; }
 }

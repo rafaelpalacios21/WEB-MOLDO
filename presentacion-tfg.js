@@ -317,142 +317,65 @@ function initPosterStack() {
 }
 
 /* ================================================================
-   9. SOCIAL SHOWCASE (RRSS doble carrusel)
+   9. SOCIAL WALL (RRSS — 3 columnas inclinadas automáticas)
+   Muro tipo exposición: 3 columnas que se desplazan solas en
+   vertical (alternando sentido) e inclinadas en abanico.
 ================================================================ */
 function buildSocialShowcase() {
     const root = document.getElementById('social-showcase');
     if (!root) return;
-
     const enc = s => encodeURIComponent(s);
 
-    // Selector de piezas
-    const tabs = SOCIAL_DATA.map((d, i) =>
-        `<button class="social-tab${i === 0 ? ' active' : ''}" data-i="${i}" aria-label="Ver ${d.piece}">${d.piece}</button>`
-    ).join('');
+    // Aplanar las 5 carpetas (25 imágenes) conservando el nombre de la pieza
+    const pairs = [];
+    SOCIAL_DATA.forEach(d => d.imgs.forEach(img =>
+        pairs.push({ piece: d.piece, src: `assets/${d.folder}/${enc(img)}` })
+    ));
 
-    // Paneles (texto izq + stack de imágenes der)
-    const panels = SOCIAL_DATA.map((d, i) => {
-        const imgs = d.imgs.map((img, j) =>
-            `<img class="social-inner-img${j === 0 ? ' active' : ''}" src="assets/${d.folder}/${enc(img)}" alt="${d.piece} — publicación ${j + 1}" loading="lazy" data-lightbox>`
+    // Repartir en 3 columnas (round-robin → sin amontonar la misma pieza)
+    const cols = [[], [], []];
+    pairs.forEach((p, i) => cols[i % 3].push(p));
+
+    const colHtml = cols.map((col, ci) => {
+        const items = col.map(p =>
+            `<figure class="scw-item">
+                <img src="${p.src}" alt="${p.piece} — publicación moldoLab" loading="lazy" data-lightbox>
+                <figcaption class="scw-tag">${p.piece}</figcaption>
+             </figure>`
         ).join('');
-        return `
-        <div class="social-panel${i === 0 ? ' active' : ''}" data-i="${i}">
-            <div class="social-info">
-                <p class="social-type">${d.type}</p>
-                <h3 class="social-name">${d.piece}</h3>
-                <p class="social-text">${d.text}</p>
-                <p class="social-count"><span class="sc-cur">01</span> / 05 · publicación</p>
-            </div>
-            <div class="social-inner" data-i="${i}">
-                ${imgs}
-                <span class="social-inner-tag">@moldolab · ${d.piece}</span>
-            </div>
-        </div>`;
+        // duplicado para bucle infinito sin saltos
+        return `<div class="scw-col scw-col--${ci + 1}"><div class="scw-track">${items}${items}</div></div>`;
     }).join('');
 
-    // Marquee con todas las imágenes (loop CSS)
-    let allImgs = [];
-    SOCIAL_DATA.forEach(d => d.imgs.forEach(img => allImgs.push(`assets/${d.folder}/${enc(img)}`)));
-    const marqueeImgs = allImgs.concat(allImgs).map(src =>
-        `<img src="${src}" alt="Publicación moldoLab" loading="lazy" data-lightbox>`
+    const legend = SOCIAL_DATA.map(d =>
+        `<span class="scw-legend-item"><b>${d.piece}</b> · ${d.type}</span>`
     ).join('');
 
     root.innerHTML = `
-        <div class="social-tabs">${tabs}</div>
-        <div class="social-panels">${panels}</div>
-        <div class="social-marquee" aria-hidden="false">
-            <div class="social-marquee-track">${marqueeImgs}</div>
-        </div>`;
-
-    /* ── Lógica ── */
-    const tabEls   = root.querySelectorAll('.social-tab');
-    const panelEls = root.querySelectorAll('.social-panel');
-    let mainIdx    = 0;
-    let mainTimer  = null;
-    let innerTimers = [];
-
-    function showPanel(idx) {
-        mainIdx = (idx + panelEls.length) % panelEls.length;
-        panelEls.forEach((p, i) => p.classList.toggle('active', i === mainIdx));
-        tabEls.forEach((t, i) => t.classList.toggle('active', i === mainIdx));
-    }
-
-    // Mini-carrusel interno por panel
-    panelEls.forEach((panel, pi) => {
-        const imgs = panel.querySelectorAll('.social-inner-img');
-        const curLabel = panel.querySelector('.sc-cur');
-        let ii = 0;
-        const t = setInterval(() => {
-            imgs[ii].classList.remove('active');
-            ii = (ii + 1) % imgs.length;
-            imgs[ii].classList.add('active');
-            if (curLabel) curLabel.textContent = pad(ii + 1);
-        }, 2600 + pi * 120);
-        innerTimers.push(t);
-    });
-
-    function startMain() { if (!REDUCED) mainTimer = setInterval(() => showPanel(mainIdx + 1), 7000); }
-    function stopMain()  { clearInterval(mainTimer); }
-
-    tabEls.forEach(t => t.addEventListener('click', () => { stopMain(); showPanel(parseInt(t.dataset.i)); startMain(); }));
-    startMain();
-
-    root.addEventListener('mouseenter', stopMain);
-    root.addEventListener('mouseleave', startMain);
-
-    // Registrar para pausa por scroll
-    autoModules.push({
-        el: root,
-        start: () => { startMain(); },
-        stop:  () => { stopMain(); },
-        running: true
-    });
+        <div class="scw-frame">
+            <div class="scw-wall">${colHtml}</div>
+        </div>
+        <div class="scw-legend">${legend}</div>`;
 }
 
 /* ================================================================
-   10. CAMPAIGN SEQUENCE (fotos 1-12 en stack editorial)
+   10. CAMPAIGN MARQUEE (fotos 1-12 — carrusel continuo destacado)
+   Full-bleed, imágenes grandes: es el carrusel protagonista.
 ================================================================ */
 function buildCampaignSequence() {
     const root = document.getElementById('campaign-sequence');
     if (!root) return;
+    root.classList.add('campaign-marquee');
 
-    const photos = CAMPAIGN_PHOTOS.map((p, i) =>
-        `<figure class="cseq-photo" data-i="${i}">
+    const figs = CAMPAIGN_PHOTOS.map((p, i) =>
+        `<figure class="cm-item">
             <img src="${p.src}" alt="Campaña moldoLab — ${p.tag}" loading="lazy" data-lightbox>
-            <figcaption class="cseq-tag">${p.tag}</figcaption>
+            <figcaption class="cm-tag"><b>${pad(i + 1)}</b> ${p.tag}</figcaption>
          </figure>`
     ).join('');
 
-    // marquee inferior con miniaturas (loop CSS)
-    const strip = CAMPAIGN_PHOTOS.concat(CAMPAIGN_PHOTOS).map(p =>
-        `<img src="${p.src}" alt="Campaña moldoLab" loading="lazy" data-lightbox>`
-    ).join('');
-
-    root.innerHTML = `
-        <div class="cseq-stack">${photos}</div>
-        <div class="cseq-marquee"><div class="cseq-marquee-track">${strip}</div></div>`;
-
-    const stack  = root.querySelector('.cseq-stack');
-    const figs   = Array.from(stack.querySelectorAll('.cseq-photo'));
-    let order    = figs.map((_, i) => i);
-    let interval = null;
-
-    function render() {
-        order.forEach((fIdx, pos) => {
-            const f = figs[fIdx];
-            f.className = 'cseq-photo layer-' + Math.min(pos, 4);
-            f.style.zIndex = figs.length - pos;
-        });
-    }
-    function rotate() { order.push(order.shift()); render(); }
-    function start() { if (!REDUCED) interval = setInterval(rotate, 3000); }
-    function stop()  { clearInterval(interval); }
-
-    render(); start();
-    stack.addEventListener('mouseenter', stop);
-    stack.addEventListener('mouseleave', start);
-
-    autoModules.push({ el: root, start, stop, running: true });
+    // duplicado x2 para loop CSS sin saltos
+    root.innerHTML = `<div class="cm-track">${figs}${figs}</div>`;
 }
 
 /* ================================================================
@@ -461,15 +384,14 @@ function buildCampaignSequence() {
 function buildArchiveMarquee() {
     const root = document.getElementById('archive-marquee');
     if (!root) return;
-    const enc = s => encodeURIComponent(s);
 
-    // Fila 1: fotos campaña + carteles
-    const rowA = ['assets/1.jpg','assets/3.jpg','assets/5.jpg','assets/7.jpg','assets/9.jpg','assets/11.jpg',
-                  'athyhnj.JPG','nfghn.JPG','assets/HELADO.png','assets/COCOS.png'];
-    // Fila 2: piezas + rrss + apps
-    const rowB = ['assets/anilloCALA.jpg','assets/CollarNARA.jpg','assets/BrazaleteORA.jpg','assets/PendientesSIRA.jpg','assets/AnilloLUA.jpg',
-                  'assets/CALA/'+enc('POST INSTAGRAM.jpg'),'assets/NARA/'+enc('POST INSTAGRAM6.jpg'),
-                  'assets/SOMBRILLA.jpg','assets/HIELOS.png','assets/2.jpg'];
+    // Fila 1: carteles + lifestyle + editorial (assets distintos a los otros carruseles)
+    const rowA = ['athyhnj.JPG','nfghn.JPG','assets/HELADO.png','assets/COCOS.png','assets/HIELOS.png',
+                  'assets/SOMBRILLA.jpg','assets/IMAGEN1.jpg','assets/IMAGEN2.jpg','assets/IMAGEN3.jpg','assets/tresuno.jpg'];
+    // Fila 2: piezas de producto (foto + cutout) — no repite campaña ni RRSS
+    const rowB = ['assets/anilloCALA.jpg','assets/anillocala.png','assets/CollarNARA.jpg','assets/collarnara.png',
+                  'assets/BrazaleteORA.jpg','assets/brazaleteora.png','assets/PendientesSIRA.jpg','assets/pendientes-sira.png',
+                  'assets/AnilloLUA.jpg','assets/anillolua.png'];
 
     const mk = arr => arr.concat(arr).map(src =>
         `<img src="${src}" alt="Archivo visual moldoLab" loading="lazy" data-lightbox>`).join('');

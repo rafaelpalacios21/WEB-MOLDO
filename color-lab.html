@@ -1271,9 +1271,9 @@
     <!-- Three.js 3D model viewer (ES Module) -->
     <script type="module">
         import * as THREE from 'three';
-        import { FBXLoader }       from 'three/addons/loaders/FBXLoader.js';
+        import { GLTFLoader }      from 'three/addons/loaders/GLTFLoader.js';
+        import { DRACOLoader }      from 'three/addons/loaders/DRACOLoader.js';
         import { OrbitControls }   from 'three/addons/controls/OrbitControls.js';
-        import { mergeVertices }   from 'three/addons/utils/BufferGeometryUtils.js';
 
         // ── Scene setup ──
         const canvas   = document.getElementById('ring-canvas');
@@ -1366,36 +1366,54 @@
             });
         }
 
-        // ── Load FBX ──
-        const fbxLoader = new FBXLoader();
-        fbxLoader.load(
-            'assets/Hitem3d-1773241653302.fbx',
-            (fbx) => {
-                // Apply material to every mesh
-                fbx.traverse((child) => {
-                    if (child.isMesh) {
-                        child.geometry = mergeVertices(child.geometry, 1e-4);
-                        child.geometry.computeVertexNormals();
+        // ── Load GLB (glTF binario con compresión Draco) ──
+        const dracoLoader = new DRACOLoader();
+        dracoLoader.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/draco/');
+        dracoLoader.setDecoderConfig({ type: 'js' });
+
+        const gltfLoader = new GLTFLoader();
+        gltfLoader.setDRACOLoader(dracoLoader);
+        gltfLoader.load(
+            'assets/anillo3dcala.glb',
+            (gltf) => {
+                const model = gltf.scene;
+
+                // Apply material to every mesh (para que el selector de color funcione).
+                // No re-fusionamos vértices: la malla es muy densa y trae sus propias
+                // normales desde Blender; mergeVertices la bloquearía.
+                model.traverse((child) => {
+                    if (child.isMesh && child.geometry) {
+                        if (!child.geometry.attributes.normal) {
+                            child.geometry.computeVertexNormals();
+                        }
                         child.material = makeMaterial(currentColor);
+                        child.castShadow = false;
+                        child.receiveShadow = false;
                         modelMeshes.push(child);
                     }
                 });
 
-                // Auto-fit
-                const box    = new THREE.Box3().setFromObject(fbx);
+                if (modelMeshes.length === 0) {
+                    console.warn('[anillo3dcala.glb] El archivo no contiene ninguna malla.');
+                    const txt = loader2.querySelector('.loader-text');
+                    if (txt) txt.textContent = 'El modelo está vacío';
+                }
+
+                // Auto-fit: centrar y escalar al encuadre estándar
+                const box    = new THREE.Box3().setFromObject(model);
                 const size   = box.getSize(new THREE.Vector3());
                 const center = box.getCenter(new THREE.Vector3());
-                const maxDim = Math.max(size.x, size.y, size.z);
+                const maxDim = Math.max(size.x, size.y, size.z) || 1;
                 const scale  = 3.5 / maxDim;
 
-                fbx.scale.setScalar(scale);
-                fbx.position.sub(center.multiplyScalar(scale));
-                modelBaseY = fbx.position.y;
+                model.scale.setScalar(scale);
+                model.position.sub(center.multiplyScalar(scale));
+                modelBaseY = model.position.y;
 
-                scene.add(fbx);
-                fbxGroup = fbx;
+                scene.add(model);
+                fbxGroup = model;
 
-                // Blob shadow — plano con gradiente canvas, sólo visible desde arriba
+                // Blob shadow — plano con gradiente canvas
                 const groundY  = -(size.y * scale) / 2 - 0.18;
                 blobShadow = new THREE.Mesh(
                     new THREE.PlaneGeometry(1, 1),
@@ -1416,14 +1434,16 @@
                 setTimeout(() => loader2.style.display = 'none', 500);
             },
             (xhr) => {
-                const pct = Math.round((xhr.loaded / xhr.total) * 100);
-                const txt = loader2.querySelector('.loader-text');
-                if (txt) txt.textContent = `Cargando… ${pct}%`;
+                if (xhr.total) {
+                    const pct = Math.round((xhr.loaded / xhr.total) * 100);
+                    const txt = loader2.querySelector('.loader-text');
+                    if (txt) txt.textContent = `Cargando… ${pct}%`;
+                }
             },
             (err) => {
-                console.error('FBX load error:', err);
+                console.error('GLB load error:', err);
                 const txt = loader2.querySelector('.loader-text');
-                if (txt) txt.textContent = 'Error: ' + (err?.message || err);
+                if (txt) txt.textContent = 'Error al cargar el modelo';
                 const ring = loader2.querySelector('.loader-ring');
                 if (ring) ring.style.display = 'none';
             }
