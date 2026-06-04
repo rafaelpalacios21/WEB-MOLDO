@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>moldoLab — Presentación TFG</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="presentacion-tfg.css">
+</head>
+<body>
+
+<!-- ────────────────────────────────────────────────────────────
+     PANTALLA DE ACCESO
+──────────────────────────────────────────────────────────── -->
+<div id="access-screen" role="dialog" aria-modal="true" aria-label="Acceso privado">
+    <div class="access-inner">
+        <p class="access-wordmark">moldo<span>Lab</span></p>
+        <h1 class="access-tagline">No todo el mundo<br>lo entiende.<br>Y no pasa nada.</h1>
+        <p class="access-sub">Acceso privado al proyecto moldoLab</p>
+
+        <form class="access-form" id="access-form" novalidate>
+            <input class="access-input" id="access-input" type="password"
+                   placeholder="contraseña" autocomplete="current-password"
+                   aria-label="Contraseña de acceso" required>
+            <button type="submit" class="access-btn">Entrar al universo</button>
+            <p class="access-error" id="access-error" role="alert" aria-live="polite">No era por ahí.</p>
+        </form>
+
+        <p class="access-foot">TFG · Diseño Gráfico · 2026</p>
+    </div>
+</div>
+
+
+<!-- ────────────────────────────────────────────────────────────
+     LANDING
+──────────────────────────────────────────────────────────── -->
+<div id="landing" class="hidden">
+
+    <div id="cursor-blob" aria-hidden="true"></div>
+
+    <div id="progress-wrap" aria-hidden="true"><div id="progress-bar"></div></div>
+
+    <!-- HEADER -->
+    <header id="tfg-header">
+        <div class="hdr-logo" onclick="goToId('spot')" role="button" aria-label="Inicio">moldo<span>Lab</span></div>
+
+        <nav class="hdr-nav" aria-label="Secciones">
+            <a class="hdr-link" data-target="spot"             onclick="goToId('spot');return false;" href="#spot">Spot</a>
+            <a class="hdr-link" data-target="origen"           onclick="goToId('origen');return false;" href="#origen">Origen</a>
+            <a class="hdr-link" data-target="identidad-verbal" onclick="goToId('identidad-verbal');return false;" href="#identidad-verbal">Identidad</a>
+            <a class="hdr-link" data-target="coleccion"        onclick="goToId('coleccion');return false;" href="#coleccion">Colección</a>
+            <a class="hdr-link" data-target="campana"          onclick="goToId('campana');return false;" href="#campana">Campaña</a>
+            <a class="hdr-link" data-target="carteleria"       onclick="goToId('carteleria');return false;" href="#carteleria">Carteles</a>
+            <a class="hdr-link" data-target="rrss"             onclick="goToId('rrss');return false;" href="#rrss">Redes</a>
+            <a class="hdr-link" data-target="estrategia"       onclick="goToId('estrategia');return false;" href="#estrategia">Estrategia</a>
+            <a class="hdr-link" data-target="cierre"           onclick="goToId('cierre');return false;" href="#cierre">Cierre</a>
+        </nav>
+
+        <div class="hdr-right">
+            <span id="section-counter" aria-live="polite">01 / 17</span>
+            <button id="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-drawer">
+                <span class="hl"></span><span class="hl"></span><span class="hl"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Drawer mobile -->
+    <nav id="mobile-drawer" aria-label="Menú móvil">
+        <button onclick="goToId('spot')">Spot publicitario</button>
+        <button onclick="goToId('inicio')">Inicio</button>
+        <button onclick="goToId('origen')">Origen</button>
+        <button onclick="goToId('investigacion')">Investigación</button>
+        <button onclick="goToId('concepto')">Concepto</button>
+        <button onclick="goToId('identidad-verbal')">Identidad verbal</button>
+        <button onclick="goToId('identidad-visual')">Identidad visual</button>
+        <button onclick="goToId('coleccion')">Colección</button>
+        <button onclick="goToId('material-proceso')">Material y proceso</button>
+        <button onclick="goToId('campana')">Campaña</button>
+        <button onclick="goToId('carteleria')">Cartelería</button>
+        <button onclick="goToId('rrss')">Redes sociales</button>
+        <button onclick="goToId('aplicaciones')">Aplicaciones</button>
+        <button onclick="goToId('web')">Web</button>
+        <button onclick="goToId('estrategia')">Estrategia</button>
+        <button onclick="goToId('cierre')">Cierre</button>
+        <button onclick="goToId('archivo')">Archivo</button>
+    </nav>
+
+    <!-- Dots laterales -->
+    <div id="section-dots" role="navigation" aria-label="Navegación por secciones"></div>
+
+
+    <main>
+
+    <!-- ═══ SPOT ═══ -->
+    <section class="tfg-section" id="spot" data-name="Spot">
+        <div class="spot-grid">
+            <div class="reveal">
+                <p class="s-eyebrow">00 / Spot publicitario</p>
+                <h2 class="s-title" style="color:var(--beige);font-size:clamp(1.8rem,4vw,3.4rem);">
+                    Antes de explicar<br>moldoLab,<br>míralo.
+                </h2>
+                <p class="s-body" style="color:rgba(237,233,206,.45);margin-top:1rem;margin-bottom:2rem;">
+                    El proyecto se presenta primero desde la atmósfera, el cuerpo y la presencia visual.
+                    El spot funciona como entrada al universo de la marca antes del desarrollo conceptual.
+                </p>
+                <div class="spot-actions">
+                    <button class="btn btn-light" onclick="openVideoModal()">Ver en grande</button>
+                    <button class="btn btn-outline-light" onclick="goToId('inicio')">Entrar al proyecto</button>
+                </div>
+            </div>
+
+            <div class="spot-video-wrap reveal d1">
+                <div class="spot-video-inner">
+                    <span class="spot-tag">SS·26 — Spot oficial</span>
+                    <video controls preload="metadata" poster="assets/1.jpg"
+                           aria-label="Spot publicitario moldoLab SS·26">
+                        <source src="assets/spot-publicitario.mp4" type="video/mp4">
+                        Tu navegador no soporta vídeo HTML5.
+                    </video>
+                </div>
+            </div>
+        </div>
+        <a class="next-cue next-cue--light" onclick="goToId('inicio')" role="button">
+            <span class="arrow">↓</span> Entrar al proyecto
+        </a>
+    </section>
+
+
+    <!-- ═══ INICIO / HERO ═══ -->
+    <section class="tfg-section" id="inicio" data-name="Inicio">
+        <div class="hero-grid">
+            <div class="hero-text">
+                <p class="s-eyebrow" style="color:var(--lima);">Trabajo Final de Grado · Diseño Gráfico · 2026</p>
+                <h1 class="hero-name">MOLDO<span>Lab</span></h1>
+                <p class="hero-sub">Joyas experimentales para cuerpos contemporáneos.</p>
+                <p class="hero-badge">Una marca que no nace para adornar, sino para expresar identidad.</p>
+                <p class="s-body" style="color:rgba(237,233,206,.45);margin-bottom:2rem;max-width:380px;">
+                    Joyería alternativa construida desde la forma, la materia y la presencia.
+                </p>
+                <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+                    <button class="btn btn-light" onclick="goToId('origen')">Empezar recorrido</button>
+                    <button class="btn btn-outline-light" onclick="goToId('coleccion')">Ver colección</button>
+                </div>
+            </div>
+            <div class="hero-img" aria-hidden="true">
+                <img src="assets/2.jpg" alt="moldoLab campaña visual" loading="lazy">
+                <div class="hero-img-grad"></div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══ ORIGEN ═══ -->
+    <section class="tfg-section" id="origen" data-name="Origen">
+        <div class="origen-grid">
+            <div class="reveal">
+                <p class="s-eyebrow">01 / Origen</p>
+                <h2 class="s-title">Cuando todo empieza<br>a parecerse demasiado</h2>
+                <p class="s-body" style="margin-bottom:1.5rem;">
+                    moldoLab nace de observar un entorno visual donde muchas piezas y tendencias empiezan
+                    a parecerse entre sí. El proyecto propone una joyería experimental que entiende la pieza
+                    como una forma de identidad, no como un simple accesorio.
+                </p>
+                <p class="origen-quote">
+                    "No buscamos piezas<br>que combinen con todo.<br>
+                    <em>Buscamos piezas que digan algo."</em>
+                </p>
+            </div>
+            <div class="origen-blocks reveal d1">
+                <div class="oblock">
+                    <p class="oblock-num">01 / Problema</p>
+                    <p class="oblock-title">La joyería tradicional</p>
+                    <p class="oblock-text">Continúa asociada al lujo material, al valor económico y a los códigos clásicos.</p>
+                </div>
+                <div class="oblock">
+                    <p class="oblock-num">02 / Oportunidad</p>
+                    <p class="oblock-title">El nuevo público</p>
+                    <p class="oblock-text">Jóvenes y creativos buscan objetos que comuniquen actitud, estética propia y pertenencia visual.</p>
+                </div>
+                <div class="oblock">
+                    <p class="oblock-num">03 / Respuesta</p>
+                    <p class="oblock-title">moldoLab</p>
+                    <p class="oblock-text">Polímeros flexibles, formas orgánicas y narrativa gráfica para piezas con presencia.</p>
+                </div>
+            </div>
+        </div>
+        <a class="next-cue" onclick="goToId('investigacion')" role="button"><span class="arrow">↓</span> Investigación</a>
+    </section>
+
+
+    <!-- ═══ INVESTIGACIÓN ═══ -->
+    <section class="tfg-section" id="investigacion" data-name="Investigación">
+        <div class="inv-grid">
+            <div class="reveal">
+                <p class="s-eyebrow" style="color:var(--lima);">02 / Investigación</p>
+                <h2 class="s-title" style="color:var(--beige);font-size:clamp(2rem,4.5vw,4rem);">
+                    De la joya<br>como objeto a la joya<br>como lenguaje
+                </h2>
+                <p class="s-body" style="color:rgba(237,233,206,.45);">
+                    La joyería nunca ha sido solo decorativa. Ha funcionado como símbolo, archivo emocional
+                    y forma de representación. moldoLab traslada esa lectura al contexto contemporáneo.
+                </p>
+                <p class="inv-intro-quote">
+                    El polímero no es un sustituto del material noble — es un recurso expresivo con valor propio.
+                </p>
+            </div>
+            <div class="reveal d1">
+                <div class="acc-trigger" aria-expanded="false">Joyería como símbolo</div>
+                <div class="acc-panel"><div class="acc-panel-inner">La joya comunica estatus, protección, memoria, vínculo e identidad. Antes que objeto decorativo, <strong>es lenguaje</strong>.</div></div>
+
+                <div class="acc-trigger" aria-expanded="false">Motivos y estructuras</div>
+                <div class="acc-panel"><div class="acc-panel-inner">Nudos, torsiones y formas continuas muestran cómo la joyería siempre ha trabajado con <strong>cuerpo, unión y recorrido</strong>.</div></div>
+
+                <div class="acc-trigger" aria-expanded="false">Bauhaus</div>
+                <div class="acc-panel"><div class="acc-panel-inner">El valor del objeto se desplaza del material precioso hacia la <strong>forma, la función y la coherencia conceptual</strong>.</div></div>
+
+                <div class="acc-trigger" aria-expanded="false">Arquitectura</div>
+                <div class="acc-panel"><div class="acc-panel-inner">La joya puede entenderse como <strong>microarquitectura</strong>: volumen, tensión, estructura y relación con el cuerpo.</div></div>
+
+                <div class="acc-trigger" aria-expanded="false">Joyería contemporánea</div>
+                <div class="acc-panel"><div class="acc-panel-inner">La pieza se acerca al arte portátil, la escultura y el <strong>diseño de autor</strong>.</div></div>
+
+                <div class="acc-trigger" aria-expanded="false">Gaetano Pesce</div>
+                <div class="acc-panel"><div class="acc-panel-inner">El material sintético, el error, la imperfección y la singularidad se convierten en <strong>lenguaje propio</strong>.</div></div>
+            </div>
+        </div>
+        <a class="next-cue next-cue--light" onclick="goToId('concepto')" role="button"><span class="arrow">↓</span> Concepto</a>
+    </section>
+
+
+    <!-- ═══ CONCEPTO ═══ -->
+    <section class="tfg-section" id="concepto" data-name="Concepto">
+        <div class="reveal">
+            <p class="s-eyebrow">03 / Concepto de marca</p>
+            <h2 class="s-title">No está hecho para encajar</h2>
+            <p class="s-body" style="max-width:520px;">
+                moldoLab es una marca de joyería contemporánea que utiliza materiales plásticos y polímeros
+                como recurso expresivo. El foco está en la forma, el volumen, la actitud y la identidad visual.
+            </p>
+        </div>
+        <div class="concepto-words reveal d1">
+            <span class="cword">Identidad.</span>
+            <span class="cword cword--red">Actitud.</span>
+            <span class="cword">Estética.</span>
+            <span class="cword cword--xl">Presencia.</span>
+        </div>
+        <p class="s-body s-casual reveal d2" style="max-width:480px;color:var(--muted);">
+            La pieza no se entiende como adorno, sino como gesto visual. Una extensión de quien la lleva.
+        </p>
+        <a class="next-cue" onclick="goToId('identidad-verbal')" role="button"><span class="arrow">↓</span> Identidad verbal</a>
+    </section>
+
+
+    <!-- ═══ IDENTIDAD VERBAL ═══ -->
+    <section class="tfg-section" id="identidad-verbal" data-name="Id. Verbal">
+        <div class="reveal">
+            <p class="s-eyebrow">04 / Identidad verbal</p>
+            <h2 class="s-title">La marca habla como piensa</h2>
+            <p class="s-body" style="margin-bottom:1rem;">
+                Evita el tono neutro y correcto. Habla desde una voz directa, sensorial y cercana, con un punto
+                de provocación. No busca convencer a todos: busca conectar con quien entiende su universo.
+            </p>
+        </div>
+
+        <div class="verbal-cards reveal d1">
+            <div class="vcard"><div class="vcard-num">01</div><p class="vcard-text">"No sabes por qué te gusta.<br>Sabes que es tuyo."</p></div>
+            <div class="vcard"><div class="vcard-num">02</div><p class="vcard-text">"No seguimos tendencias.<br>Las usamos, las mezclamos...<br>o las ignoramos."</p></div>
+            <div class="vcard"><div class="vcard-num">03</div><p class="vcard-text">"Lo imperfecto tiene personalidad.<br>Y la personalidad siempre gana."</p></div>
+            <div class="vcard"><div class="vcard-num">04</div><p class="vcard-text">"No todo el mundo lo entiende.<br>Y no pasa nada."</p></div>
+            <div class="vcard"><div class="vcard-num">05</div><p class="vcard-text">"El material no define el valor.<br>Lo que vale es lo que transmite."</p></div>
+        </div>
+
+        <div class="archetypes reveal d2">
+            <div class="atype"><p class="atype-name">Explorador</p><p class="atype-text">Busca, prueba y expande límites sin pedir permiso.</p></div>
+            <div class="atype"><p class="atype-name">Villano</p><p class="atype-text">Rompe el canon y desafía lo establecido desde dentro.</p></div>
+            <div class="atype"><p class="atype-name">Amante</p><p class="atype-text">Conecta desde lo sensorial, lo emocional y lo deseable.</p></div>
+        </div>
+        <a class="next-cue" onclick="goToId('identidad-visual')" role="button"><span class="arrow">↓</span> Identidad visual</a>
+    </section>
+
+
+    <!-- ═══ IDENTIDAD VISUAL ═══ -->
+    <section class="tfg-section" id="identidad-visual" data-name="Id. Visual">
+        <div class="visual-grid">
+            <div class="reveal">
+                <p class="s-eyebrow">05 / Identidad visual</p>
+                <h2 class="s-title" style="font-size:clamp(2rem,4vw,3.8rem);">Un sistema blando,<br>claro y reconocible</h2>
+
+                <div class="identity-block">
+                    <p class="identity-label">Logotipo</p>
+                    <p class="identity-text">Parte de la idea de molde, pero invierte su significado. No es repetición ni límite, sino punto de partida para romper la forma.</p>
+                </div>
+                <div class="identity-block">
+                    <p class="identity-label">Sistema cromático</p>
+                    <p class="identity-text">El color no es una norma cerrada, sino recurso expresivo. Ordena el universo visual sin limitar su evolución.</p>
+                    <div class="color-row">
+                        <div class="color-chip" style="background:#565f34;color:#ede9ce;" data-hex="#565f34" title="Copiar"><span class="chip-name">Verde</span><span class="chip-hex">#565f34</span></div>
+                        <div class="color-chip" style="background:#a7bf67;color:#171713;" data-hex="#a7bf67" title="Copiar"><span class="chip-name">Lima</span><span class="chip-hex">#a7bf67</span></div>
+                        <div class="color-chip" style="background:#780313;color:#ede9ce;" data-hex="#780313" title="Copiar"><span class="chip-name">Granate</span><span class="chip-hex">#780313</span></div>
+                        <div class="color-chip" style="background:#be223d;color:#ede9ce;" data-hex="#be223d" title="Copiar"><span class="chip-name">Rojo</span><span class="chip-hex">#be223d</span></div>
+                        <div class="color-chip" style="background:#ede9ce;color:#171713;" data-hex="#ede9ce" title="Copiar"><span class="chip-name">Beige</span><span class="chip-hex">#ede9ce</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal d1">
+                <p class="identity-label" style="color:var(--red);">Sistema tipográfico</p>
+                <div class="typo-row">
+                    <p style="font-family:'MoldoRegular',sans-serif;font-size:clamp(2rem,4vw,3.4rem);color:var(--green);letter-spacing:-2px;line-height:1;">moldoLab</p>
+                    <p class="typo-label">MoldoRegular — Logotipo, titulares de impacto</p>
+                </div>
+                <div class="typo-row">
+                    <p style="font-size:clamp(1.2rem,2.5vw,2rem);font-weight:900;letter-spacing:-1px;color:var(--text);">POPPINS BOLD</p>
+                    <p class="typo-label">Poppins — Estructura, navegación, cuerpo</p>
+                </div>
+                <div class="typo-row">
+                    <p style="font-family:'CasualHuman',sans-serif;font-size:clamp(1rem,2vw,1.5rem);color:var(--red);">Casual Human · esto no es para todos</p>
+                    <p class="typo-label">CasualHuman — Notas, etiquetas, tono cercano</p>
+                </div>
+
+                <div style="margin-top:1.25rem;padding:1.25rem;background:var(--green);">
+                    <p style="font-family:'MoldoRegular',sans-serif;font-size:clamp(2rem,5vw,3.8rem);color:var(--beige);letter-spacing:-3px;line-height:.85;text-transform:uppercase;">
+                        MOLDO<br><span style="font-family:'Poppins',sans-serif;font-weight:200;color:var(--lima);">Lab</span>
+                    </p>
+                    <p class="identity-label" style="color:rgba(237,233,206,.4);margin-top:.75rem;">Sistema gráfico — composiciones editoriales, frases directas, gran presencia</p>
+                </div>
+            </div>
+        </div>
+        <a class="next-cue" onclick="goToId('coleccion')" role="button"><span class="arrow">↓</span> Colección</a>
+    </section>
+
+
+    <!-- ═══ COLECCIÓN ═══ -->
+    <section class="tfg-section" id="coleccion" data-name="Colección">
+        <div class="reveal">
+            <p class="s-eyebrow" style="color:var(--lima);">06 / Colección SS·26</p>
+            <h2 class="s-title" style="color:var(--beige);">Cinco piezas.<br>Una misma actitud.</h2>
+            <p class="s-body" style="color:rgba(237,233,206,.45);">
+                Dos anillos, un collar, un brazalete y unos pendientes. Todas trabajan desde el volumen,
+                el gesto, la fluidez y la presencia escultórica.
+            </p>
+        </div>
+
+        <div class="auto-carousel col-carousel reveal d1" data-delay="4500">
+            <div class="carousel-track">
+                <div class="carousel-item">
+                    <div class="col-car-img"><img src="assets/anilloCALA.jpg" alt="Anillo CALA" loading="lazy" data-lightbox></div>
+                    <div>
+                        <p class="col-car-type">Anillo estrella · 45€</p>
+                        <h3 class="col-car-name">CALA</h3>
+                        <p class="col-car-desc">Gran volumen y presencia escultórica. Su forma blanda y envolvente rompe con la idea clásica del anillo como pieza discreta.</p>
+                        <p class="col-car-kw">— volumen</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="col-car-img"><img src="assets/CollarNARA.jpg" alt="Collar NARA" loading="lazy" data-lightbox></div>
+                    <div>
+                        <p class="col-car-type">Collar · 96€</p>
+                        <h3 class="col-car-name">NARA</h3>
+                        <p class="col-car-desc">Construido desde la continuidad y la torsión. Su forma central envolvente convierte el collar en una declaración limpia pero expresiva.</p>
+                        <p class="col-car-kw">— torsión</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="col-car-img"><img src="assets/BrazaleteORA.jpg" alt="Brazalete ORA" loading="lazy" data-lightbox></div>
+                    <div>
+                        <p class="col-car-type">Brazalete · 53€</p>
+                        <h3 class="col-car-name">ORA</h3>
+                        <p class="col-car-desc">Forma amplia y envolvente definida por un recorrido fluido que parece plegarse sobre sí mismo. Volumen, continuidad y equilibrio.</p>
+                        <p class="col-car-kw">— continuidad</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="col-car-img"><img src="assets/PendientesSIRA.jpg" alt="Pendientes SIRA" loading="lazy" data-lightbox></div>
+                    <div>
+                        <p class="col-car-type">Pendientes · 45€</p>
+                        <h3 class="col-car-name">SIRA</h3>
+                        <p class="col-car-desc">Volumen compacto y carácter escultórico. Pliegues entrelazados que generan una forma cerrada, densa y expresiva.</p>
+                        <p class="col-car-kw">— presencia</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="col-car-img"><img src="assets/AnilloLUA.jpg" alt="Anillo LUA" loading="lazy" data-lightbox></div>
+                    <div>
+                        <p class="col-car-type">Anillo · 45€</p>
+                        <h3 class="col-car-name">LUA</h3>
+                        <p class="col-car-desc">Trabaja desde la curva, el brillo y la sensación de fluidez. Apariencia suave pero gran impacto visual.</p>
+                        <p class="col-car-kw">— brillo</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-prev" aria-label="Pieza anterior">←</button>
+                <div class="carousel-dots"></div>
+                <button class="carousel-next" aria-label="Pieza siguiente">→</button>
+            </div>
+        </div>
+
+        <p class="col-closing reveal d2">"No son piezas para encajar. Son piezas para reconocerse."</p>
+        <a class="next-cue next-cue--light" onclick="goToId('material-proceso')" role="button"><span class="arrow">↓</span> Material y proceso</a>
+    </section>
+
+
+    <!-- ═══ MATERIAL Y PROCESO ═══ -->
+    <section class="tfg-section" id="material-proceso" data-name="Material">
+        <div class="mat-grid">
+            <div class="reveal">
+                <p class="s-eyebrow">07 / Material y proceso</p>
+                <h2 class="s-title" style="font-size:clamp(2rem,4vw,3.5rem);">El material no<br>define el valor</h2>
+                <div class="mat-words">
+                    <span class="mat-word">Flexible</span>
+                    <span class="mat-word mat-word--accent">Ligero</span>
+                    <span class="mat-word">Sensorial</span>
+                    <span class="mat-word mat-word--accent">Orgánico</span>
+                    <span class="mat-word">Escultórico</span>
+                </div>
+                <p class="s-body s-casual" style="margin-bottom:1.5rem;color:var(--muted);">
+                    Polímeros flexibles: ligereza, volumen, comodidad y libertad para crear formas alejadas
+                    de la joyería tradicional. No precioso, pero sí valioso.
+                </p>
+                <p class="identity-label">Proceso creativo</p>
+                <div class="process-list">
+                    <div class="pstep"><span class="pstep-n">01</span><span class="pstep-l">Investigación</span></div>
+                    <div class="pstep"><span class="pstep-n">02</span><span class="pstep-l">Bocetos y exploración</span></div>
+                    <div class="pstep"><span class="pstep-n">03</span><span class="pstep-l">Pruebas de material</span></div>
+                    <div class="pstep"><span class="pstep-n">04</span><span class="pstep-l">Experimentación formal</span></div>
+                    <div class="pstep"><span class="pstep-n">05</span><span class="pstep-l">Selección de alternativas</span></div>
+                    <div class="pstep"><span class="pstep-n">06</span><span class="pstep-l">Piezas finales</span></div>
+                    <div class="pstep"><span class="pstep-n">07</span><span class="pstep-l">Aplicaciones visuales</span></div>
+                </div>
+            </div>
+            <div class="mat-img reveal d1"><img src="assets/7.jpg" alt="Proceso de creación moldoLab" loading="lazy" data-lightbox></div>
+        </div>
+        <a class="next-cue" onclick="goToId('campana')" role="button"><span class="arrow">↓</span> Campaña</a>
+    </section>
+
+
+    <!-- ═══ CAMPAÑA ═══ -->
+    <section class="tfg-section" id="campana" data-name="Campaña">
+        <div class="reveal">
+            <p class="s-eyebrow">08 / Dirección de arte</p>
+            <h2 class="s-title">Luxury in the Ordinary</h2>
+            <p class="s-sub">El lujo no es perfección. Es presencia dentro de lo cotidiano.</p>
+            <p class="s-body" style="margin-bottom:.5rem;">
+                La campaña sitúa las piezas en escenas cálidas, urbanas y sensoriales. La joya no aparece
+                aislada: se integra en una escena viva, cotidiana y sensorial donde cuerpo, objeto y entorno
+                construyen una misma narrativa.
+            </p>
+        </div>
+
+        <!-- Secuencia visual automática de las 12 fotografías de campaña -->
+        <div class="reveal d1">
+            <p class="s-eyebrow" style="color:var(--green);margin-top:.5rem;">Secuencia visual · 12 fotografías</p>
+            <!-- #campaign-sequence se rellena desde JS con las fotos 1–12 -->
+            <div id="campaign-sequence" aria-label="Secuencia visual de campaña"></div>
+        </div>
+
+        <div class="camp-closing reveal d2" style="margin-top:1.5rem;">No es decoración.<em>Es identidad.</em></div>
+        <a class="next-cue" onclick="goToId('carteleria')" role="button"><span class="arrow">↓</span> Cartelería</a>
+    </section>
+
+
+    <!-- ═══ CARTELERÍA ═══ -->
+    <section class="tfg-section" id="carteleria" data-name="Cartelería">
+        <div class="cartel-grid">
+            <div class="reveal">
+                <p class="s-eyebrow" style="color:var(--lima);">09 / Cartelería de campaña</p>
+                <h2 class="s-title" style="color:var(--beige);">Tres frases.<br>Una misma actitud.</h2>
+                <p class="s-body" style="color:rgba(237,233,206,.5);">
+                    La cartelería traduce el tono verbal de la marca a piezas gráficas directas y reconocibles.
+                    Los carteles no explican la marca: la lanzan.
+                </p>
+                <div class="cartel-claims">
+                    <p class="cartel-claim"><span>01</span> Formas que no piden permiso</p>
+                    <p class="cartel-claim"><span>02</span> Demasiado para algunos. Perfecto para ti</p>
+                    <p class="cartel-claim"><span>03</span> Hecho para mirar dos veces</p>
+                </div>
+            </div>
+
+            <!-- Poster stack automático. NOTA: faltan exportar carteles ORA como JPG.
+                 Disponibles: athyhnj.JPG (CALA) y nfghn.JPG (NARA). El tercero usa una
+                 foto de campaña como stand-in — sustituir por el cartel ORA exportado. -->
+            <div class="poster-stack" id="poster-stack" aria-label="Carteles de campaña">
+                <div class="poster" data-lightbox-wrap>
+                    <img src="athyhnj.JPG" alt="Cartel Anillo CALA — moldoLab" loading="lazy" data-lightbox>
+                    <p class="poster-cap">Anillo estrella · CALA</p>
+                </div>
+                <div class="poster">
+                    <img src="nfghn.JPG" alt="Cartel Collar NARA — moldoLab" loading="lazy" data-lightbox>
+                    <p class="poster-cap">Collar · NARA</p>
+                </div>
+                <!-- Sustituir por el cartel ORA cuando esté exportado -->
+                <div class="poster">
+                    <img src="assets/BrazaleteORA.jpg" alt="Cartel Brazalete ORA — moldoLab" loading="lazy" data-lightbox>
+                    <p class="poster-cap">Brazalete · ORA</p>
+                </div>
+            </div>
+        </div>
+        <a class="next-cue next-cue--light" onclick="goToId('rrss')" role="button"><span class="arrow">↓</span> Redes sociales</a>
+    </section>
+
+
+    <!-- ═══ RRSS ═══ -->
+    <section class="tfg-section" id="rrss" data-name="Redes sociales">
+        <div class="reveal">
+            <p class="s-eyebrow" style="color:var(--lima);">10 / Redes sociales</p>
+            <h2 class="s-title" style="color:var(--beige);">Del objeto<br>al deseo visual.</h2>
+            <p class="s-body" style="color:rgba(237,233,206,.5);">
+                Las redes funcionan como escaparate y sistema narrativo. Cada publicación no solo muestra una
+                pieza: construye atmósfera, deseo y reconocimiento visual dentro del universo moldoLab.
+            </p>
+        </div>
+
+        <!-- #social-showcase se genera desde JS: 5 publicaciones (CALA/NARA/ORA/SIRA/LUA),
+             cada una con su mini-carrusel automático + marquee inferior -->
+        <div class="reveal d1" id="social-showcase" aria-label="Publicaciones de redes sociales"></div>
+
+        <div class="reveal d2" style="margin-top:1.5rem;">
+            <button class="btn btn-outline-light" onclick="openVideoModal()">▶ Volver a ver spot</button>
+        </div>
+        <a class="next-cue next-cue--light" onclick="goToId('aplicaciones')" role="button"><span class="arrow">↓</span> Aplicaciones</a>
+    </section>
+
+
+    <!-- ═══ APLICACIONES ═══ -->
+    <section class="tfg-section" id="aplicaciones" data-name="Aplicaciones">
+        <div class="reveal">
+            <p class="s-eyebrow">11 / Aplicaciones gráficas</p>
+            <h2 class="s-title">Una marca no vive<br>en un solo soporte</h2>
+            <p class="s-body" style="margin-bottom:1rem;">
+                Más allá de campaña y redes, la identidad se aplica en soportes editoriales y comerciales:
+                manual de identidad, brand book, packaging, etiquetas y web. Una estética coherente en
+                todos los puntos de contacto.
+            </p>
+        </div>
+
+        <div class="auto-carousel apps-carousel reveal d1" data-delay="4000">
+            <div class="carousel-track">
+                <div class="carousel-item">
+                    <div class="app-card"><img src="assets/HELADO.png" alt="Manual de identidad" loading="lazy" data-lightbox><span class="app-card-lbl">Manual</span></div>
+                    <div class="app-card"><img src="assets/COCOS.png" alt="Brand book" loading="lazy" data-lightbox><span class="app-card-lbl">Brand book</span></div>
+                    <div class="app-card"><img src="assets/SOMBRILLA.jpg" alt="Packaging" loading="lazy" data-lightbox><span class="app-card-lbl">Packaging</span></div>
+                </div>
+                <div class="carousel-item">
+                    <div class="app-card"><img src="assets/HIELOS.png" alt="Etiquetas" loading="lazy" data-lightbox><span class="app-card-lbl">Etiquetas</span></div>
+                    <div class="app-card"><img src="assets/trestres.jpg" alt="Editorial" loading="lazy" data-lightbox><span class="app-card-lbl">Editorial</span></div>
+                    <div class="app-card"><img src="assets/IMAGEN1.jpg" alt="Web y soportes" loading="lazy" data-lightbox><span class="app-card-lbl">Web</span></div>
+                </div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-prev" aria-label="Anterior">←</button>
+                <div class="carousel-dots"></div>
+                <button class="carousel-next" aria-label="Siguiente">→</button>
+            </div>
+        </div>
+        <a class="next-cue" onclick="goToId('web')" role="button"><span class="arrow">↓</span> Web</a>
+    </section>
+
+
+    <!-- ═══ WEB ═══ -->
+    <section class="tfg-section" id="web" data-name="Web">
+        <div class="web-grid">
+            <div class="reveal">
+                <p class="s-eyebrow">12 / Web y experiencia digital</p>
+                <h2 class="s-title" style="font-size:clamp(2rem,4vw,3.8rem);">La web como extensión<br>del universo</h2>
+                <p class="s-body" style="margin-bottom:1.5rem;">
+                    La web pública funciona como espacio comercial y editorial: permite descubrir la marca,
+                    conocer la colección y comprar las piezas. Esta landing privada amplía esa experiencia.
+                </p>
+                <p class="web-phrase">"La presentación no se separa de la marca.<br>Forma parte de ella."</p>
+            </div>
+            <div class="reveal d1" style="display:flex;flex-direction:column;gap:3px;">
+                <div class="web-card">
+                    <p class="wc-tag">Web pública</p>
+                    <h3 class="wc-title">Experiencia de usuario</h3>
+                    <p class="wc-text">Pensada para el usuario final: compra, exploración de colección, materiales y universo visual.</p>
+                    <a href="index.html" target="_blank" rel="noopener" class="btn btn-outline-light" style="display:inline-flex;margin-top:1rem;font-size:.55rem;">Visitar web pública ↗</a>
+                </div>
+                <div class="web-card">
+                    <p class="wc-tag">Landing privada</p>
+                    <h3 class="wc-title">Presentación del proyecto</h3>
+                    <p class="wc-text">Pensada para presentar el TFG: investigación, identidad, piezas, campaña, estrategia y cierre.</p>
+                </div>
+            </div>
+        </div>
+        <a class="next-cue" onclick="goToId('estrategia')" role="button"><span class="arrow">↓</span> Estrategia</a>
+    </section>
+
+
+    <!-- ═══ ESTRATEGIA ═══ -->
+    <section class="tfg-section" id="estrategia" data-name="Estrategia">
+        <div class="strat-grid">
+            <div class="reveal">
+                <p class="s-eyebrow" style="color:rgba(237,233,206,.4);">13 / Estrategia y viabilidad</p>
+                <h2 class="s-title" style="color:var(--beige);font-size:clamp(1.8rem,3.5vw,3.2rem);">No solo es<br>una marca bonita.</h2>
+                <p class="s-body" style="color:rgba(237,233,206,.45);margin-bottom:1.5rem;">
+                    moldoLab se plantea como una marca viable en la joyería contemporánea alternativa.
+                    Su valor no reside solo en el producto, sino en la identidad, la narrativa y la comunidad.
+                </p>
+                <div class="strat-blocks">
+                    <div class="sblock"><p class="sb-n">01</p><p class="sb-title">Público</p><p class="sb-text">Jóvenes creativos: moda, diseño, arte y diferenciación personal.</p></div>
+                    <div class="sblock"><p class="sb-n">02</p><p class="sb-title">Posicionamiento</p><p class="sb-text">Joyería conceptual y experimental entre arte, moda y diseño.</p></div>
+                    <div class="sblock"><p class="sb-n">03</p><p class="sb-title">Canales</p><p class="sb-text">Web, Instagram, TikTok, drops, pop-ups, concept stores y colaboraciones.</p></div>
+                    <div class="sblock"><p class="sb-n">04</p><p class="sb-title">Comunicación</p><p class="sb-text">Fotografía editorial, storytelling, campaña visual y comunidad.</p></div>
+                    <div class="sblock"><p class="sb-n">05</p><p class="sb-title">Control</p><p class="sb-text">Alcance, engagement, conversión, ventas, repetición y margen.</p></div>
+                </div>
+            </div>
+            <div class="reveal d1">
+                <p class="identity-label" style="color:rgba(237,233,206,.4);margin-bottom:1rem;">Colección inicial — 5 piezas · 100 uds c/u · 500 total</p>
+                <div class="prices-grid">
+                    <div class="price-row"><span class="pr-name">CALA</span><span class="pr-price">45€</span></div>
+                    <div class="price-row"><span class="pr-name">LUA</span><span class="pr-price">45€</span></div>
+                    <div class="price-row"><span class="pr-name">SIRA</span><span class="pr-price">45€</span></div>
+                    <div class="price-row"><span class="pr-name">ORA</span><span class="pr-price">53€</span></div>
+                    <div class="price-row"><span class="pr-name">NARA</span><span class="pr-price">96€</span></div>
+                </div>
+                <p class="strat-note">Producción bajo pedido · 5–7 días hábiles · Primera colección cápsula con fuerte carga visual e identitaria.</p>
+            </div>
+        </div>
+        <a class="next-cue next-cue--light" onclick="goToId('cierre')" role="button"><span class="arrow">↓</span> Cierre</a>
+    </section>
+
+
+    <!-- ═══ CIERRE ═══ -->
+    <section class="tfg-section" id="cierre" data-name="Cierre">
+        <div class="cierre-inner reveal">
+            <p class="s-eyebrow" style="justify-content:center;">14 / Cierre</p>
+            <p class="cierre-text" style="font-weight:600;color:rgba(237,233,206,.65);">
+                moldoLab no cierra un proyecto. Abre una forma de mirar la joyería.
+            </p>
+            <div class="cierre-frase">No es una joya.<em>Es una declaración.</em></div>
+            <p class="cierre-text">
+                El valor de una pieza no depende del material — depende de lo que comunica, de cómo se
+                relaciona con el cuerpo y de la identidad que ayuda a construir.
+            </p>
+            <p class="cierre-text">
+                Este proyecto une diseño gráfico, diseño de producto, dirección de arte, comunicación visual
+                y estrategia. La colección, la identidad, la campaña, la web y las aplicaciones forman un mismo universo.
+            </p>
+            <div class="cierre-actions">
+                <button class="btn btn-outline-light" onclick="goToId('spot')">Volver al inicio</button>
+                <button class="btn btn-light" onclick="goToId('archivo')">Ver documentos</button>
+                <a href="index.html" class="btn btn-outline-light" target="_blank" rel="noopener">Web pública ↗</a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══ ARCHIVO ═══ -->
+    <section class="tfg-section" id="archivo" data-name="Archivo">
+        <div class="reveal">
+            <p class="s-eyebrow">15 / Archivo moldoLab</p>
+            <h2 class="s-title">Archivo visual</h2>
+            <p class="s-body s-casual" style="color:var(--muted);">
+                Una lectura rápida del universo moldoLab: campaña, piezas, carteles, redes y aplicaciones.
+            </p>
+        </div>
+
+        <!-- Marquee visual doble fila (loop CSS) generado desde JS -->
+        <div class="reveal d1" id="archive-marquee" aria-label="Archivo visual en movimiento"></div>
+
+        <div class="reveal" style="margin-top:2.5rem;">
+            <p class="s-eyebrow">Documentos descargables</p>
+        </div>
+        <div class="docs-grid reveal d1">
+            <a href="docsmanual_moldolab.pdf.pdf" download class="doc-item" aria-label="Descargar manual de identidad">
+                <div class="doc-icon">PDF</div>
+                <div><p class="doc-name">Manual de identidad</p><p class="doc-sub">Disponible</p></div>
+            </a>
+            <div class="doc-item unavail"><div class="doc-icon" style="background:var(--warm);">PDF</div><div><p class="doc-name">Memoria del proyecto</p><p class="doc-sub">Añadir MEMORIA TFG.pdf</p></div></div>
+            <div class="doc-item unavail"><div class="doc-icon" style="background:var(--warm);">PDF</div><div><p class="doc-name">Plan de negocio</p><p class="doc-sub">Añadir PLAN DE NEGOCIO.pdf</p></div></div>
+            <div class="doc-item unavail"><div class="doc-icon" style="background:var(--warm);">PDF</div><div><p class="doc-name">Brand Book</p><p class="doc-sub">Añadir cuadernillo.pdf</p></div></div>
+            <div class="doc-item unavail"><div class="doc-icon" style="background:var(--warm);">PDF</div><div><p class="doc-name">Cartelería</p><p class="doc-sub">Añadir CARTELES MOLDOLAB.pdf</p></div></div>
+            <a href="assets/spot-publicitario.mp4" download class="doc-item" aria-label="Descargar spot publicitario">
+                <div class="doc-icon" style="background:var(--red);">MP4</div>
+                <div><p class="doc-name">Spot publicitario</p><p class="doc-sub">Disponible</p></div>
+            </a>
+        </div>
+
+        <p class="arch-note reveal d2">
+            Para añadir los documentos que faltan, coloca los PDFs en la carpeta raíz del proyecto
+            y actualiza los enlaces en este archivo.
+        </p>
+        <a class="next-cue" onclick="goToId('spot')" role="button"><span class="arrow" style="transform:rotate(180deg);">↓</span> Volver al inicio</a>
+    </section>
+
+    </main>
+
+
+    <!-- ── MODAL VÍDEO ── -->
+    <div id="video-modal" role="dialog" aria-modal="true" aria-label="Spot publicitario moldoLab">
+        <div class="vm-inner">
+            <button id="video-modal-close" aria-label="Cerrar vídeo">✕ cerrar</button>
+            <video id="modal-video" controls preload="none" poster="assets/1.jpg"
+                   aria-label="Spot publicitario moldoLab SS·26">
+                <source src="assets/spot-publicitario.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
+    <!-- ── LIGHTBOX ── -->
+    <div id="img-lightbox" role="dialog" aria-modal="true" aria-label="Imagen ampliada">
+        <button id="lb-close" aria-label="Cerrar imagen">✕ cerrar</button>
+        <img id="lb-img" src="" alt="Imagen ampliada">
+    </div>
+
+    <!-- ── BACK TO TOP ── -->
+    <button id="back-to-top" aria-label="Volver al inicio">↑</button>
+
+</div><!-- /landing -->
+
+<script src="presentacion-tfg.js"></script>
+</body>
+</html>

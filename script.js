@@ -73,44 +73,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- 2. LENIS SMOOTH SCROLL INITIALIZATION ---
+    // En móvil/táctil NO usamos Lenis: el scroll nativo es más fluido y no se atasca.
     let lenis;
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches
+        || ('ontouchstart' in window && window.innerWidth <= 1024);
     try {
-        lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            smoothWheel: true,
-            touchMultiplier: 1.5,
-            infinite: false,
-        });
-
-        // Sync with GSAP ticker if GSAP is available, otherwise use simple RAF
-        if (typeof gsap !== 'undefined') {
-            gsap.ticker.add((time) => {
-                lenis.raf(time * 1000);
+        if (!isTouchDevice && typeof Lenis !== 'undefined') {
+            lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smoothWheel: true,
+                touchMultiplier: 1.5,
+                infinite: false,
             });
-            gsap.ticker.lagSmoothing(0);
-        } else {
-            const raf = (time) => {
-                lenis.raf(time);
+
+            // Sync with GSAP ticker if GSAP is available, otherwise use simple RAF
+            if (typeof gsap !== 'undefined') {
+                gsap.ticker.add((time) => {
+                    lenis.raf(time * 1000);
+                });
+                gsap.ticker.lagSmoothing(0);
+            } else {
+                const raf = (time) => {
+                    lenis.raf(time);
+                    requestAnimationFrame(raf);
+                };
                 requestAnimationFrame(raf);
-            };
-            requestAnimationFrame(raf);
+            }
         }
 
-        // Programmatic smooth scroll to anchors with sticky header offset
+        // Smooth scroll a anclas — funciona con Lenis (desktop) o nativo (móvil)
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
-                
+
                 const targetEl = document.querySelector(targetId);
                 if (targetEl) {
                     e.preventDefault();
                     const headerOffset = document.getElementById('header')?.offsetHeight || 80;
-                    lenis.scrollTo(targetEl, {
-                        offset: -headerOffset,
-                        duration: 1.2
-                    });
+                    if (lenis) {
+                        lenis.scrollTo(targetEl, { offset: -headerOffset, duration: 1.2 });
+                    } else {
+                        const top = targetEl.getBoundingClientRect().top + window.scrollY - headerOffset;
+                        window.scrollTo({ top, behavior: 'smooth' });
+                    }
                 }
             });
         });
@@ -273,6 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </svg>
                 `;
                 if (lenis) lenis.stop(); // Stop scroll when menu is open
+                document.body.style.overflow = 'hidden'; // bloqueo nativo (móvil sin Lenis)
             } else {
                 mobileMenuBtn.innerHTML = `
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -280,6 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </svg>
                 `;
                 if (lenis) lenis.start();
+                document.body.style.overflow = '';
             }
         });
 
@@ -296,6 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </svg>
                 `;
                 if (lenis) lenis.start();
+                document.body.style.overflow = '';
             }
         });
 
@@ -309,6 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </svg>
                 `;
                 if (lenis) lenis.start();
+                document.body.style.overflow = '';
             });
         });
     }

@@ -16,6 +16,11 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css">
+    <!-- Firebase Auth -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <!-- EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <!-- GSAP & Lenis for Smooth Scroll and Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -101,6 +106,7 @@
             <a href="color-lab.html" class="nav-link">COLOR LAB</a>
             <a href="#proceso" class="nav-link">PROCESO</a>
             <a href="#sobre-la-marca" class="nav-link">SOBRE LA MARCA</a>
+            <a href="presentacion-tfg.html" class="nav-link nav-link--tfg">TFG</a>
         </nav>
         <div class="header-logo">
             <a href="#hero">
@@ -126,6 +132,51 @@
     </header>
 
     <main>
+
+        <!-- Hover Carousel -->
+        <section class="hover-carousel-section reveal delay-2">
+            <div class="carousel-container" id="hover-carousel">
+                <div class="carousel-track" id="carousel-track">
+                    <div class="carousel-item">
+                        <img src="assets/1.jpg" alt="moldoLab — SS·26">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/2.jpg" alt="moldoLab — SS·26">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/3.jpg" alt="moldoLab — SS·26">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/4.jpg" alt="moldoLab — SS·26">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/5.jpg" alt="moldoLab — SS·26">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/6.jpg" alt="moldoLab — SS·26">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/7.jpg" alt="moldoLab — SS·26">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/8.jpg" alt="moldoLab — SS·26">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/9.jpg" alt="moldoLab — SS·26">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/10.jpg" alt="moldoLab — SS·26">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/11.jpg" alt="moldoLab — SS·26">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/12.JPG" alt="moldoLab — SS·26">
+                    </div>
+                </div>
+            </div>
+            <p class="carousel-hint">Haz clic en una imagen para ampliarla</p>
+        </section>
 
         <!-- Statement Section — Tipografía Moldo -->
         <section class="statement-section reveal">
@@ -299,100 +350,6 @@
                 <div class="trail-info">
                     <span class="trail-eyebrow">Zona interactiva</span>
                     <span class="trail-cue" id="trail-hint">Mueve el ratón</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Hover Carousel -->
-        <section class="hover-carousel-section reveal delay-2">
-            <h2 class="carousel-title">GALERÍA EN MOVIMIENTO</h2>
-            <p class="carousel-hint">Haz clic en una imagen para ampliarla</p>
-            <div class="carousel-container" id="hover-carousel">
-                <div class="carousel-track" id="carousel-track">
-                    <div class="carousel-item">
-                        <img src="assets/anillocala.png" alt="Anillo CALA — moldoLab">
-                        <div class="carousel-label">
-                            <span class="carousel-label-name">ANILLO CALA</span>
-                            <span class="carousel-label-date">SS·26</span>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="assets/anillolua.png" alt="Anillo LUA — moldoLab">
-                        <div class="carousel-label">
-                            <span class="carousel-label-name">ANILLO LUA</span>
-                            <span class="carousel-label-date">SS·26</span>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="assets/brazaleteora.png" alt="Brazalete ORA — moldoLab">
-                        <div class="carousel-label">
-                            <span class="carousel-label-name">BRAZALETE ORA</span>
-                            <span class="carousel-label-date">SS·26</span>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="assets/collarnara.png" alt="Collar NARA — moldoLab">
-                        <div class="carousel-label">
-                            <span class="carousel-label-name">COLLAR NARA</span>
-                            <span class="carousel-label-date">SS·26</span>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="assets/pendientes-sira.png" alt="Pendientes SIRA — moldoLab">
-                        <div class="carousel-label">
-                            <span class="carousel-label-name">PENDIENTES SIRA</span>
-                            <span class="carousel-label-date">SS·26</span>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="assets/COCOS.png" alt="moldoLab — colección">
-                        <div class="carousel-label">
-                            <span class="carousel-label-name">COLECCIÓN</span>
-                            <span class="carousel-label-date">SS·26</span>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="assets/SOMBRILLA.jpg" alt="moldoLab — verano">
-                        <div class="carousel-label">
-                            <span class="carousel-label-name">VERANO</span>
-                            <span class="carousel-label-date">SS·26</span>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="assets/HIELOS.png" alt="moldoLab — editorial">
-                        <div class="carousel-label">
-                            <span class="carousel-label-name">EDITORIAL</span>
-                            <span class="carousel-label-date">SS·26</span>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="assets/HELADO.png" alt="moldoLab — laboratorio">
-                        <div class="carousel-label">
-                            <span class="carousel-label-name">LABORATORIO</span>
-                            <span class="carousel-label-date">SS·26</span>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="assets/IMAGEN1.jpg" alt="moldoLab — studio">
-                        <div class="carousel-label">
-                            <span class="carousel-label-name">STUDIO</span>
-                            <span class="carousel-label-date">SS·26</span>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="assets/IMAGEN2.jpg" alt="moldoLab — proceso">
-                        <div class="carousel-label">
-                            <span class="carousel-label-name">PROCESO</span>
-                            <span class="carousel-label-date">SS·26</span>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="assets/IMAGEN3.jpg" alt="moldoLab — material">
-                        <div class="carousel-label">
-                            <span class="carousel-label-name">MATERIAL</span>
-                            <span class="carousel-label-date">SS·26</span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -592,47 +549,21 @@
         </div>
     </footer>
 
-    <!-- Login Modal -->
+    <!-- AUTH MODAL -->
     <div class="modal-overlay" id="login-modal">
-        <div class="modal-content">
-            <button class="modal-close" id="close-modal" aria-label="Cerrar">&times;</button>
-
-            <div class="modal-logo">
-                <span class="logo-svg" aria-label="moldoLab"></span>
-            </div>
-
-            <h2 class="modal-title">ACCEDER</h2>
-            <p class="modal-subtitle">Accede o crea una cuenta</p>
-
-            <button class="btn-google">
-                <svg class="google-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="display:inline-block;vertical-align:middle;">
-                    <path
-                        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                        fill="#4285F4" />
-                    <path
-                        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                        fill="#34A853" />
-                    <path
-                        d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                        fill="#FBBC05" />
-                    <path
-                        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                        fill="#EA4335" />
-                </svg>
-                Continuar con Google
-            </button>
-
-            <div class="modal-divider">
-                <span>o</span>
-            </div>
-
-            <form class="modal-form" onsubmit="event.preventDefault();">
-                <input type="email" placeholder="Email" required>
-                <button type="submit" class="btn-continue">CONTINUAR</button>
-            </form>
+        <div class="auth-box">
+            <button class="auth-close" id="close-modal" aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+            <div class="auth-logo"><span class="logo-svg" aria-label="moldoLab"></span></div>
+            <p class="auth-eyebrow">LABORATORIO DE FORMAS &middot; SS&middot;26</p>
+            <div class="auth-tabs"><button class="auth-tab active" data-tab="login">ACCEDER</button><button class="auth-tab" data-tab="register">REGISTRARSE</button></div>
+            <button class="auth-google" id="auth-google-btn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Continuar con Google</button>
+            <div class="auth-divider"><span>o</span></div>
+            <form class="auth-form" id="form-login"><div class="auth-field"><label>Email</label><input type="email" id="login-email" placeholder="tu@email.com" required autocomplete="email"></div><div class="auth-field"><label>Contrase&ntilde;a</label><input type="password" id="login-password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" required autocomplete="current-password"></div><button type="button" class="auth-forgot" id="auth-forgot">&iquest;Olvidaste tu contrase&ntilde;a?</button><button type="submit" class="auth-submit">ACCEDER &rarr;</button><p class="auth-msg" id="login-msg"></p></form>
+            <form class="auth-form auth-form--hidden" id="form-register"><div class="auth-field"><label>Nombre</label><input type="text" id="reg-name" placeholder="Tu nombre" required autocomplete="name"></div><div class="auth-field"><label>Email</label><input type="email" id="reg-email" placeholder="tu@email.com" required autocomplete="email"></div><div class="auth-field"><label>Contrase&ntilde;a <span style="font-weight:300;opacity:.5">(m&iacute;n. 6 caracteres)</span></label><input type="password" id="reg-password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" minlength="6" required autocomplete="new-password"></div><button type="submit" class="auth-submit">CREAR CUENTA &rarr;</button><p class="auth-msg" id="reg-msg"></p></form>
+            <p class="auth-legal">Al continuar aceptas nuestra <a href="legal.html#privacidad">pol&iacute;tica de privacidad</a>.</p>
         </div>
     </div>
-
+    <style>.auth-box{background:#1F2218;color:#EDE9E7;padding:44px 40px;width:100%;max-width:420px;position:relative;border-top:2px solid #A7BF66}.auth-close{position:absolute;top:18px;right:18px;background:none;border:none;cursor:pointer;color:rgba(237,233,231,.35);transition:color .2s;padding:4px}.auth-close:hover{color:#EDE9E7}.auth-logo{margin-bottom:10px}.auth-eyebrow{font-size:.48rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#A7BF66;margin-bottom:24px}.auth-tabs{display:flex;gap:0;margin-bottom:28px;border-bottom:1px solid rgba(237,233,231,.1)}.auth-tab{background:none;border:none;cursor:pointer;font-family:inherit;font-size:.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(237,233,231,.35);padding:10px 0;margin-right:24px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;margin-bottom:-1px}.auth-tab.active{color:#EDE9E7;border-bottom-color:#A7BF66}.auth-google{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;background:rgba(237,233,231,.06);border:1px solid rgba(237,233,231,.15);color:#EDE9E7;font-family:inherit;font-size:.68rem;font-weight:600;letter-spacing:.5px;padding:13px 20px;cursor:pointer;transition:background .25s,border-color .25s;margin-bottom:20px}.auth-google:hover{background:rgba(237,233,231,.12);border-color:rgba(237,233,231,.3)}.auth-divider{display:flex;align-items:center;gap:12px;margin-bottom:20px}.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:rgba(237,233,231,.1)}.auth-divider span{font-size:.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(237,233,231,.25)}.auth-form{display:flex;flex-direction:column;gap:14px}.auth-form--hidden{display:none}.auth-field{display:flex;flex-direction:column;gap:5px}.auth-field label{font-size:.52rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(237,233,231,.4)}.auth-field input{background:rgba(237,233,231,.05);border:1px solid rgba(237,233,231,.12);padding:12px 14px;font-family:inherit;font-size:.82rem;font-weight:300;color:#EDE9E7;outline:none;transition:border-color .25s}.auth-field input:focus{border-color:rgba(167,191,102,.6)}.auth-field input::placeholder{color:rgba(237,233,231,.2)}.auth-forgot{background:none;border:none;cursor:pointer;font-family:inherit;font-size:.58rem;font-weight:300;color:rgba(237,233,231,.35);text-align:left;padding:0;transition:color .2s;text-decoration:underline;text-underline-offset:3px}.auth-forgot:hover{color:#A7BF66}.auth-submit{background:#EDE9E7;color:#1F2218;border:none;padding:15px 24px;font-family:inherit;font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:background .25s,transform .2s;margin-top:4px}.auth-submit:hover{background:#fff;transform:translateY(-1px)}.auth-msg{font-size:.65rem;font-weight:300;line-height:1.5;min-height:18px;padding:0 2px}.auth-msg.error{color:#e8453a}.auth-msg.success{color:#A7BF66}.auth-legal{font-size:.52rem;font-weight:300;color:rgba(237,233,231,.25);margin-top:20px;line-height:1.6}.auth-legal a{color:rgba(167,191,102,.6);text-decoration:none}.auth-legal a:hover{color:#A7BF66}.auth-user-btn{display:flex;align-items:center;gap:8px;background:none;border:none;cursor:pointer;font-family:inherit;font-size:.55rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:inherit;padding:4px 0;position:relative}.auth-avatar{width:28px;height:28px;border-radius:50%;object-fit:cover;border:1px solid rgba(237,233,231,.3)}.auth-avatar-initials{width:28px;height:28px;border-radius:50%;background:#A7BF66;color:#1F2218;font-size:.55rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}.auth-dropdown{position:absolute;top:calc(100% + 12px);right:0;background:#1F2218;border:1px solid rgba(237,233,231,.1);min-width:180px;z-index:300;box-shadow:0 16px 40px rgba(0,0,0,.4)}.auth-dropdown-item{display:block;width:100%;background:none;border:none;text-align:left;padding:13px 18px;font-family:inherit;font-size:.58rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(237,233,231,.65);cursor:pointer;transition:background .2s,color .2s}.auth-dropdown-item:hover{background:rgba(237,233,231,.06);color:#EDE9E7}.auth-dropdown-item.logout{color:rgba(232,69,58,.7)}.auth-dropdown-item.logout:hover{color:#e8453a;background:rgba(232,69,58,.06)}.header--light .auth-user-btn{color:#1F2218}</style>
     <!-- Lightbox Modal -->
     <div class="lightbox-overlay" id="carousel-lightbox">
         <button class="lightbox-close" id="lightbox-close" aria-label="Cerrar">&times;</button>
@@ -852,42 +783,36 @@
     </script>
 
     <script>
-    /* ── GALERÍA EN MOVIMIENTO: infinite hover-scroll + drag inertia ── */
+    /* ── GALERÍA: auto-scroll continuo + drag + lightbox ── */
     (function() {
         const container = document.getElementById('hover-carousel');
         const track = document.getElementById('carousel-track');
         if (!container || !track) return;
 
-        /* Triple items: [clone-left][originals][clone-right] */
+        /* Clonar items para bucle infinito seamless */
         const originals = Array.from(track.children);
-        const leftFrag = document.createDocumentFragment();
-        originals.forEach(el => leftFrag.appendChild(el.cloneNode(true)));
-        track.insertBefore(leftFrag, track.firstChild);
-        const rightFrag = document.createDocumentFragment();
-        originals.forEach(el => rightFrag.appendChild(el.cloneNode(true)));
-        track.appendChild(rightFrag);
+        originals.forEach(el => track.appendChild(el.cloneNode(true)));
+        originals.forEach(el => track.insertBefore(el.cloneNode(true), track.firstChild));
 
+        /* Posicionar en el set central */
         const goMiddle = () => { track.scrollLeft = track.scrollWidth / 3; };
         setTimeout(goMiddle, 0);
 
-        /* Hover-scroll state */
-        let hoverSpeed = 0;
-        let hoverActive = false;
-
-        /* Drag + inertia state */
+        const AUTO_SPEED = 2.5; /* px por frame */
         let isDragging = false;
+        let isPaused = false;
         let dragStartX = 0;
         let dragScrollStart = 0;
         let velX = 0;
         let lastDragX = 0;
         let inertiaRaf = null;
 
-        function wrapInfinite(scrollDelta) {
+        function wrapInfinite() {
             const oneSet = track.scrollWidth / 3;
-            if (track.scrollLeft < oneSet * 0.25) {
+            if (track.scrollLeft <= oneSet * 0.1) {
                 track.scrollLeft += oneSet;
                 dragScrollStart += oneSet;
-            } else if (track.scrollLeft > oneSet * 1.75) {
+            } else if (track.scrollLeft >= oneSet * 1.9) {
                 track.scrollLeft -= oneSet;
                 dragScrollStart -= oneSet;
             }
@@ -895,28 +820,27 @@
 
         function startInertia() {
             if (inertiaRaf) cancelAnimationFrame(inertiaRaf);
-            function step() {
-                velX *= 0.93;
-                if (Math.abs(velX) < 0.3) return;
+            (function step() {
+                velX *= 0.92;
+                if (Math.abs(velX) < 0.3) { inertiaRaf = null; isPaused = false; return; }
                 track.scrollLeft -= velX;
                 wrapInfinite();
                 inertiaRaf = requestAnimationFrame(step);
-            }
-            inertiaRaf = requestAnimationFrame(step);
+            })();
         }
 
-        /* Mouse drag */
+        /* Drag ratón */
         container.addEventListener('mousedown', (e) => {
             isDragging = true;
+            isPaused = true;
             dragStartX = e.clientX;
             dragScrollStart = track.scrollLeft;
             lastDragX = e.clientX;
             velX = 0;
-            if (inertiaRaf) cancelAnimationFrame(inertiaRaf);
+            if (inertiaRaf) { cancelAnimationFrame(inertiaRaf); inertiaRaf = null; }
             container.style.cursor = 'grabbing';
             e.preventDefault();
         });
-
         document.addEventListener('mousemove', (e) => {
             if (!isDragging) return;
             velX = e.clientX - lastDragX;
@@ -924,57 +848,41 @@
             track.scrollLeft = dragScrollStart - (e.clientX - dragStartX);
             wrapInfinite();
         });
-
         document.addEventListener('mouseup', () => {
             if (!isDragging) return;
             isDragging = false;
             container.style.cursor = '';
-            if (Math.abs(velX) > 1) startInertia();
+            if (Math.abs(velX) > 1) { startInertia(); }
+            else { isPaused = false; }
         });
 
-        /* Touch drag */
-        let touchStartX = 0;
-        let touchScrollStart = 0;
-        let touchLastX = 0;
-        let touchVel = 0;
-
+        /* Drag táctil */
+        let touchStartX = 0, touchScrollStart = 0, touchLastX = 0, touchVel = 0;
         container.addEventListener('touchstart', (e) => {
+            isPaused = true;
             touchStartX = e.touches[0].clientX;
             touchScrollStart = track.scrollLeft;
             touchLastX = touchStartX;
             touchVel = 0;
-            if (inertiaRaf) cancelAnimationFrame(inertiaRaf);
+            if (inertiaRaf) { cancelAnimationFrame(inertiaRaf); inertiaRaf = null; }
         }, { passive: true });
-
         container.addEventListener('touchmove', (e) => {
             touchVel = e.touches[0].clientX - touchLastX;
             touchLastX = e.touches[0].clientX;
             track.scrollLeft = touchScrollStart - (e.touches[0].clientX - touchStartX);
             wrapInfinite();
         }, { passive: true });
-
         container.addEventListener('touchend', () => {
             velX = touchVel;
-            if (Math.abs(velX) > 1) startInertia();
+            if (Math.abs(velX) > 1) { startInertia(); }
+            else { isPaused = false; }
         });
 
-        /* Hover-zone scroll */
-        container.addEventListener('mouseenter', () => { hoverActive = true; });
-        container.addEventListener('mouseleave', () => { hoverActive = false; hoverSpeed = 0; });
-        container.addEventListener('mousemove', (e) => {
-            if (isDragging) return;
-            const rect = container.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const w = rect.width;
-            const zone = w * 0.28;
-            if (x < zone)          hoverSpeed = -((zone - x) / zone) * 7;
-            else if (x > w - zone) hoverSpeed = ((x - (w - zone)) / zone) * 7;
-            else                   hoverSpeed = 0;
-        });
 
+        /* Loop principal */
         function tick() {
-            if (!isDragging && !inertiaRaf && hoverActive && hoverSpeed !== 0) {
-                track.scrollLeft += hoverSpeed;
+            if (!isDragging && !inertiaRaf && !isPaused) {
+                track.scrollLeft += AUTO_SPEED;
                 wrapInfinite();
             }
             requestAnimationFrame(tick);
@@ -1066,6 +974,207 @@
             <a href="product-anillo-amarillo.html" class="slm-guide">¿Cuál es mi talla? →</a>
         </div>
     </div>
+
+    <!-- ── FIREBASE + EMAILJS AUTH ── -->
+    <script>
+    (function() {
+        /* ================================================================
+           CONFIGURACIÓN — RELLENA ESTOS VALORES:
+
+           1. Firebase: console.firebase.google.com
+              → Crear proyecto → Agregar app web → Copiar firebaseConfig
+              → Authentication → Métodos de acceso → Activar Email/Contraseña y Google
+
+           2. EmailJS: emailjs.com
+              → Crear cuenta → Email Services → Add Service (Gmail)
+              → Email Templates → Create Template con variables:
+                  {{to_name}}, {{to_email}}, {{from_name}}
+              → Account → API Keys → Public Key
+        ================================================================ */
+        const FIREBASE_CONFIG = {
+            apiKey:            "AIzaSyCe9i7zWtxoOr2eWS3hBz7WOiVWi4MW_Jk",
+            authDomain:        "moldolabb.firebaseapp.com",
+            projectId:         "moldolabb",
+            storageBucket:     "moldolabb.firebasestorage.app",
+            messagingSenderId: "542818504477",
+            appId:             "1:542818504477:web:5990f93f89248f7907dbf4"
+        };
+        const EJS_PUBLIC_KEY  = "PEGA_TU_EMAILJS_PUBLIC_KEY";
+        const EJS_SERVICE_ID  = "PEGA_TU_SERVICE_ID";
+        const EJS_TEMPLATE_ID = "PEGA_TU_TEMPLATE_ID";
+
+        /* ── INIT ── */
+        if (FIREBASE_CONFIG.apiKey === "PEGA_TU_API_KEY") {
+            console.warn("[moldoLab Auth] Añade tus credenciales de Firebase y EmailJS en index.html");
+            return;
+        }
+        firebase.initializeApp(FIREBASE_CONFIG);
+        const auth = firebase.auth();
+        if (typeof emailjs !== 'undefined') emailjs.init(EJS_PUBLIC_KEY);
+
+        /* ── DOM refs ── */
+        const loginBtn   = document.getElementById('login-btn');
+        const modal      = document.getElementById('login-modal');
+        const tabs       = document.querySelectorAll('.auth-tab');
+        const formLogin  = document.getElementById('form-login');
+        const formReg    = document.getElementById('form-register');
+        const msgLogin   = document.getElementById('login-msg');
+        const msgReg     = document.getElementById('reg-msg');
+        const googleBtn  = document.getElementById('auth-google-btn');
+        const forgotBtn  = document.getElementById('auth-forgot');
+
+        /* ── TABS ── */
+        tabs.forEach(t => t.addEventListener('click', () => {
+            tabs.forEach(x => x.classList.remove('active'));
+            t.classList.add('active');
+            const isLogin = t.dataset.tab === 'login';
+            formLogin.classList.toggle('auth-form--hidden', !isLogin);
+            formReg.classList.toggle('auth-form--hidden', isLogin);
+            msgLogin.textContent = '';
+            msgReg.textContent = '';
+        }));
+
+        /* ── ERROR MESSAGES ── */
+        function authError(msg) {
+            const map = {
+                'auth/user-not-found':       'No existe una cuenta con este email.',
+                'auth/wrong-password':        'Contraseña incorrecta.',
+                'auth/email-already-in-use':  'Este email ya está registrado.',
+                'auth/weak-password':         'La contraseña debe tener al menos 6 caracteres.',
+                'auth/invalid-email':         'El email no es válido.',
+                'auth/popup-closed-by-user':  'Inicio con Google cancelado.',
+                'auth/network-request-failed':'Sin conexión. Comprueba tu red.',
+            };
+            return map[msg] || 'Ha ocurrido un error. Inténtalo de nuevo.';
+        }
+
+        /* ── WELCOME EMAIL ── */
+        async function sendWelcomeEmail(name, email) {
+            if (typeof emailjs === 'undefined') return;
+            try {
+                await emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_ID, {
+                    to_name:   name || 'Amante de la joyería',
+                    to_email:  email,
+                    from_name: 'moldoLab',
+                    reply_to:  'hola@moldolab.com',
+                });
+            } catch(e) { console.warn('EmailJS:', e); }
+        }
+
+        /* ── LOGIN ── */
+        formLogin.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value.trim();
+            const pass  = document.getElementById('login-password').value;
+            msgLogin.className = 'auth-msg';
+            msgLogin.textContent = 'Accediendo…';
+            try {
+                await auth.signInWithEmailAndPassword(email, pass);
+            } catch(err) {
+                msgLogin.className = 'auth-msg error';
+                msgLogin.textContent = authError(err.code);
+            }
+        });
+
+        /* ── REGISTER ── */
+        formReg.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name  = document.getElementById('reg-name').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const pass  = document.getElementById('reg-password').value;
+            msgReg.className = 'auth-msg';
+            msgReg.textContent = 'Creando cuenta…';
+            try {
+                const cred = await auth.createUserWithEmailAndPassword(email, pass);
+                await cred.user.updateProfile({ displayName: name });
+                await sendWelcomeEmail(name, email);
+            } catch(err) {
+                msgReg.className = 'auth-msg error';
+                msgReg.textContent = authError(err.code);
+            }
+        });
+
+        /* ── GOOGLE ── */
+        googleBtn.addEventListener('click', async () => {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            try {
+                const result = await auth.signInWithPopup(provider);
+                const isNew  = result.additionalUserInfo?.isNewUser;
+                if (isNew) await sendWelcomeEmail(result.user.displayName, result.user.email);
+            } catch(err) {
+                msgLogin.className = 'auth-msg error';
+                msgLogin.textContent = authError(err.code);
+            }
+        });
+
+        /* ── FORGOT PASSWORD ── */
+        forgotBtn.addEventListener('click', async () => {
+            const email = document.getElementById('login-email').value.trim();
+            if (!email) { msgLogin.className='auth-msg error'; msgLogin.textContent='Introduce tu email primero.'; return; }
+            try {
+                await auth.sendPasswordResetEmail(email);
+                msgLogin.className = 'auth-msg success';
+                msgLogin.textContent = 'Revisa tu email — te hemos enviado el enlace.';
+            } catch(err) {
+                msgLogin.className = 'auth-msg error';
+                msgLogin.textContent = authError(err.code);
+            }
+        });
+
+        /* ── AUTH STATE — actualiza icono del header ── */
+        auth.onAuthStateChanged(user => {
+            if (!loginBtn) return;
+            if (user) {
+                /* Usuario autenticado — mostrar avatar/nombre */
+                const initials = (user.displayName || user.email || '?')
+                    .split(' ').map(w => w[0]).join('').substring(0,2).toUpperCase();
+
+                loginBtn.innerHTML = '';
+                loginBtn.removeAttribute('onclick');
+                loginBtn.style.cssText = 'background:none;border:none;cursor:pointer;position:relative;';
+                loginBtn.className = 'auth-user-btn';
+
+                const avatar = document.createElement('div');
+                avatar.className = 'auth-avatar-initials';
+                avatar.textContent = initials;
+
+                const name = document.createElement('span');
+                name.textContent = (user.displayName || '').split(' ')[0] || 'Cuenta';
+
+                const dropdown = document.createElement('div');
+                dropdown.className = 'auth-dropdown';
+                dropdown.style.display = 'none';
+                dropdown.innerHTML = `
+                    <button class="auth-dropdown-item">${user.email}</button>
+                    <button class="auth-dropdown-item logout" id="auth-logout-btn">CERRAR SESIÓN</button>
+                `;
+
+                loginBtn.appendChild(avatar);
+                loginBtn.appendChild(name);
+                loginBtn.appendChild(dropdown);
+
+                loginBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+                });
+                document.addEventListener('click', () => { dropdown.style.display = 'none'; });
+
+                document.getElementById('auth-logout-btn')?.addEventListener('click', () => auth.signOut());
+
+                /* Cerrar modal si estaba abierto */
+                if (modal?.classList.contains('active')) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            } else {
+                /* Sin sesión — restaurar botón original */
+                loginBtn.className = 'icon-btn';
+                loginBtn.style.cssText = 'background:none;border:none;cursor:pointer;';
+                loginBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 20c0-3.866 3.134-7 7-7s7 3.134 7 7"/></svg>`;
+            }
+        });
+    })();
+    </script>
 
 </body>
 

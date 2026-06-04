@@ -444,6 +444,24 @@ h4 { font-size: 1.1rem; }
     color: var(--oliva);
 }
 
+.nav-link--tfg {
+    color: var(--lima) !important;
+    border: 1px solid rgba(167,191,102,.35);
+    padding: 5px 12px !important;
+    border-radius: 2px;
+    transition: background .25s, color .25s !important;
+}
+.nav-link--tfg:hover,
+.header.scrolled .nav-link--tfg:hover {
+    background: var(--lima);
+    color: #1F2218 !important;
+    border-color: var(--lima);
+}
+.header.scrolled .nav-link--tfg {
+    color: var(--oliva) !important;
+    border-color: rgba(86,95,52,.3);
+}
+
 .header--light .mobile-menu-btn {
     color: #1F2218;
 }
@@ -1139,19 +1157,13 @@ h4 { font-size: 1.1rem; }
 
 /* 13. HOVER CAROUSEL SECTION */
 .hover-carousel-section {
-    padding: 100px 0;
+    padding: 60px 0 40px;
     background-color: rgba(167, 191, 102, 0.05);
     overflow: hidden;
 }
 
 .carousel-title {
-    text-align: center;
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: var(--burdeos);
-    margin-bottom: 12px;
-    letter-spacing: -0.5px;
-    padding: 0 5%;
+    display: none;
 }
 
 .carousel-hint {
@@ -1161,7 +1173,8 @@ h4 { font-size: 1.1rem; }
     letter-spacing: 2px;
     text-transform: uppercase;
     color: rgba(31,34,24,.4);
-    margin-bottom: 40px;
+    margin-top: 28px;
+    padding: 0 5%;
 }
 
 .carousel-container {
@@ -4331,4 +4344,113 @@ html, body { overflow-x: hidden; max-width: 100%; }
     .pp-rel-card:hover img { transform: none; }
     .vertical-card:hover .add-to-cart-btn { opacity: 1; transform: translateY(0); }
     .helado-banner-text:hover { backdrop-filter: none; }
+}
+
+/* ================================================================
+   OPTIMIZACIÓN MÓVIL — rendimiento, legibilidad e imágenes
+   (objetivo: que la web fluya perfecta en teléfono)
+   ================================================================ */
+
+/* Evitar que iOS infle el tamaño de fuente al rotar */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+/* ── DISPOSITIVOS TÁCTILES: quitar efectos pesados o que se "pegan" ── */
+@media (hover: none), (pointer: coarse) {
+    /* Grano: sin animación (ahorra GPU y evita parpadeos) */
+    .grain-overlay { animation: none !important; opacity: 0.03; }
+
+    /* Cursor personalizado fuera */
+    .cursor-dot, .cursor-ring { display: none !important; }
+    body { cursor: auto !important; }
+    .iprocess-trail-wrap { cursor: auto !important; }
+
+    /* Anular zooms/levitaciones de hover que en táctil quedan congelados */
+    .vertical-card:hover,
+    .col-card:hover,
+    .featured-product:hover,
+    .product-card:hover,
+    .carousel-item:hover { transform: none !important; }
+    .vertical-card:hover img,
+    .col-card:hover .col-card-img img,
+    .carousel-item:hover img,
+    .featured-image-box:hover img { transform: none !important; }
+
+    /* Magnético y parallax desactivados (se controlan en JS por puntero, refuerzo visual) */
+    [data-magnetic] { transform: none !important; }
+}
+
+/* ── ≤768px: legibilidad y limpieza de bloques interactivos ── */
+@media (max-width: 768px) {
+    /* La "zona interactiva" del trail (mover el ratón) no sirve en táctil → fuera */
+    .iprocess-trail-wrap { display: none !important; }
+    .iprocess-section { grid-template-columns: 1fr !important; }
+    .iprocess-video-wrap { min-height: 56vw; }
+
+    /* Indicador de scroll del hero (flecha) sin animación pesada */
+    .scroll-indicator { animation: none; }
+
+    /* Menú móvil: enlaces con buen tamaño táctil y legibles */
+    .header-nav { gap: 28px; padding: 0 8%; }
+    .header-nav .nav-link {
+        font-size: 1.05rem;
+        letter-spacing: 1px;
+        padding: 10px 0;
+        color: var(--oliva);
+    }
+
+    /* Botón hamburguesa: área de toque cómoda */
+    .mobile-menu-btn { padding: 10px; margin-right: 6px; }
+    .mobile-menu-btn svg { width: 26px; height: 26px; }
+
+    /* Tipografía general: cuerpos y títulos legibles, sin desbordes */
+    body { line-height: 1.6; }
+    .section-title { letter-spacing: -1px; line-height: 1.05; }
+    .section-subtitle, .editorial-text, .process-intro, p { text-wrap: pretty; }
+
+    /* Imágenes: nunca deformadas, nunca desbordan */
+    img { max-width: 100%; height: auto; }
+    .vertical-image, .featured-image-box, .col-card-img, .split-image { overflow: hidden; }
+    .vertical-image img, .featured-image-box img, .col-card-img img, .split-image img {
+        width: 100%; height: 100%; object-fit: cover;
+    }
+
+    /* Botones: tamaño táctil mínimo cómodo */
+    .btn, .add-to-cart-btn, .col-card-cta, .filter-btn, .btn-outline {
+        min-height: 44px;
+        display: inline-flex; align-items: center; justify-content: center;
+    }
+}
+
+/* ── ≤480px: ajustes finos de legibilidad ── */
+@media (max-width: 480px) {
+    .header-nav .nav-link { font-size: 1rem; }
+
+    /* Statement / editorial: que no se corten ni aprieten */
+    .statement-headline { line-height: 1; word-break: normal; }
+    .editorial-claims { gap: 10px; }
+    .editorial-claim { font-size: .9rem; }
+
+    /* Ticker más compacto y legible */
+    .ticker-item { font-size: .7rem; letter-spacing: .5px; }
+
+    /* Micro-bloques de proceso a una columna cómoda */
+    .micro-blocks { grid-template-columns: 1fr; }
+
+    /* Carrusel galería: altura proporcionada al viewport */
+    .carousel-item { flex: 0 0 78vw; max-width: 320px; height: auto; aspect-ratio: 3/4; }
+
+    /* Helado banner: texto contenido */
+    .helado-banner-sub { font-size: .85rem; }
+    .helado-banner-cta { min-height: 44px; }
+}
+
+/* ── Respetar reduce-motion en todo el sitio ── */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    .grain-overlay { animation: none !important; }
 }
