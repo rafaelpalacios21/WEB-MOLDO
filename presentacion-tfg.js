@@ -109,6 +109,27 @@ function initLanding() {
     initColorChips();
     initHeaderShrink();
     initAutoPauseOnScroll();
+    initSpotVideo();
+}
+
+/* ── SPOT: reproducir al entrar + toggle de sonido ── */
+function initSpotVideo() {
+    const video = document.getElementById('spot-video');
+    const btn   = document.getElementById('spot-sound');
+    if (!video) return;
+
+    // Asegurar reproducción al entrar (autoplay arranca en mute)
+    video.muted = true;
+    const p = video.play();
+    if (p && p.catch) p.catch(() => {});
+
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+        video.muted = !video.muted;
+        btn.classList.toggle('is-on', !video.muted);
+        btn.querySelector('span').textContent = video.muted ? 'Sonido' : 'Silenciar';
+        if (!video.muted) { const pp = video.play(); if (pp && pp.catch) pp.catch(() => {}); }
+    });
 }
 
 /* ================================================================
@@ -332,9 +353,9 @@ function buildSocialShowcase() {
         pairs.push({ piece: d.piece, src: `assets/${d.folder}/${enc(img)}` })
     ));
 
-    // Repartir en 3 columnas (round-robin → sin amontonar la misma pieza)
-    const cols = [[], [], []];
-    pairs.forEach((p, i) => cols[i % 3].push(p));
+    // Repartir en 4 columnas (round-robin → sin amontonar la misma pieza)
+    const cols = [[], [], [], []];
+    pairs.forEach((p, i) => cols[i % 4].push(p));
 
     const colHtml = cols.map((col, ci) => {
         const items = col.map(p =>

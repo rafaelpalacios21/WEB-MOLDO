@@ -17,7 +17,7 @@
 ──────────────────────────────────────────────────────────── -->
 <div id="access-screen" role="dialog" aria-modal="true" aria-label="Acceso privado">
     <div class="access-inner">
-        <p class="access-wordmark">moldo<span>Lab</span></p>
+        <span class="access-wordmark tfg-logo" role="img" aria-label="moldoLab"></span>
         <h1 class="access-tagline">No todo el mundo<br>lo entiende.<br>Y no pasa nada.</h1>
         <p class="access-sub">Acceso privado al proyecto moldoLab</p>
 
@@ -45,7 +45,7 @@
 
     <!-- HEADER -->
     <header id="tfg-header">
-        <div class="hdr-logo" onclick="goToId('spot')" role="button" aria-label="Inicio">moldo<span>Lab</span></div>
+        <div class="hdr-logo tfg-logo" onclick="goToId('spot')" role="button" aria-label="moldoLab — Inicio"></div>
 
         <nav class="hdr-nav" aria-label="Secciones">
             <a class="hdr-link" data-target="spot"             onclick="goToId('spot');return false;" href="#spot">Spot</a>
@@ -94,36 +94,25 @@
 
     <main>
 
-    <!-- ═══ SPOT ═══ -->
-    <section class="tfg-section" id="spot" data-name="Spot">
-        <div class="spot-grid">
-            <div class="reveal">
-                <p class="s-eyebrow">00 / Spot publicitario</p>
-                <h2 class="s-title" style="color:var(--beige);font-size:clamp(1.8rem,4vw,3.4rem);">
-                    Antes de explicar<br>moldoLab,<br>míralo.
-                </h2>
-                <p class="s-body" style="color:rgba(237,233,206,.45);margin-top:1rem;margin-bottom:2rem;">
-                    El proyecto se presenta primero desde la atmósfera, el cuerpo y la presencia visual.
-                    El spot funciona como entrada al universo de la marca antes del desarrollo conceptual.
-                </p>
-                <div class="spot-actions">
-                    <button class="btn btn-light" onclick="openVideoModal()">Ver en grande</button>
-                    <button class="btn btn-outline-light" onclick="goToId('inicio')">Entrar al proyecto</button>
-                </div>
-            </div>
+    <!-- ═══ SPOT — vídeo a pantalla completa, autoplay al entrar ═══ -->
+    <section class="tfg-section tfg-section--spot" id="spot" data-name="Spot">
+        <video id="spot-video" class="spot-fullscreen-video"
+               autoplay muted loop playsinline preload="auto" poster="assets/1.jpg"
+               aria-label="Spot publicitario moldoLab SS·26">
+            <source src="assets/spot-publicitario.mp4" type="video/mp4">
+            Tu navegador no soporta vídeo HTML5.
+        </video>
 
-            <div class="spot-video-wrap reveal d1">
-                <div class="spot-video-inner">
-                    <span class="spot-tag">SS·26 — Spot oficial</span>
-                    <video controls preload="metadata" poster="assets/1.jpg"
-                           aria-label="Spot publicitario moldoLab SS·26">
-                        <source src="assets/spot-publicitario.mp4" type="video/mp4">
-                        Tu navegador no soporta vídeo HTML5.
-                    </video>
-                </div>
-            </div>
-        </div>
-        <a class="next-cue next-cue--light" onclick="goToId('inicio')" role="button">
+        <!-- Controles mínimos sobre el vídeo -->
+        <button id="spot-sound" class="spot-sound" aria-label="Activar sonido">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="18" height="18">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5 6 9H2v6h4l5 4V5z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16 9a3 3 0 0 1 0 6"/>
+            </svg>
+            <span>Sonido</span>
+        </button>
+
+        <a class="spot-enter next-cue next-cue--light" onclick="goToId('inicio')" role="button">
             <span class="arrow">↓</span> Entrar al proyecto
         </a>
     </section>
@@ -134,7 +123,7 @@
         <div class="hero-grid">
             <div class="hero-text">
                 <p class="s-eyebrow" style="color:var(--lima);">Trabajo Final de Grado · Diseño Gráfico · 2026</p>
-                <h1 class="hero-name">MOLDO<span>Lab</span></h1>
+                <h1 class="hero-name tfg-logo" role="img" aria-label="moldoLab"></h1>
                 <p class="hero-sub">Joyas experimentales para cuerpos contemporáneos.</p>
                 <p class="hero-badge">Una marca que no nace para adornar, sino para expresar identidad.</p>
                 <p class="s-body" style="color:rgba(237,233,206,.45);margin-bottom:2rem;max-width:380px;">
@@ -260,23 +249,42 @@
             <p class="s-eyebrow">04 / Identidad verbal</p>
             <h2 class="s-title">La marca habla como piensa</h2>
             <p class="s-body" style="margin-bottom:1rem;">
-                Evita el tono neutro y correcto. Habla desde una voz directa, sensorial y cercana, con un punto
-                de provocación. No busca convencer a todos: busca conectar con quien entiende su universo.
+                Una voz directa, sensorial y con un punto de provocación. No busca convencer a todos:
+                busca conectar con quien entiende su universo. Seis frases que resumen su manifiesto.
             </p>
         </div>
 
-        <div class="verbal-cards reveal d1">
-            <div class="vcard"><div class="vcard-num">01</div><p class="vcard-text">"No sabes por qué te gusta.<br>Sabes que es tuyo."</p></div>
-            <div class="vcard"><div class="vcard-num">02</div><p class="vcard-text">"No seguimos tendencias.<br>Las usamos, las mezclamos...<br>o las ignoramos."</p></div>
-            <div class="vcard"><div class="vcard-num">03</div><p class="vcard-text">"Lo imperfecto tiene personalidad.<br>Y la personalidad siempre gana."</p></div>
-            <div class="vcard"><div class="vcard-num">04</div><p class="vcard-text">"No todo el mundo lo entiende.<br>Y no pasa nada."</p></div>
-            <div class="vcard"><div class="vcard-num">05</div><p class="vcard-text">"El material no define el valor.<br>Lo que vale es lo que transmite."</p></div>
-        </div>
-
-        <div class="archetypes reveal d2">
-            <div class="atype"><p class="atype-name">Explorador</p><p class="atype-text">Busca, prueba y expande límites sin pedir permiso.</p></div>
-            <div class="atype"><p class="atype-name">Villano</p><p class="atype-text">Rompe el canon y desafía lo establecido desde dentro.</p></div>
-            <div class="atype"><p class="atype-name">Amante</p><p class="atype-text">Conecta desde lo sensorial, lo emocional y lo deseable.</p></div>
+        <div class="verbal-cards verbal-cards--6 reveal d1">
+            <div class="vcard">
+                <div class="vcard-num">01</div>
+                <p class="vcard-head">No sabes por qué te gusta</p>
+                <p class="vcard-sub">Sabes que es tuyo.</p>
+            </div>
+            <div class="vcard">
+                <div class="vcard-num">02</div>
+                <p class="vcard-head">No seguimos tendencias</p>
+                <p class="vcard-sub">Las usamos, las mezclamos... o las ignoramos.</p>
+            </div>
+            <div class="vcard">
+                <div class="vcard-num">03</div>
+                <p class="vcard-head">Lo imperfecto tiene personalidad</p>
+                <p class="vcard-sub">Y la personalidad siempre gana.</p>
+            </div>
+            <div class="vcard">
+                <div class="vcard-num">04</div>
+                <p class="vcard-head">No todo el mundo lo entiende</p>
+                <p class="vcard-sub">Y no pasa nada.</p>
+            </div>
+            <div class="vcard">
+                <div class="vcard-num">05</div>
+                <p class="vcard-head">No creemos en lo correcto</p>
+                <p class="vcard-sub">Si una pieza es demasiado rara... probablemente vamos bien.</p>
+            </div>
+            <div class="vcard">
+                <div class="vcard-num">06</div>
+                <p class="vcard-head">El material no define el valor</p>
+                <p class="vcard-sub">Lo que vale es lo que transmite.</p>
+            </div>
         </div>
         <a class="next-cue" onclick="goToId('identidad-visual')" role="button"><span class="arrow">↓</span> Identidad visual</a>
     </section>
@@ -287,46 +295,52 @@
         <div class="visual-grid">
             <div class="reveal">
                 <p class="s-eyebrow">05 / Identidad visual</p>
-                <h2 class="s-title" style="font-size:clamp(2rem,4vw,3.8rem);">Un sistema blando,<br>claro y reconocible</h2>
+                <h2 class="s-title" style="font-size:clamp(2rem,4vw,3.8rem);">El molde,<br>como punto de partida</h2>
+                <p class="s-body" style="margin-bottom:1.25rem;">
+                    El logotipo nace de la idea de <em style="color:var(--green);font-style:normal;font-weight:600;">molde</em> y la invierte:
+                    no como límite para repetir, sino como punto de partida para romperlo.
+                </p>
 
-                <div class="identity-block">
-                    <p class="identity-label">Logotipo</p>
-                    <p class="identity-text">Parte de la idea de molde, pero invierte su significado. No es repetición ni límite, sino punto de partida para romper la forma.</p>
+                <!-- Logotipo real sobre bloque corporativo -->
+                <div class="iv-logo-block">
+                    <span class="tfg-logo iv-logo" role="img" aria-label="moldoLab"></span>
+                    <p class="iv-logo-note">
+                        <strong>moldo</strong> — formas redondeadas, blandas y continuas: la materialidad de las piezas.<br>
+                        <strong>Lab</strong> — contraste limpio y estructurado: laboratorio, proceso, desarrollo.
+                    </p>
                 </div>
-                <div class="identity-block">
-                    <p class="identity-label">Sistema cromático</p>
-                    <p class="identity-text">El color no es una norma cerrada, sino recurso expresivo. Ordena el universo visual sin limitar su evolución.</p>
-                    <div class="color-row">
-                        <div class="color-chip" style="background:#565f34;color:#ede9ce;" data-hex="#565f34" title="Copiar"><span class="chip-name">Verde</span><span class="chip-hex">#565f34</span></div>
-                        <div class="color-chip" style="background:#a7bf67;color:#171713;" data-hex="#a7bf67" title="Copiar"><span class="chip-name">Lima</span><span class="chip-hex">#a7bf67</span></div>
-                        <div class="color-chip" style="background:#780313;color:#ede9ce;" data-hex="#780313" title="Copiar"><span class="chip-name">Granate</span><span class="chip-hex">#780313</span></div>
-                        <div class="color-chip" style="background:#be223d;color:#ede9ce;" data-hex="#be223d" title="Copiar"><span class="chip-name">Rojo</span><span class="chip-hex">#be223d</span></div>
-                        <div class="color-chip" style="background:#ede9ce;color:#171713;" data-hex="#ede9ce" title="Copiar"><span class="chip-name">Beige</span><span class="chip-hex">#ede9ce</span></div>
-                    </div>
-                </div>
+
+                <p class="identity-text" style="margin-top:1rem;">
+                    Una marca experimental, pero no caótica. Artesanal, pero con intención visual clara.
+                </p>
             </div>
 
             <div class="reveal d1">
+                <!-- Tipografía -->
                 <p class="identity-label" style="color:var(--red);">Sistema tipográfico</p>
                 <div class="typo-row">
-                    <p style="font-family:'MoldoRegular',sans-serif;font-size:clamp(2rem,4vw,3.4rem);color:var(--green);letter-spacing:-2px;line-height:1;">moldoLab</p>
-                    <p class="typo-label">MoldoRegular — Logotipo, titulares de impacto</p>
+                    <p style="font-family:'MoldoRegular',sans-serif;font-size:clamp(1.8rem,3.6vw,3rem);color:var(--green);letter-spacing:-2px;line-height:1;">moldoLab</p>
+                    <p class="typo-label">Moldo — Tipografía propia del logotipo · titulares de impacto</p>
                 </div>
                 <div class="typo-row">
-                    <p style="font-size:clamp(1.2rem,2.5vw,2rem);font-weight:900;letter-spacing:-1px;color:var(--text);">POPPINS BOLD</p>
-                    <p class="typo-label">Poppins — Estructura, navegación, cuerpo</p>
+                    <p style="font-size:clamp(1.1rem,2.2vw,1.8rem);font-weight:900;letter-spacing:-1px;color:var(--text);">Poppins</p>
+                    <p class="typo-label">Poppins — Tipografía principal · cuerpo y estructura</p>
                 </div>
                 <div class="typo-row">
-                    <p style="font-family:'CasualHuman',sans-serif;font-size:clamp(1rem,2vw,1.5rem);color:var(--red);">Casual Human · esto no es para todos</p>
-                    <p class="typo-label">CasualHuman — Notas, etiquetas, tono cercano</p>
+                    <p style="font-family:'CasualHuman',sans-serif;font-size:clamp(1rem,2vw,1.4rem);color:var(--red);">esto no es para todos</p>
+                    <p class="typo-label">Casual Human — Notas y tono cercano</p>
                 </div>
 
-                <div style="margin-top:1.25rem;padding:1.25rem;background:var(--green);">
-                    <p style="font-family:'MoldoRegular',sans-serif;font-size:clamp(2rem,5vw,3.8rem);color:var(--beige);letter-spacing:-3px;line-height:.85;text-transform:uppercase;">
-                        MOLDO<br><span style="font-family:'Poppins',sans-serif;font-weight:200;color:var(--lima);">Lab</span>
-                    </p>
-                    <p class="identity-label" style="color:rgba(237,233,206,.4);margin-top:.75rem;">Sistema gráfico — composiciones editoriales, frases directas, gran presencia</p>
+                <!-- Color + degradado propio -->
+                <p class="identity-label" style="margin-top:1.25rem;">Paleta corporativa + degradado propio</p>
+                <div class="color-row">
+                    <div class="color-chip" style="background:#565f34;color:#ede9ce;" data-hex="#565f34" title="Copiar"><span class="chip-name">Verde</span><span class="chip-hex">#565f34</span></div>
+                    <div class="color-chip" style="background:#a7bf67;color:#171713;" data-hex="#a7bf67" title="Copiar"><span class="chip-name">Lima</span><span class="chip-hex">#a7bf67</span></div>
+                    <div class="color-chip" style="background:#780313;color:#ede9ce;" data-hex="#780313" title="Copiar"><span class="chip-name">Granate</span><span class="chip-hex">#780313</span></div>
+                    <div class="color-chip" style="background:#be223d;color:#ede9ce;" data-hex="#be223d" title="Copiar"><span class="chip-name">Rojo</span><span class="chip-hex">#be223d</span></div>
+                    <div class="color-chip" style="background:#ede9ce;color:#171713;" data-hex="#ede9ce" title="Copiar"><span class="chip-name">Beige</span><span class="chip-hex">#ede9ce</span></div>
                 </div>
+                <div class="iv-gradient" aria-label="Degradado corporativo"></div>
             </div>
         </div>
         <a class="next-cue" onclick="goToId('coleccion')" role="button"><span class="arrow">↓</span> Colección</a>
@@ -344,62 +358,45 @@
             </p>
         </div>
 
-        <div class="auto-carousel col-carousel reveal d1" data-delay="4500">
-            <div class="carousel-track">
-                <div class="carousel-item">
-                    <div class="col-car-img"><img src="assets/anilloCALA.jpg" alt="Anillo CALA" loading="lazy" data-lightbox></div>
-                    <div>
-                        <p class="col-car-type">Anillo estrella · 45€</p>
-                        <h3 class="col-car-name">CALA</h3>
-                        <p class="col-car-desc">Gran volumen y presencia escultórica. Su forma blanda y envolvente rompe con la idea clásica del anillo como pieza discreta.</p>
-                        <p class="col-car-kw">— volumen</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="col-car-img"><img src="assets/CollarNARA.jpg" alt="Collar NARA" loading="lazy" data-lightbox></div>
-                    <div>
-                        <p class="col-car-type">Collar · 96€</p>
-                        <h3 class="col-car-name">NARA</h3>
-                        <p class="col-car-desc">Construido desde la continuidad y la torsión. Su forma central envolvente convierte el collar en una declaración limpia pero expresiva.</p>
-                        <p class="col-car-kw">— torsión</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="col-car-img"><img src="assets/BrazaleteORA.jpg" alt="Brazalete ORA" loading="lazy" data-lightbox></div>
-                    <div>
-                        <p class="col-car-type">Brazalete · 53€</p>
-                        <h3 class="col-car-name">ORA</h3>
-                        <p class="col-car-desc">Forma amplia y envolvente definida por un recorrido fluido que parece plegarse sobre sí mismo. Volumen, continuidad y equilibrio.</p>
-                        <p class="col-car-kw">— continuidad</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="col-car-img"><img src="assets/PendientesSIRA.jpg" alt="Pendientes SIRA" loading="lazy" data-lightbox></div>
-                    <div>
-                        <p class="col-car-type">Pendientes · 45€</p>
-                        <h3 class="col-car-name">SIRA</h3>
-                        <p class="col-car-desc">Volumen compacto y carácter escultórico. Pliegues entrelazados que generan una forma cerrada, densa y expresiva.</p>
-                        <p class="col-car-kw">— presencia</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="col-car-img"><img src="assets/AnilloLUA.jpg" alt="Anillo LUA" loading="lazy" data-lightbox></div>
-                    <div>
-                        <p class="col-car-type">Anillo · 45€</p>
-                        <h3 class="col-car-name">LUA</h3>
-                        <p class="col-car-desc">Trabaja desde la curva, el brillo y la sensación de fluidez. Apariencia suave pero gran impacto visual.</p>
-                        <p class="col-car-kw">— brillo</p>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-controls">
-                <button class="carousel-prev" aria-label="Pieza anterior">←</button>
-                <div class="carousel-dots"></div>
-                <button class="carousel-next" aria-label="Pieza siguiente">→</button>
-            </div>
+        <div class="col-pieces reveal d1">
+            <article class="piece-card">
+                <div class="piece-img"><img src="assets/anillocala.png" alt="Anillo CALA" loading="lazy" data-lightbox></div>
+                <p class="piece-type">Anillo estrella</p>
+                <h3 class="piece-name">CALA</h3>
+                <p class="piece-price">45 €</p>
+                <a class="piece-btn" href="featured-product.html" target="_blank" rel="noopener">Ver pieza ↗</a>
+            </article>
+            <article class="piece-card">
+                <div class="piece-img"><img src="assets/anillolua.png" alt="Anillo LUA" loading="lazy" data-lightbox></div>
+                <p class="piece-type">Anillo</p>
+                <h3 class="piece-name">LUA</h3>
+                <p class="piece-price">45 €</p>
+                <a class="piece-btn" href="product-anillo-amarillo.html" target="_blank" rel="noopener">Ver pieza ↗</a>
+            </article>
+            <article class="piece-card">
+                <div class="piece-img"><img src="assets/collarnara.png" alt="Collar NARA" loading="lazy" data-lightbox></div>
+                <p class="piece-type">Collar</p>
+                <h3 class="piece-name">NARA</h3>
+                <p class="piece-price">96 €</p>
+                <a class="piece-btn" href="product-anillo-verde.html" target="_blank" rel="noopener">Ver pieza ↗</a>
+            </article>
+            <article class="piece-card">
+                <div class="piece-img"><img src="assets/brazaleteora.png" alt="Brazalete ORA" loading="lazy" data-lightbox></div>
+                <p class="piece-type">Brazalete</p>
+                <h3 class="piece-name">ORA</h3>
+                <p class="piece-price">53 €</p>
+                <a class="piece-btn" href="product-anillo-burdeos.html" target="_blank" rel="noopener">Ver pieza ↗</a>
+            </article>
+            <article class="piece-card">
+                <div class="piece-img"><img src="assets/pendientes-sira.png" alt="Pendientes SIRA" loading="lazy" data-lightbox></div>
+                <p class="piece-type">Pendientes</p>
+                <h3 class="piece-name">SIRA</h3>
+                <p class="piece-price">45 €</p>
+                <a class="piece-btn" href="product-anillo-oliva.html" target="_blank" rel="noopener">Ver pieza ↗</a>
+            </article>
         </div>
 
-        <p class="col-closing reveal d2">"No son piezas para encajar. Son piezas para reconocerse."</p>
+        <p class="col-closing reveal d2">"No son piezas para encajar. Son piezas para reconocerse." · Abre cada pieza en una pestaña nueva.</p>
         <a class="next-cue next-cue--light" onclick="goToId('material-proceso')" role="button"><span class="arrow">↓</span> Material y proceso</a>
     </section>
 
@@ -480,22 +477,19 @@
                 </div>
             </div>
 
-            <!-- Poster stack automático. NOTA: faltan exportar carteles ORA como JPG.
-                 Disponibles: athyhnj.JPG (CALA) y nfghn.JPG (NARA). El tercero usa una
-                 foto de campaña como stand-in — sustituir por el cartel ORA exportado. -->
+            <!-- Carteles de campaña oficiales (CARTELES MOLDOLAB*.jpg) -->
             <div class="poster-stack" id="poster-stack" aria-label="Carteles de campaña">
-                <div class="poster" data-lightbox-wrap>
-                    <img src="athyhnj.JPG" alt="Cartel Anillo CALA — moldoLab" loading="lazy" data-lightbox>
-                    <p class="poster-cap">Anillo estrella · CALA</p>
+                <div class="poster">
+                    <img src="CARTELES%20MOLDOLAB.jpg" alt="Cartel moldoLab 01" loading="lazy" data-lightbox>
+                    <p class="poster-cap">Cartel · 01</p>
                 </div>
                 <div class="poster">
-                    <img src="nfghn.JPG" alt="Cartel Collar NARA — moldoLab" loading="lazy" data-lightbox>
-                    <p class="poster-cap">Collar · NARA</p>
+                    <img src="CARTELES%20MOLDOLAB2.jpg" alt="Cartel moldoLab 02" loading="lazy" data-lightbox>
+                    <p class="poster-cap">Cartel · 02</p>
                 </div>
-                <!-- Sustituir por el cartel ORA cuando esté exportado -->
                 <div class="poster">
-                    <img src="assets/BrazaleteORA.jpg" alt="Cartel Brazalete ORA — moldoLab" loading="lazy" data-lightbox>
-                    <p class="poster-cap">Brazalete · ORA</p>
+                    <img src="CARTELES%20MOLDOLAB3.jpg" alt="Cartel moldoLab 03" loading="lazy" data-lightbox>
+                    <p class="poster-cap">Cartel · 03</p>
                 </div>
             </div>
         </div>
@@ -503,24 +497,21 @@
     </section>
 
 
-    <!-- ═══ RRSS ═══ -->
-    <section class="tfg-section" id="rrss" data-name="Redes sociales">
-        <div class="reveal">
+    <!-- ═══ RRSS — muro a pantalla completa ═══ -->
+    <section class="tfg-section tfg-section--rrss" id="rrss" data-name="Redes sociales">
+        <!-- El muro de columnas (JS) ocupa toda la sección como fondo -->
+        <div id="social-showcase" aria-label="Publicaciones de redes sociales"></div>
+
+        <!-- Texto superpuesto con scrim -->
+        <div class="rrss-overlay">
             <p class="s-eyebrow" style="color:var(--lima);">10 / Redes sociales</p>
             <h2 class="s-title" style="color:var(--beige);">Del objeto<br>al deseo visual.</h2>
-            <p class="s-body" style="color:rgba(237,233,206,.5);">
-                Las redes funcionan como escaparate y sistema narrativo. Cada publicación no solo muestra una
-                pieza: construye atmósfera, deseo y reconocimiento visual dentro del universo moldoLab.
+            <p class="s-body" style="color:rgba(237,233,206,.6);max-width:420px;">
+                Cada publicación construye atmósfera, deseo y reconocimiento dentro del universo moldoLab.
             </p>
+            <button class="btn btn-outline-light" style="margin-top:1.25rem;" onclick="openVideoModal()">▶ Volver a ver spot</button>
         </div>
 
-        <!-- #social-showcase se genera desde JS: 5 publicaciones (CALA/NARA/ORA/SIRA/LUA),
-             cada una con su mini-carrusel automático + marquee inferior -->
-        <div class="reveal d1" id="social-showcase" aria-label="Publicaciones de redes sociales"></div>
-
-        <div class="reveal d2" style="margin-top:1.5rem;">
-            <button class="btn btn-outline-light" onclick="openVideoModal()">▶ Volver a ver spot</button>
-        </div>
         <a class="next-cue next-cue--light" onclick="goToId('aplicaciones')" role="button"><span class="arrow">↓</span> Aplicaciones</a>
     </section>
 
@@ -529,31 +520,43 @@
     <section class="tfg-section" id="aplicaciones" data-name="Aplicaciones">
         <div class="reveal">
             <p class="s-eyebrow">11 / Aplicaciones gráficas</p>
-            <h2 class="s-title">Una marca no vive<br>en un solo soporte</h2>
-            <p class="s-body" style="margin-bottom:1rem;">
-                Más allá de campaña y redes, la identidad se aplica en soportes editoriales y comerciales:
-                manual de identidad, brand book, packaging, etiquetas y web. Una estética coherente en
-                todos los puntos de contacto.
+            <h2 class="s-title">Un mismo universo,<br>muchos soportes</h2>
+            <p class="s-body" style="margin-bottom:.5rem;">
+                La identidad de moldoLab no se queda en el logotipo: se aplica de forma coherente en cada
+                punto de contacto con la marca, manteniendo siempre la misma intención y lenguaje visual.
             </p>
         </div>
 
-        <div class="auto-carousel apps-carousel reveal d1" data-delay="4000">
-            <div class="carousel-track">
-                <div class="carousel-item">
-                    <div class="app-card"><img src="assets/HELADO.png" alt="Manual de identidad" loading="lazy" data-lightbox><span class="app-card-lbl">Manual</span></div>
-                    <div class="app-card"><img src="assets/COCOS.png" alt="Brand book" loading="lazy" data-lightbox><span class="app-card-lbl">Brand book</span></div>
-                    <div class="app-card"><img src="assets/SOMBRILLA.jpg" alt="Packaging" loading="lazy" data-lightbox><span class="app-card-lbl">Packaging</span></div>
-                </div>
-                <div class="carousel-item">
-                    <div class="app-card"><img src="assets/HIELOS.png" alt="Etiquetas" loading="lazy" data-lightbox><span class="app-card-lbl">Etiquetas</span></div>
-                    <div class="app-card"><img src="assets/trestres.jpg" alt="Editorial" loading="lazy" data-lightbox><span class="app-card-lbl">Editorial</span></div>
-                    <div class="app-card"><img src="assets/IMAGEN1.jpg" alt="Web y soportes" loading="lazy" data-lightbox><span class="app-card-lbl">Web</span></div>
-                </div>
+        <div class="apps-list reveal d1">
+            <div class="app-item">
+                <span class="app-item-n">01</span>
+                <h3 class="app-item-title">Manual de identidad</h3>
+                <p class="app-item-desc">Las normas que ordenan el universo visual: logotipo, color, tipografía y usos.</p>
             </div>
-            <div class="carousel-controls">
-                <button class="carousel-prev" aria-label="Anterior">←</button>
-                <div class="carousel-dots"></div>
-                <button class="carousel-next" aria-label="Siguiente">→</button>
+            <div class="app-item">
+                <span class="app-item-n">02</span>
+                <h3 class="app-item-title">Brand Book</h3>
+                <p class="app-item-desc">El relato de la marca: concepto, tono, actitud y dirección de arte.</p>
+            </div>
+            <div class="app-item">
+                <span class="app-item-n">03</span>
+                <h3 class="app-item-title">Packaging</h3>
+                <p class="app-item-desc">El primer contacto físico con la pieza. Bolsa, etiqueta y experiencia de unboxing.</p>
+            </div>
+            <div class="app-item">
+                <span class="app-item-n">04</span>
+                <h3 class="app-item-title">Campaña y editorial</h3>
+                <p class="app-item-desc">Fotografía, carteles y piezas gráficas que construyen el deseo visual.</p>
+            </div>
+            <div class="app-item">
+                <span class="app-item-n">05</span>
+                <h3 class="app-item-title">Redes sociales</h3>
+                <p class="app-item-desc">Instagram y TikTok como escaparate y narrativa diaria de la marca.</p>
+            </div>
+            <div class="app-item">
+                <span class="app-item-n">06</span>
+                <h3 class="app-item-title">Web y tienda</h3>
+                <p class="app-item-desc">El espacio digital donde descubrir, personalizar y comprar las piezas.</p>
             </div>
         </div>
         <a class="next-cue" onclick="goToId('web')" role="button"><span class="arrow">↓</span> Web</a>
@@ -662,28 +665,31 @@
         <!-- Marquee visual doble fila (loop CSS) generado desde JS -->
         <div class="reveal d1" id="archive-marquee" aria-label="Archivo visual en movimiento"></div>
 
-        <div class="reveal" style="margin-top:2.5rem;">
+        <div class="reveal d1" style="margin-top:1rem;">
+            <button class="btn btn-outline-dark" id="archive-expand-btn">⤢ Ampliar archivo a pantalla completa</button>
+        </div>
+
+        <div class="reveal" style="margin-top:2rem;">
             <p class="s-eyebrow">Documentos descargables</p>
         </div>
         <div class="docs-grid reveal d1">
-            <a href="docsmanual_moldolab.pdf.pdf" download class="doc-item" aria-label="Descargar manual de identidad">
+            <a href="assets/MEMORIA TFG.pdf" target="_blank" rel="noopener" class="doc-item" aria-label="Abrir memoria del proyecto">
                 <div class="doc-icon">PDF</div>
-                <div><p class="doc-name">Manual de identidad</p><p class="doc-sub">Disponible</p></div>
+                <div><p class="doc-name">Memoria del proyecto</p><p class="doc-sub">Documento completo · Disponible</p></div>
             </a>
-            <div class="doc-item unavail"><div class="doc-icon" style="background:var(--warm);">PDF</div><div><p class="doc-name">Memoria del proyecto</p><p class="doc-sub">Añadir MEMORIA TFG.pdf</p></div></div>
-            <div class="doc-item unavail"><div class="doc-icon" style="background:var(--warm);">PDF</div><div><p class="doc-name">Plan de negocio</p><p class="doc-sub">Añadir PLAN DE NEGOCIO.pdf</p></div></div>
-            <div class="doc-item unavail"><div class="doc-icon" style="background:var(--warm);">PDF</div><div><p class="doc-name">Brand Book</p><p class="doc-sub">Añadir cuadernillo.pdf</p></div></div>
-            <div class="doc-item unavail"><div class="doc-icon" style="background:var(--warm);">PDF</div><div><p class="doc-name">Cartelería</p><p class="doc-sub">Añadir CARTELES MOLDOLAB.pdf</p></div></div>
-            <a href="assets/spot-publicitario.mp4" download class="doc-item" aria-label="Descargar spot publicitario">
+            <a href="assets/cuadernillo.pdf" target="_blank" rel="noopener" class="doc-item" aria-label="Abrir brand book">
+                <div class="doc-icon">PDF</div>
+                <div><p class="doc-name">Brand Book</p><p class="doc-sub">Cuadernillo de marca · Disponible</p></div>
+            </a>
+            <a href="docsmanual_moldolab.pdf.pdf" target="_blank" rel="noopener" class="doc-item" aria-label="Abrir manual de identidad">
+                <div class="doc-icon">PDF</div>
+                <div><p class="doc-name">Manual de identidad</p><p class="doc-sub">Brand guidelines · Disponible</p></div>
+            </a>
+            <a href="assets/spot-publicitario.mp4" target="_blank" rel="noopener" class="doc-item" aria-label="Ver spot publicitario">
                 <div class="doc-icon" style="background:var(--red);">MP4</div>
-                <div><p class="doc-name">Spot publicitario</p><p class="doc-sub">Disponible</p></div>
+                <div><p class="doc-name">Spot publicitario</p><p class="doc-sub">Pieza audiovisual · Disponible</p></div>
             </a>
         </div>
-
-        <p class="arch-note reveal d2">
-            Para añadir los documentos que faltan, coloca los PDFs en la carpeta raíz del proyecto
-            y actualiza los enlaces en este archivo.
-        </p>
         <a class="next-cue" onclick="goToId('spot')" role="button"><span class="arrow" style="transform:rotate(180deg);">↓</span> Volver al inicio</a>
     </section>
 
@@ -705,6 +711,12 @@
     <div id="img-lightbox" role="dialog" aria-modal="true" aria-label="Imagen ampliada">
         <button id="lb-close" aria-label="Cerrar imagen">✕ cerrar</button>
         <img id="lb-img" src="" alt="Imagen ampliada">
+    </div>
+
+    <!-- ── ARCHIVO A PANTALLA COMPLETA (filas marquee con todas las imágenes) ── -->
+    <div id="archive-fs" role="dialog" aria-modal="true" aria-label="Archivo visual a pantalla completa">
+        <button id="archive-fs-close" aria-label="Cerrar archivo">✕ cerrar</button>
+        <div id="archive-fs-rows"></div>
     </div>
 
     <!-- ── BACK TO TOP ── -->
