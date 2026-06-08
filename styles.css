@@ -3101,17 +3101,76 @@ h4 { font-size: 1.1rem; }
     opacity: 0;
 }
 
-/* Estampas del logo en el trail */
-.logo-stamp {
-    position: absolute;
+/* ── MINIJUEGO "ATRAPA EL LOGO" ── */
+.game-hud {
+    position: absolute; top: 22px; left: 0; right: 0;
+    display: flex; justify-content: center; gap: 22px;
+    z-index: 4; opacity: 0; transition: opacity .3s ease;
     pointer-events: none;
-    transform: translate(-50%, -50%);
-    animation: stampAppear 0.22s ease forwards;
+}
+.game-hud.visible { opacity: 1; }
+.game-hud-item {
+    font-family: 'Courier New', monospace;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 1px;
+    color: rgba(237,233,231,0.55);
+    background: rgba(0,0,0,0.25); padding: 6px 14px; border-radius: 50px;
+}
+.game-hud-item b { color: var(--lima); }
+
+.game-screen {
+    position: absolute; inset: 0; z-index: 5;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 30px; gap: 8px;
+    background: rgba(17,20,16,0.35); backdrop-filter: blur(2px);
+}
+.game-screen--hidden { display: none; }
+.game-title {
+    font-size: 1.8rem; font-weight: 800; letter-spacing: -1px;
+    color: var(--bg-light); line-height: 1.05; margin: 4px 0 6px;
+    text-transform: uppercase;
+}
+.game-desc {
+    font-size: 0.82rem; font-weight: 300; line-height: 1.6;
+    color: rgba(237,233,231,0.6); max-width: 280px; margin-bottom: 12px;
+}
+.game-desc b { color: var(--lima); font-weight: 700; }
+.game-btn {
+    font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--color-text-dark); background: var(--lima);
+    padding: 14px 30px; border-radius: 50px; cursor: pointer;
+    transition: background 0.25s, transform 0.25s;
+}
+.game-btn:hover { background: var(--bg-light); transform: translateY(-2px); }
+.game-btn--ghost {
+    background: transparent; color: var(--lima);
+    border: 1px solid rgba(167,191,102,0.4); margin-top: 6px;
+}
+.game-btn--ghost:hover { background: rgba(167,191,102,0.12); color: var(--lima); }
+.game-code {
+    font-family: 'Courier New', monospace; font-size: 1.4rem; font-weight: 700;
+    letter-spacing: 4px; color: var(--bg-light);
+    border: 1px dashed rgba(167,191,102,0.5); border-radius: 8px;
+    padding: 12px 24px; margin: 6px 0 14px; background: rgba(167,191,102,0.08);
 }
 
-@keyframes stampAppear {
-    from { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
-    to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+/* Logo objetivo que aparece y hay que clicar */
+.game-logo {
+    position: absolute; z-index: 3;
+    width: 110px; height: 30px; padding: 0; border: none; cursor: pointer;
+    background-color: var(--lima);
+    -webkit-mask-image: url('assets/recurso-4.svg'); mask-image: url('assets/recurso-4.svg');
+    -webkit-mask-size: contain; mask-size: contain;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    -webkit-mask-position: center; mask-position: center;
+    transform: translate(-50%, -50%) scale(0);
+    animation: gameLogoPop 0.18s cubic-bezier(0.16,1,0.3,1) forwards;
+    transition: background-color .2s;
+}
+.game-logo:hover { background-color: var(--bg-light); }
+.game-logo.hit { background-color: var(--primary-red); transform: translate(-50%,-50%) scale(1.3); opacity: 0; transition: all .15s ease; }
+@keyframes gameLogoPop {
+    from { transform: translate(-50%,-50%) scale(0); }
+    to   { transform: translate(-50%,-50%) scale(1); }
 }
 
 @media (max-width: 900px) {
@@ -3629,13 +3688,26 @@ h4 { font-size: 1.1rem; }
     border-color: var(--lima);
 }
 
-/* Featured card — spans 2 cols */
+/* Featured card — spans 2 cols. Imagen recortada (cutout) sobre blanco,
+   con un aspecto que deja su caja info a la misma altura que la tarjeta vecina (LUA). */
 .col-card-featured {
     grid-column: span 2;
 }
 
 .col-card-featured .col-card-img {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 3 / 2;            /* misma altura aprox. que una tarjeta 3/4 a 1 columna */
+    background: #ffffff;            /* fondo blanco alrededor de la pieza */
+}
+
+.col-card-featured .col-card-img img {
+    object-fit: contain;            /* la pieza se ve completa, tamaño natural */
+    object-position: center;
+    padding: clamp(20px, 3vw, 48px);
+    filter: none;
+}
+.col-card-featured:hover .col-card-img img {
+    transform: scale(1.05);
+    filter: none;
 }
 
 .col-card-badge {

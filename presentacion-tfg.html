@@ -13,6 +13,21 @@
 <body>
 
 <!-- ────────────────────────────────────────────────────────────
+     AVISO: PRESENTACIÓN SOLO PARA ORDENADOR
+──────────────────────────────────────────────────────────── -->
+<div id="tfg-desktop-only">
+    <div class="tdo-inner">
+        <span class="access-wordmark tfg-logo" role="img" aria-label="moldoLab"></span>
+        <svg class="tdo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+        </svg>
+        <h1 class="tdo-title">Esta presentación<br>está pensada para ordenador</h1>
+        <p class="tdo-text">El recorrido del Trabajo Final de Grado usa pantalla completa, vídeo y modelos en movimiento. Para verlo como debe verse, ábrelo desde un ordenador.</p>
+        <a class="tdo-back" href="index.html">← Volver a la web</a>
+    </div>
+</div>
+
+<!-- ────────────────────────────────────────────────────────────
      PANTALLA DE ACCESO
 ──────────────────────────────────────────────────────────── -->
 <div id="access-screen" role="dialog" aria-modal="true" aria-label="Acceso privado">
@@ -144,38 +159,42 @@
 
     <!-- ═══ ORIGEN ═══ -->
     <section class="tfg-section" id="origen" data-name="Origen">
-        <div class="origen-grid">
-            <div class="reveal">
-                <p class="s-eyebrow">01 / Origen</p>
-                <h2 class="s-title">Cuando todo empieza<br>a parecerse demasiado</h2>
-                <p class="s-body" style="margin-bottom:1.5rem;">
-                    moldoLab nace de observar un entorno visual donde muchas piezas y tendencias empiezan
-                    a parecerse entre sí. El proyecto propone una joyería experimental que entiende la pieza
-                    como una forma de identidad, no como un simple accesorio.
-                </p>
-                <p class="origen-quote">
-                    "No buscamos piezas<br>que combinen con todo.<br>
-                    <em>Buscamos piezas que digan algo."</em>
-                </p>
+        <div class="origen-head reveal">
+            <p class="s-eyebrow">01 / Origen</p>
+            <h2 class="s-title">Cuando todo empieza<br>a parecerse demasiado</h2>
+            <p class="s-body" style="max-width:620px;">
+                moldoLab nace de observar un entorno donde todo se parece demasiado: tendencias rápidas
+                y objetos repetidos que terminan haciendo que nada tenga personalidad. Frente a eso,
+                una joyería que entiende la pieza como identidad, no como accesorio.
+            </p>
+        </div>
+
+        <div class="origen-flow reveal d1">
+            <div class="oflow">
+                <p class="oflow-num">01</p>
+                <p class="oflow-label">Problema</p>
+                <p class="oflow-title">La joyería tradicional</p>
+                <p class="oflow-text">Asociada al lujo material, al valor económico y a los códigos clásicos.</p>
             </div>
-            <div class="origen-blocks reveal d1">
-                <div class="oblock">
-                    <p class="oblock-num">01 / Problema</p>
-                    <p class="oblock-title">La joyería tradicional</p>
-                    <p class="oblock-text">Continúa asociada al lujo material, al valor económico y a los códigos clásicos.</p>
-                </div>
-                <div class="oblock">
-                    <p class="oblock-num">02 / Oportunidad</p>
-                    <p class="oblock-title">El nuevo público</p>
-                    <p class="oblock-text">Jóvenes y creativos buscan objetos que comuniquen actitud, estética propia y pertenencia visual.</p>
-                </div>
-                <div class="oblock">
-                    <p class="oblock-num">03 / Respuesta</p>
-                    <p class="oblock-title">moldoLab</p>
-                    <p class="oblock-text">Polímeros flexibles, formas orgánicas y narrativa gráfica para piezas con presencia.</p>
-                </div>
+            <span class="oflow-arrow">→</span>
+            <div class="oflow">
+                <p class="oflow-num">02</p>
+                <p class="oflow-label">Oportunidad</p>
+                <p class="oflow-title">El nuevo público</p>
+                <p class="oflow-text">Jóvenes y creativos buscan objetos que comuniquen actitud y estética propia.</p>
+            </div>
+            <span class="oflow-arrow">→</span>
+            <div class="oflow oflow--accent">
+                <p class="oflow-num">03</p>
+                <p class="oflow-label">Respuesta</p>
+                <p class="oflow-title">moldoLab</p>
+                <p class="oflow-text">Polímeros flexibles, formas orgánicas y narrativa gráfica para piezas con presencia.</p>
             </div>
         </div>
+
+        <p class="origen-quote reveal d2">
+            No buscamos piezas que combinen con todo. <em>Buscamos piezas que digan algo.</em>
+        </p>
         <a class="next-cue" onclick="goToId('investigacion')" role="button"><span class="arrow">↓</span> Investigación</a>
     </section>
 
@@ -186,7 +205,7 @@
             <div class="reveal">
                 <p class="s-eyebrow" style="color:var(--lima);">02 / Investigación</p>
                 <h2 class="s-title" style="color:var(--beige);font-size:clamp(2rem,4.5vw,4rem);">
-                    De la joya<br>como objeto a la joya<br>como lenguaje
+                    De la joya como objeto<br>a la joya como lenguaje
                 </h2>
                 <p class="s-body" style="color:rgba(237,233,206,.45);">
                     La joyería nunca ha sido solo decorativa. Ha funcionado como símbolo, archivo emocional
@@ -222,23 +241,25 @@
 
     <!-- ═══ CONCEPTO ═══ -->
     <section class="tfg-section" id="concepto" data-name="Concepto">
-        <div class="reveal">
-            <p class="s-eyebrow">03 / Concepto de marca</p>
-            <h2 class="s-title">No está hecho para encajar</h2>
-            <p class="s-body" style="max-width:520px;">
-                moldoLab es una marca de joyería contemporánea que utiliza materiales plásticos y polímeros
-                como recurso expresivo. El foco está en la forma, el volumen, la actitud y la identidad visual.
-            </p>
+        <div class="concepto-layout">
+            <div class="concepto-left reveal">
+                <p class="s-eyebrow">03 / Concepto de marca</p>
+                <h2 class="s-title">No está hecho<br>para encajar</h2>
+                <p class="s-body" style="max-width:440px;">
+                    La identidad tiene más valor que la tendencia. moldoLab usa polímeros y resina como
+                    recurso expresivo, no como sustituto de lo noble. La pieza no adorna: es una
+                    extensión de quien la lleva.
+                </p>
+                <p class="concepto-claim">Si encaja con todo,<br><em>probablemente no sea nuestro.</em></p>
+            </div>
+
+            <div class="concepto-pillars reveal d1">
+                <div class="cpillar"><span class="cpillar-n">01</span><h3>Identidad</h3><p>Cada pieza habla de quien la lleva sin explicarlo.</p></div>
+                <div class="cpillar"><span class="cpillar-n">02</span><h3>Actitud</h3><p>Diseñada para romper moldes, no para seguirlos.</p></div>
+                <div class="cpillar"><span class="cpillar-n">03</span><h3>Estética</h3><p>Personalidad propia, alejada de lo excesivamente perfecto.</p></div>
+                <div class="cpillar cpillar--accent"><span class="cpillar-n">04</span><h3>Presencia</h3><p>Formas que generan algo. Que no pasan desapercibidas.</p></div>
+            </div>
         </div>
-        <div class="concepto-words reveal d1">
-            <span class="cword">Identidad.</span>
-            <span class="cword cword--red">Actitud.</span>
-            <span class="cword">Estética.</span>
-            <span class="cword cword--xl">Presencia.</span>
-        </div>
-        <p class="s-body s-casual reveal d2" style="max-width:480px;color:var(--muted);">
-            La pieza no se entiende como adorno, sino como gesto visual. Una extensión de quien la lleva.
-        </p>
         <a class="next-cue" onclick="goToId('identidad-verbal')" role="button"><span class="arrow">↓</span> Identidad verbal</a>
     </section>
 
@@ -358,45 +379,62 @@
             </p>
         </div>
 
-        <div class="col-pieces reveal d1">
-            <article class="piece-card">
-                <div class="piece-img"><img src="assets/anillocala.png" alt="Anillo CALA" loading="lazy" data-lightbox></div>
-                <p class="piece-type">Anillo estrella</p>
-                <h3 class="piece-name">CALA</h3>
-                <p class="piece-price">45 €</p>
-                <a class="piece-btn" href="featured-product.html" target="_blank" rel="noopener">Ver pieza ↗</a>
-            </article>
-            <article class="piece-card">
-                <div class="piece-img"><img src="assets/anillolua.png" alt="Anillo LUA" loading="lazy" data-lightbox></div>
-                <p class="piece-type">Anillo</p>
-                <h3 class="piece-name">LUA</h3>
-                <p class="piece-price">45 €</p>
-                <a class="piece-btn" href="product-anillo-amarillo.html" target="_blank" rel="noopener">Ver pieza ↗</a>
-            </article>
-            <article class="piece-card">
-                <div class="piece-img"><img src="assets/collarnara.png" alt="Collar NARA" loading="lazy" data-lightbox></div>
-                <p class="piece-type">Collar</p>
-                <h3 class="piece-name">NARA</h3>
-                <p class="piece-price">96 €</p>
-                <a class="piece-btn" href="product-anillo-verde.html" target="_blank" rel="noopener">Ver pieza ↗</a>
-            </article>
-            <article class="piece-card">
-                <div class="piece-img"><img src="assets/brazaleteora.png" alt="Brazalete ORA" loading="lazy" data-lightbox></div>
-                <p class="piece-type">Brazalete</p>
-                <h3 class="piece-name">ORA</h3>
-                <p class="piece-price">53 €</p>
-                <a class="piece-btn" href="product-anillo-burdeos.html" target="_blank" rel="noopener">Ver pieza ↗</a>
-            </article>
-            <article class="piece-card">
-                <div class="piece-img"><img src="assets/pendientes-sira.png" alt="Pendientes SIRA" loading="lazy" data-lightbox></div>
-                <p class="piece-type">Pendientes</p>
-                <h3 class="piece-name">SIRA</h3>
-                <p class="piece-price">45 €</p>
-                <a class="piece-btn" href="product-anillo-oliva.html" target="_blank" rel="noopener">Ver pieza ↗</a>
-            </article>
+        <div class="auto-carousel col-carousel reveal d1" data-delay="4000">
+            <div class="carousel-track">
+                <div class="carousel-item">
+                    <div class="col-car-img"><img src="assets/anillocala.png" alt="Anillo CALA" loading="lazy" data-lightbox></div>
+                    <div class="col-car-info">
+                        <p class="col-car-type">Anillo estrella · 45 €</p>
+                        <h3 class="col-car-name">CALA</h3>
+                        <p class="col-car-desc">Gran volumen y presencia escultórica. Su forma blanda y envolvente rompe con la idea clásica del anillo discreto.</p>
+                        <a class="col-car-btn" href="featured-product.html" target="_blank" rel="noopener">Ver pieza ↗</a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="col-car-img"><img src="assets/collarnara.png" alt="Collar NARA" loading="lazy" data-lightbox></div>
+                    <div class="col-car-info">
+                        <p class="col-car-type">Collar · 96 €</p>
+                        <h3 class="col-car-name">NARA</h3>
+                        <p class="col-car-desc">Continuidad y torsión. Su forma central envolvente convierte el collar en una declaración limpia pero expresiva.</p>
+                        <a class="col-car-btn" href="product-anillo-verde.html" target="_blank" rel="noopener">Ver pieza ↗</a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="col-car-img"><img src="assets/brazaleteora.png" alt="Brazalete ORA" loading="lazy" data-lightbox></div>
+                    <div class="col-car-info">
+                        <p class="col-car-type">Brazalete · 53 €</p>
+                        <h3 class="col-car-name">ORA</h3>
+                        <p class="col-car-desc">Forma amplia y envolvente, definida por un recorrido fluido que parece plegarse sobre sí mismo.</p>
+                        <a class="col-car-btn" href="product-anillo-burdeos.html" target="_blank" rel="noopener">Ver pieza ↗</a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="col-car-img"><img src="assets/pendientes-sira.png" alt="Pendientes SIRA" loading="lazy" data-lightbox></div>
+                    <div class="col-car-info">
+                        <p class="col-car-type">Pendientes · 45 €</p>
+                        <h3 class="col-car-name">SIRA</h3>
+                        <p class="col-car-desc">Volumen compacto y carácter escultórico. Pliegues entrelazados que generan una forma cerrada y expresiva.</p>
+                        <a class="col-car-btn" href="product-anillo-oliva.html" target="_blank" rel="noopener">Ver pieza ↗</a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="col-car-img"><img src="assets/anillolua.png" alt="Anillo LUA" loading="lazy" data-lightbox></div>
+                    <div class="col-car-info">
+                        <p class="col-car-type">Anillo · 45 €</p>
+                        <h3 class="col-car-name">LUA</h3>
+                        <p class="col-car-desc">Curva, brillo y sensación de fluidez. Apariencia suave pero gran impacto visual.</p>
+                        <a class="col-car-btn" href="product-anillo-amarillo.html" target="_blank" rel="noopener">Ver pieza ↗</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-prev" aria-label="Pieza anterior">←</button>
+                <div class="carousel-dots"></div>
+                <button class="carousel-next" aria-label="Pieza siguiente">→</button>
+            </div>
         </div>
 
-        <p class="col-closing reveal d2">"No son piezas para encajar. Son piezas para reconocerse." · Abre cada pieza en una pestaña nueva.</p>
+        <p class="col-closing reveal d2">"No son piezas para encajar. Son piezas para reconocerse." · Cada pieza abre en una pestaña nueva.</p>
         <a class="next-cue next-cue--light" onclick="goToId('material-proceso')" role="button"><span class="arrow">↓</span> Material y proceso</a>
     </section>
 
@@ -439,8 +477,8 @@
     <section class="tfg-section" id="campana" data-name="Campaña">
         <div class="reveal">
             <p class="s-eyebrow">08 / Dirección de arte</p>
-            <h2 class="s-title">Luxury in the Ordinary</h2>
-            <p class="s-sub">El lujo no es perfección. Es presencia dentro de lo cotidiano.</p>
+            <h2 class="s-title">Lo imperfecto<br>tiene personalidad</h2>
+            <p class="s-sub">Luxury in the Ordinary · El lujo no es perfección: es presencia dentro de lo cotidiano.</p>
             <p class="s-body" style="margin-bottom:.5rem;">
                 La campaña sitúa las piezas en escenas cálidas, urbanas y sensoriales. La joya no aparece
                 aislada: se integra en una escena viva, cotidiana y sensorial donde cuerpo, objeto y entorno
@@ -477,18 +515,18 @@
                 </div>
             </div>
 
-            <!-- Carteles de campaña oficiales (CARTELES MOLDOLAB*.jpg) -->
+            <!-- Carteles de campaña (ligeros) -->
             <div class="poster-stack" id="poster-stack" aria-label="Carteles de campaña">
                 <div class="poster">
-                    <img src="CARTELES%20MOLDOLAB.jpg" alt="Cartel moldoLab 01" loading="lazy" data-lightbox>
+                    <img src="assets/cartel.jpg" alt="Cartel moldoLab 01" loading="lazy" decoding="async" data-lightbox>
                     <p class="poster-cap">Cartel · 01</p>
                 </div>
                 <div class="poster">
-                    <img src="CARTELES%20MOLDOLAB2.jpg" alt="Cartel moldoLab 02" loading="lazy" data-lightbox>
+                    <img src="assets/cartel2.jpg" alt="Cartel moldoLab 02" loading="lazy" decoding="async" data-lightbox>
                     <p class="poster-cap">Cartel · 02</p>
                 </div>
                 <div class="poster">
-                    <img src="CARTELES%20MOLDOLAB3.jpg" alt="Cartel moldoLab 03" loading="lazy" data-lightbox>
+                    <img src="assets/cartel3.jpg" alt="Cartel moldoLab 03" loading="lazy" decoding="async" data-lightbox>
                     <p class="poster-cap">Cartel · 03</p>
                 </div>
             </div>
@@ -497,20 +535,10 @@
     </section>
 
 
-    <!-- ═══ RRSS — muro a pantalla completa ═══ -->
+    <!-- ═══ RRSS — muro a pantalla completa (solo imágenes) ═══ -->
     <section class="tfg-section tfg-section--rrss" id="rrss" data-name="Redes sociales">
-        <!-- El muro de columnas (JS) ocupa toda la sección como fondo -->
+        <!-- El muro de columnas (JS) ocupa toda la sección -->
         <div id="social-showcase" aria-label="Publicaciones de redes sociales"></div>
-
-        <!-- Texto superpuesto con scrim -->
-        <div class="rrss-overlay">
-            <p class="s-eyebrow" style="color:var(--lima);">10 / Redes sociales</p>
-            <h2 class="s-title" style="color:var(--beige);">Del objeto<br>al deseo visual.</h2>
-            <p class="s-body" style="color:rgba(237,233,206,.6);max-width:420px;">
-                Cada publicación construye atmósfera, deseo y reconocimiento dentro del universo moldoLab.
-            </p>
-            <button class="btn btn-outline-light" style="margin-top:1.25rem;" onclick="openVideoModal()">▶ Volver a ver spot</button>
-        </div>
 
         <a class="next-cue next-cue--light" onclick="goToId('aplicaciones')" role="button"><span class="arrow">↓</span> Aplicaciones</a>
     </section>

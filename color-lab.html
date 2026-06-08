@@ -574,6 +574,7 @@
             background: white;
             border: 1px solid rgba(86,95,52,0.07);
             transition: var(--transition-smooth);
+            position: relative;
         }
 
         .material-card:hover {
@@ -581,23 +582,22 @@
             box-shadow: 0 20px 40px rgba(86,95,52,0.1);
         }
 
-        .material-visual {
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-        }
-        .material-visual img {
-            width: 100%; height: 100%;
-            object-fit: cover;
+        .material-body { padding: 36px 30px 32px; position: relative; }
+        .material-num {
             display: block;
-            transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+            font-family: 'Courier New', monospace;
+            font-size: 0.62rem; font-weight: 700; letter-spacing: 2px;
+            color: var(--primary-red); margin-bottom: 18px;
         }
-        .material-card:hover .material-visual img { transform: scale(1.05); }
-
-        .material-body { padding: 24px; }
+        .material-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: var(--oliva);
+            transform: scaleX(0); transform-origin: left;
+            transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+        }
+        .material-card:hover::before { transform: scaleX(1); }
 
         .material-tag {
             display: inline-block;
@@ -778,44 +778,52 @@
             50%       { transform: translateY(8px); }
         }
 
-        /* Floating color orbs */
-        .collab-hero-orbs {
+        /* Glow corporativo suave de fondo */
+        .clab-hero-glow {
+            position: absolute; inset: 0; z-index: 0; pointer-events: none;
+            background:
+                radial-gradient(ellipse at 75% 35%, rgba(190,26,50,0.18) 0%, transparent 55%),
+                radial-gradient(ellipse at 88% 80%, rgba(167,191,102,0.14) 0%, transparent 50%);
+        }
+
+        /* Pieza con halo de color cambiante */
+        .clab-hero-piece {
             position: relative;
             z-index: 1;
-            height: 420px;
-            pointer-events: none;
+            justify-self: center;
+            width: clamp(280px, 36vw, 520px);
+            aspect-ratio: 1;
+            display: flex; align-items: center; justify-content: center;
         }
-
-        .collab-orb {
+        .clab-hero-aura {
             position: absolute;
-            border-radius: 50%;
-            filter: blur(65px);
+            width: 78%; aspect-ratio: 1; border-radius: 50%;
+            filter: blur(60px);
+            background: #be223d;
+            animation: clabAura 9s ease-in-out infinite;
+            will-change: background-color, transform;
         }
-
-        .collab-orb-1 {
-            width: clamp(180px,22vw,300px); height: clamp(180px,22vw,300px);
-            background: rgba(190,26,50,0.32);
-            top: 6%; left: 4%;
-            animation: orbDrift 9s ease-in-out infinite;
+        .clab-hero-ring {
+            position: relative; z-index: 1;
+            width: 100%; height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 30px 50px rgba(0,0,0,0.55));
+            animation: clabFloatRing 6s ease-in-out infinite;
+            will-change: transform;
         }
-
-        .collab-orb-2 {
-            width: clamp(140px,18vw,250px); height: clamp(140px,18vw,250px);
-            background: rgba(86,95,52,0.42);
-            bottom: 6%; right: 4%;
-            animation: orbDrift 13s ease-in-out infinite reverse;
+        @keyframes clabAura {
+            0%   { background-color: #780313; transform: scale(0.92); }
+            25%  { background-color: #be223d; transform: scale(1.06); }
+            50%  { background-color: #565f34; transform: scale(0.96); }
+            75%  { background-color: #a7bf67; transform: scale(1.08); }
+            100% { background-color: #780313; transform: scale(0.92); }
         }
-
-        .collab-orb-3 {
-            width: clamp(90px,11vw,150px); height: clamp(90px,11vw,150px);
-            background: rgba(167,191,102,0.24);
-            top: 40%; left: 38%;
-            animation: orbDrift 7s ease-in-out infinite 1.8s;
+        @keyframes clabFloatRing {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50%       { transform: translateY(-16px) rotate(3deg); }
         }
-
-        @keyframes orbDrift {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50%       { transform: translateY(-24px) scale(1.07); }
+        @media (prefers-reduced-motion: reduce) {
+            .clab-hero-aura, .clab-hero-ring { animation: none; }
         }
 
         /* PHILOSOPHY TICKER */
@@ -971,30 +979,39 @@
         }
 
         @media (max-width: 900px) {
-            .collab-hero { grid-template-columns: 1fr; min-height: auto; padding-bottom: 60px; }
-            .collab-hero-orbs { height: 260px; }
+            .collab-hero {
+                grid-template-columns: 1fr; min-height: auto;
+                padding: calc(var(--header-height) + 50px) 8% 60px; gap: 32px;
+            }
+            .clab-hero-piece { width: clamp(200px, 56vw, 320px); order: 2; }
             .collab-stmt-grid { grid-template-columns: 1fr; gap: 40px; }
 
             /* Escenario 3D: el modelo arriba, la tarjeta de control debajo (apilados) */
             .lab-3d-section { min-height: 0; display: flex; flex-direction: column; }
-            .canvas-wrap { position: relative; inset: auto; height: 62vh; min-height: 360px; }
-            #ring-canvas { min-height: 360px; }
+            .canvas-wrap { position: relative; inset: auto; height: 60vh; min-height: 340px; }
+            #ring-canvas { min-height: 340px; }
             .controls-panel {
                 position: relative; left: auto; bottom: auto;
                 width: 100%; border-radius: 0;
                 border: none; border-top: 1px solid rgba(237,233,231,0.08);
                 box-shadow: none;
             }
-            .canvas-hint { bottom: auto; top: calc(var(--header-height) + 18px); right: 28px; }
+            .canvas-hint { bottom: auto; top: calc(var(--header-height) + 18px); right: 20px; }
+            .canvas-badge { top: calc(var(--header-height) + 18px); left: 20px; }
         }
 
         @media (max-width: 640px) {
-            .det-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+            .det-grid { grid-template-columns: 1fr; gap: 14px; }
             .materials-grid { grid-template-columns: 1fr; }
             .presets-grid { grid-template-columns: repeat(6, 1fr); }
-            .canvas-wrap { height: 56vh; }
-            .collab-palette-intro { height: 86px; }
-            .collab-hero-title { letter-spacing: -2px; }
+            .canvas-wrap { height: 52vh; min-height: 300px; }
+            #ring-canvas { min-height: 300px; }
+            .collab-palette-intro { height: 70px; }
+            .collab-hero-title { letter-spacing: -2px; font-size: clamp(2.6rem,12vw,4rem); }
+            .clab-hero-piece { width: clamp(180px, 60vw, 260px); }
+            .controls-panel { padding: 32px 6%; }
+            .det-section, .materials-section { padding: 60px 6%; }
+            .colorlab-cta { padding: 80px 6%; }
         }
     </style>
 </head>
@@ -1030,7 +1047,7 @@
     <main>
         <!-- ═══ HERO ═══ -->
         <section class="collab-hero" id="collab-hero">
-            <div class="collab-hero-bg-text" aria-hidden="true">COLOR</div>
+            <div class="clab-hero-glow" aria-hidden="true"></div>
 
             <div class="collab-hero-content">
                 <div class="collab-hero-eyebrow">Color Lab · SS·26</div>
@@ -1047,10 +1064,10 @@
                 </a>
             </div>
 
-            <div class="collab-hero-orbs" aria-hidden="true">
-                <div class="collab-orb collab-orb-1"></div>
-                <div class="collab-orb collab-orb-2"></div>
-                <div class="collab-orb collab-orb-3"></div>
+            <!-- Pieza con halo de color cambiante -->
+            <div class="clab-hero-piece" aria-hidden="true">
+                <div class="clab-hero-aura"></div>
+                <img src="assets/anillocala.png" alt="" class="clab-hero-ring">
             </div>
         </section>
 
@@ -1273,30 +1290,24 @@
             <p class="reveal delay-1">moldoLab trabaja con polímeros flexibles como material principal: ultraligeros, resistentes y capaces de adoptar formas imposibles para la joyería tradicional. El valor no está en el material noble, sino en lo que la pieza transmite.</p>
             <div class="materials-grid">
                 <div class="material-card reveal">
-                    <div class="material-visual">
-                        <img src="assets/AnilloLUAdet.PNG" alt="Detalle de polímero flexible — Anillo LUA" loading="lazy">
-                    </div>
                     <div class="material-body">
+                        <span class="material-num">01</span>
                         <span class="material-tag">Material base</span>
                         <h3>Polímero flexible</h3>
                         <p>Ligero, resistente y moldeable. Permite construir piezas de gran volumen sin peso, con una libertad formal que define el lenguaje de la marca.</p>
                     </div>
                 </div>
                 <div class="material-card reveal delay-1">
-                    <div class="material-visual">
-                        <img src="assets/CollarNARAdet.PNG" alt="Detalle de resina experimental — Collar NARA" loading="lazy">
-                    </div>
                     <div class="material-body">
+                        <span class="material-num">02</span>
                         <span class="material-tag">Color</span>
                         <h3>Resina experimental</h3>
                         <p>Acepta pigmento en toda su masa. El color no se aplica encima: forma parte de la pieza. Cada tono cambia por completo su carácter.</p>
                     </div>
                 </div>
                 <div class="material-card reveal delay-2">
-                    <div class="material-visual">
-                        <img src="assets/PendientesSIRAdet.PNG" alt="Detalle de acabado a mano — Pendientes SIRA" loading="lazy">
-                    </div>
                     <div class="material-body">
+                        <span class="material-num">03</span>
                         <span class="material-tag">Proceso</span>
                         <h3>Acabado a mano</h3>
                         <p>Cada pieza se termina manualmente. La huella del proceso forma parte del diseño: las pequeñas variaciones la hacen única.</p>

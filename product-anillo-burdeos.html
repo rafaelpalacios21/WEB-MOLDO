@@ -19,8 +19,8 @@
 
         /* ── HERO ── */
         .pp-hero{display:grid;grid-template-columns:1fr 1fr;background:#ffffff;padding-top:66px;height:100vh;overflow:hidden;position:relative}
-        .pp-right{overflow:hidden;transform:translateX(-250px)}
-        .pp-right img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+        .pp-right{overflow:hidden}
+        .pp-right img{width:100%;height:100%;object-fit:cover;object-position:center bottom;display:block}
         .pp-left{display:flex;flex-direction:column;justify-content:space-between;padding:48px 7% 48px}
         .pp-eyebrow{font-size:.65rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#565F34;margin-bottom:14px;opacity:0}
         .pp-name{font-size:clamp(2.5rem,5.5vw,6rem);font-weight:900;letter-spacing:-3px;line-height:.88;color:#1F2218;text-transform:uppercase;margin-bottom:20px;overflow:hidden}
@@ -165,7 +165,8 @@
         }
         @media(max-width:900px){
             .pp-hero{grid-template-columns:1fr;height:auto;min-height:auto}
-            .pp-right{transform:translateX(0);min-height:55vw;order:-1}
+            .pp-right{transform:translateX(0);min-height:55vw;order:-1;align-items:center}
+            .pp-right img{height:100%;width:100%;object-fit:cover;object-position:center bottom}
             .pp-left{padding:36px 6%}
             .pp-specs{grid-template-columns:1fr;gap:30px}
             .pp-related-grid{grid-template-columns:repeat(2,1fr)}

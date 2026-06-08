@@ -343,13 +343,31 @@
                 </div>
             </div>
 
-            <!-- Contenedor 2: zona interactiva — trail del logo -->
-            <div class="iprocess-trail-wrap" id="logo-trail-zone">
+            <!-- Contenedor 2: MINIJUEGO — atrapa el logo -->
+            <div class="iprocess-trail-wrap" id="logo-game-zone">
                 <div class="trail-bg-word" aria-hidden="true">MOLDO</div>
-                <div class="trail-crosshair" aria-hidden="true"></div>
-                <div class="trail-info">
-                    <span class="trail-eyebrow">Zona interactiva</span>
-                    <span class="trail-cue" id="trail-hint">Mueve el ratón</span>
+
+                <!-- HUD -->
+                <div class="game-hud" id="game-hud" aria-hidden="true">
+                    <span class="game-hud-item">⏱ <b id="game-timer">1:00</b></span>
+                    <span class="game-hud-item">★ <b id="game-score">0</b> / <span id="game-target">10</span></span>
+                </div>
+
+                <!-- Pantalla inicial -->
+                <div class="game-screen" id="game-start">
+                    <span class="trail-eyebrow">Mini-juego moldoLab</span>
+                    <h3 class="game-title">Atrapa el logo</h3>
+                    <p class="game-desc">Atrapa <b>10 logos</b> antes de que acabe el minuto y gana un <b>10% de descuento</b>.</p>
+                    <button class="game-btn" id="game-start-btn">Empezar</button>
+                </div>
+
+                <!-- Pantalla de resultado -->
+                <div class="game-screen game-screen--hidden" id="game-result">
+                    <span class="trail-eyebrow" id="game-result-eyebrow">Resultado</span>
+                    <h3 class="game-title" id="game-result-title">¡Lo conseguiste!</h3>
+                    <p class="game-desc" id="game-result-desc"></p>
+                    <div class="game-code" id="game-code">MOLDO10</div>
+                    <button class="game-btn game-btn--ghost" id="game-retry-btn">Jugar otra vez</button>
                 </div>
             </div>
         </section>
@@ -730,55 +748,102 @@
         updateCart();
     </script>
 
-    <!-- Logo Trail — zona interactiva -->
+    <!-- MINIJUEGO — atrapa el logo (10% descuento) -->
     <script>
     (function() {
-        const zone = document.getElementById('logo-trail-zone');
+        const zone   = document.getElementById('logo-game-zone');
         if (!zone) return;
 
-        const MIN_DIST = 200;
-        let lastX = 0, lastY = 0;
+        const TARGET = 10;     // logos a atrapar
+        const TIME   = 60;     // segundos
+        const CODE   = 'MOLDO10';
 
-        zone.addEventListener('mouseenter', () => zone.classList.add('active'));
-        zone.addEventListener('mouseleave', () => zone.classList.remove('active'));
+        const hud      = document.getElementById('game-hud');
+        const timerEl  = document.getElementById('game-timer');
+        const scoreEl  = document.getElementById('game-score');
+        const startScr = document.getElementById('game-start');
+        const startBtn = document.getElementById('game-start-btn');
+        const resScr   = document.getElementById('game-result');
+        const resTitle = document.getElementById('game-result-title');
+        const resEye   = document.getElementById('game-result-eyebrow');
+        const resDesc  = document.getElementById('game-result-desc');
+        const codeEl   = document.getElementById('game-code');
+        const retryBtn = document.getElementById('game-retry-btn');
 
-        zone.addEventListener('mousemove', (e) => {
+        let score = 0, timeLeft = TIME, running = false;
+        let countdown = null, spawnTimer = null, currentLogo = null;
+
+        function fmt(s) { const m = Math.floor(s/60); return m + ':' + String(s%60).padStart(2,'0'); }
+
+        function spawn() {
+            if (!running) return;
+            if (currentLogo) currentLogo.remove();
+            const logo = document.createElement('button');
+            logo.className = 'game-logo';
+            logo.setAttribute('aria-label', 'Atrapar logo');
             const rect = zone.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const dx = x - lastX, dy = y - lastY;
-            if (Math.sqrt(dx*dx + dy*dy) < MIN_DIST) return;
-            lastX = x; lastY = y;
+            const pad = 70;
+            const x = pad + Math.random() * (rect.width  - pad*2);
+            const y = 70 + Math.random() * (rect.height - 140);
+            logo.style.left = x + 'px';
+            logo.style.top  = y + 'px';
+            logo.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (!running) return;
+                score++;
+                scoreEl.textContent = score;
+                logo.classList.add('hit');
+                setTimeout(() => logo.remove(), 150);
+                currentLogo = null;
+                if (score >= TARGET) { endGame(true); return; }
+                spawn();
+            });
+            zone.appendChild(logo);
+            currentLogo = logo;
+            // si no lo atrapa, reaparece en otro sitio
+            spawnTimer = setTimeout(spawn, 1100);
+        }
 
-            const stamp = document.createElement('span');
-            stamp.className = 'logo-stamp';
-            stamp.style.cssText = `
-                left:${x}px; top:${y}px;
-                width:180px; height:37px;
-                background-color: #BE1A32;
-                -webkit-mask-image: url('assets/recurso-4.svg');
-                mask-image: url('assets/recurso-4.svg');
-                -webkit-mask-size: contain;
-                mask-size: contain;
-                -webkit-mask-repeat: no-repeat;
-                mask-repeat: no-repeat;
-                -webkit-mask-position: center;
-                mask-position: center;
-            `;
-            zone.appendChild(stamp);
-            // Las estampas se quedan — NO se borran al animationend
-        });
+        function startGame() {
+            score = 0; timeLeft = TIME; running = true;
+            scoreEl.textContent = '0';
+            timerEl.textContent = fmt(TIME);
+            startScr.classList.add('game-screen--hidden');
+            resScr.classList.add('game-screen--hidden');
+            hud.setAttribute('aria-hidden', 'false');
+            hud.classList.add('visible');
+            spawn();
+            countdown = setInterval(() => {
+                timeLeft--;
+                timerEl.textContent = fmt(timeLeft);
+                if (timeLeft <= 0) endGame(score >= TARGET);
+            }, 1000);
+        }
 
-        // Borrar todas las estampas al hacer clic fuera de la zona
-        document.addEventListener('click', (e) => {
-            if (!zone.contains(e.target)) {
-                zone.querySelectorAll('.logo-stamp').forEach(s => {
-                    s.style.transition = 'opacity 0.4s ease';
-                    s.style.opacity = '0';
-                    setTimeout(() => s.remove(), 420);
-                });
+        function endGame(won) {
+            running = false;
+            clearInterval(countdown);
+            clearTimeout(spawnTimer);
+            if (currentLogo) { currentLogo.remove(); currentLogo = null; }
+            hud.classList.remove('visible');
+            if (won) {
+                resEye.textContent = '¡Lo conseguiste!';
+                resTitle.textContent = 'Tienes un 10% de descuento';
+                resDesc.innerHTML = 'Usa este código en tu próxima compra:';
+                codeEl.style.display = 'block';
+                codeEl.textContent = CODE;
+                try { localStorage.setItem('moldo_discount', CODE); } catch(e){}
+            } else {
+                resEye.textContent = 'Casi…';
+                resTitle.textContent = 'Atrapaste ' + score + ' de ' + TARGET;
+                resDesc.innerHTML = 'Te has quedado cerca. ¡Inténtalo otra vez!';
+                codeEl.style.display = 'none';
             }
-        });
+            resScr.classList.remove('game-screen--hidden');
+        }
+
+        startBtn.addEventListener('click', startGame);
+        retryBtn.addEventListener('click', startGame);
     })();
     </script>
 

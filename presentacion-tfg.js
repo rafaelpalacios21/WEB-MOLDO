@@ -15,21 +15,21 @@ const REDUCED     = window.matchMedia('(prefers-reduced-motion: reduce)').matche
 
 /* ── DATOS RRSS (5 carpetas reales en /assets) ── */
 const SOCIAL_DATA = [
-    { piece: 'CALA', type: 'Anillo estrella', folder: 'CALA',
+    { piece: 'CALA', type: 'Anillo estrella', folder: 'RRSS/cala',
       text: 'CALA abre la colección desde el volumen y la presencia escultórica. Transforma el gesto de llevar un anillo en una declaración visual.',
-      imgs: ['POST INSTAGRAM.jpg','POST INSTAGRAM2.jpg','POST INSTAGRAM3.jpg','POST INSTAGRAM4.jpg','POST INSTAGRAM5.jpg'] },
-    { piece: 'NARA', type: 'Collar', folder: 'NARA',
+      imgs: ['POST INSTAGRAM.jpg','POST INSTAGRAM2.jpg','POST INSTAGRAM3-copy-0.jpg','POST INSTAGRAM4.jpg','POST INSTAGRAM5.jpg'] },
+    { piece: 'NARA', type: 'Collar', folder: 'RRSS/nara',
       text: 'NARA trabaja desde la torsión, la continuidad y la forma envolvente. Una pieza central pensada para ocupar el cuerpo con calma y presencia.',
       imgs: ['POST INSTAGRAM6.jpg','POST INSTAGRAM7.jpg','POST INSTAGRAM8.jpg','POST INSTAGRAM9.jpg','POST INSTAGRAM10.jpg'] },
-    { piece: 'ORA', type: 'Brazalete', folder: 'ORA',
+    { piece: 'ORA', type: 'Brazalete', folder: 'RRSS/ora',
       text: 'ORA rodea el cuerpo desde una forma amplia, fluida y orgánica. Su recorrido visual convierte el brazalete en una estructura blanda.',
-      imgs: ['POST INSTAGRAM.jpg','POST INSTAGRAM11.jpg','POST INSTAGRAM13.jpg','POST INSTAGRAM14.jpg','POST INSTAGRAM15.jpg'] },
-    { piece: 'SIRA', type: 'Pendientes', folder: 'SIRA',
+      imgs: ['POST INSTAGRAM-copy-0.jpg','POST INSTAGRAM11.jpg','POST INSTAGRAM13.jpg','POST INSTAGRAM14.jpg','POST INSTAGRAM15.jpg'] },
+    { piece: 'SIRA', type: 'Pendientes', folder: 'RRSS/sira',
       text: 'SIRA concentra la fuerza escultórica de moldoLab en un formato más contenido. Pliegues, volumen y presencia cerca del rostro.',
       imgs: ['POST INSTAGRAM21.jpg','POST INSTAGRAM23.jpg','POST INSTAGRAM24.jpg','POST INSTAGRAM25.jpg','POST INSTAGRAM3.jpg'] },
-    { piece: 'LUA', type: 'Anillo', folder: 'LUA',
+    { piece: 'LUA', type: 'Anillo', folder: 'RRSS/lua',
       text: 'LUA se construye desde el brillo, la curva y la sensación de fluidez. Una pieza suave, pero imposible de ignorar.',
-      imgs: ['POST INSTAGRAM16.jpg','POST INSTAGRAM18.jpg','POST INSTAGRAM19.jpg','POST INSTAGRAM2.jpg','POST INSTAGRAM20.jpg'] },
+      imgs: ['POST INSTAGRAM16.jpg','POST INSTAGRAM18.jpg','POST INSTAGRAM19.jpg','POST INSTAGRAM2-copy-0.jpg','POST INSTAGRAM20.jpg'] },
 ];
 
 /* Fotos de campaña 1-12 con etiquetas editoriales */
@@ -110,6 +110,7 @@ function initLanding() {
     initHeaderShrink();
     initAutoPauseOnScroll();
     initSpotVideo();
+    initArchiveFullscreen();
 }
 
 /* ── SPOT: reproducir al entrar + toggle de sonido ── */
@@ -322,17 +323,7 @@ function initPosterStack() {
 
     render();
     start();
-    stack.addEventListener('mouseenter', stop);
-    stack.addEventListener('mouseleave', start);
-
-    // Click en cartel del frente: traer siguiente
-    posters.forEach(p => p.addEventListener('click', e => {
-        if (p.classList.contains('pos-0')) return; // el frente abre lightbox vía data-lightbox
-        e.stopPropagation();
-        const idx = order.indexOf(posters.indexOf(p));
-        for (let k = 0; k < idx; k++) order.push(order.shift());
-        render();
-    }));
+    // Movimiento automático continuo — NO se pausa al pasar el ratón.
 
     autoModules.push({ el: stack, start, stop, running: true });
 }
@@ -353,14 +344,14 @@ function buildSocialShowcase() {
         pairs.push({ piece: d.piece, src: `assets/${d.folder}/${enc(img)}` })
     ));
 
-    // Repartir en 4 columnas (round-robin → sin amontonar la misma pieza)
-    const cols = [[], [], [], []];
-    pairs.forEach((p, i) => cols[i % 4].push(p));
+    // Repartir en 6 columnas (round-robin → sin amontonar la misma pieza)
+    const cols = [[], [], [], [], [], []];
+    pairs.forEach((p, i) => cols[i % 6].push(p));
 
     const colHtml = cols.map((col, ci) => {
         const items = col.map(p =>
             `<figure class="scw-item">
-                <img src="${p.src}" alt="${p.piece} — publicación moldoLab" loading="lazy" data-lightbox>
+                <img src="${p.src}" alt="${p.piece} — publicación moldoLab" loading="lazy" decoding="async" data-lightbox>
                 <figcaption class="scw-tag">${p.piece}</figcaption>
              </figure>`
         ).join('');
@@ -390,7 +381,7 @@ function buildCampaignSequence() {
 
     const figs = CAMPAIGN_PHOTOS.map((p, i) =>
         `<figure class="cm-item">
-            <img src="${p.src}" alt="Campaña moldoLab — ${p.tag}" loading="lazy" data-lightbox>
+            <img src="${p.src}" alt="Campaña moldoLab — ${p.tag}" loading="lazy" decoding="async" data-lightbox>
             <figcaption class="cm-tag"><b>${pad(i + 1)}</b> ${p.tag}</figcaption>
          </figure>`
     ).join('');
@@ -400,26 +391,83 @@ function buildCampaignSequence() {
 }
 
 /* ================================================================
-   11. ARCHIVE MARQUEE (loop visual doble fila)
+   11. ARCHIVE MARQUEE (loop visual + pantalla completa)
 ================================================================ */
+
+/* Pool con TODAS las imágenes del proyecto, repartidas en filas */
+function buildArchiveRows() {
+    const enc = s => encodeURIComponent(s);
+    const social = [];
+    SOCIAL_DATA.forEach(d => d.imgs.forEach(img => social.push(`assets/${d.folder}/${enc(img)}`)));
+
+    // Pool CURADO y ligero: solo imágenes de campaña, RRSS, fotos de producto
+    // y carteles. Se descartan los cutouts PNG (~2 MB c/u, redundantes con sus
+    // fotos JPG) y las fotos lifestyle más pesadas (IMAGEN1 6 MB, etc.) para
+    // que el archivo cargue rápido.
+    return [
+        // Fila 1 — campaña 1-6
+        ['assets/1.jpg','assets/2.jpg','assets/3.jpg','assets/4.jpg','assets/5.jpg','assets/6.jpg'],
+        // Fila 2 — campaña 7-12
+        ['assets/7.jpg','assets/8.jpg','assets/9.jpg','assets/10.jpg','assets/11.jpg','assets/12.JPG'],
+        // Fila 3 — producto (solo fotos JPG ligeras) + carteles
+        ['assets/anilloCALA.jpg','assets/CollarNARA.jpg','assets/BrazaleteORA.jpg',
+         'assets/PendientesSIRA.jpg','assets/AnilloLUA.jpg',
+         'assets/cartel.jpg','assets/cartel2.jpg','assets/cartel3.jpg',
+         'assets/tresuno.jpg','assets/trestres.jpg'],
+        // Fila 4 — RRSS (primera mitad)
+        social.slice(0, 13),
+        // Fila 5 — RRSS (segunda mitad)
+        social.slice(13),
+    ];
+}
+
 function buildArchiveMarquee() {
     const root = document.getElementById('archive-marquee');
     if (!root) return;
-
-    // Fila 1: carteles + lifestyle + editorial (assets distintos a los otros carruseles)
-    const rowA = ['athyhnj.JPG','nfghn.JPG','assets/HELADO.png','assets/COCOS.png','assets/HIELOS.png',
-                  'assets/SOMBRILLA.jpg','assets/IMAGEN1.jpg','assets/IMAGEN2.jpg','assets/IMAGEN3.jpg','assets/tresuno.jpg'];
-    // Fila 2: piezas de producto (foto + cutout) — no repite campaña ni RRSS
-    const rowB = ['assets/anilloCALA.jpg','assets/anillocala.png','assets/CollarNARA.jpg','assets/collarnara.png',
-                  'assets/BrazaleteORA.jpg','assets/brazaleteora.png','assets/PendientesSIRA.jpg','assets/pendientes-sira.png',
-                  'assets/AnilloLUA.jpg','assets/anillolua.png'];
-
+    const rows = buildArchiveRows();
+    // Inline: 2 filas. Duplicado x2 → loop seamless (-50%).
     const mk = arr => arr.concat(arr).map(src =>
-        `<img src="${src}" alt="Archivo visual moldoLab" loading="lazy" data-lightbox>`).join('');
-
+        `<img src="${src}" alt="Archivo visual moldoLab" loading="lazy" decoding="async" data-lightbox>`).join('');
     root.innerHTML = `
-        <div class="vm-row vm-row--left"><div class="vm-track">${mk(rowA)}</div></div>
-        <div class="vm-row vm-row--right"><div class="vm-track">${mk(rowB)}</div></div>`;
+        <div class="vm-row vm-row--left"><div class="vm-track">${mk(rows[0].concat(rows[1]))}</div></div>
+        <div class="vm-row vm-row--right"><div class="vm-track">${mk(rows[2].concat(rows[3].slice(0,6)))}</div></div>`;
+}
+
+/* Pantalla completa: muchas filas de marquee infinito */
+function initArchiveFullscreen() {
+    const btn   = document.getElementById('archive-expand-btn');
+    const fs     = document.getElementById('archive-fs');
+    const rowsEl = document.getElementById('archive-fs-rows');
+    const close  = document.getElementById('archive-fs-close');
+    if (!btn || !fs || !rowsEl) return;
+
+    let built = false;
+    function build() {
+        if (built) return;
+        // Todas las imágenes del archivo en un solo pool.
+        const all = buildArchiveRows().flat();
+        // Repartidas en 2 filas (cada imagen se descarga UNA sola vez).
+        const half = Math.ceil(all.length / 2);
+        const rowA = all.slice(0, half);
+        const rowB = all.slice(half);
+        // Duplicado x2 → loop seamless (-50%).
+        const mk = arr => arr.concat(arr).map(src =>
+            `<img src="${src}" alt="Archivo visual moldoLab" loading="lazy" decoding="async" data-lightbox>`).join('');
+        // Solo 2 filas reales. El resto de la pantalla se rellena con un
+        // REFLEJO CSS (box-reflect) de estas filas → no descarga más imágenes.
+        rowsEl.innerHTML = `
+            <div class="vm-row vm-row--left"  style="--vmdur:50s"><div class="vm-track">${mk(rowA)}</div></div>
+            <div class="vm-row vm-row--right" style="--vmdur:58s"><div class="vm-track">${mk(rowB)}</div></div>`;
+        built = true;
+    }
+
+    function open() { build(); fs.classList.add('open'); isModalOpen = true; document.body.style.overflow = 'hidden'; }
+    function closeFs() { fs.classList.remove('open'); isModalOpen = false; document.body.style.overflow = ''; }
+
+    btn.addEventListener('click', open);
+    if (close) close.addEventListener('click', closeFs);
+    fs.addEventListener('click', e => { if (e.target === fs) closeFs(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && fs.classList.contains('open')) closeFs(); });
 }
 
 /* ================================================================

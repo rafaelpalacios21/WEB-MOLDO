@@ -784,9 +784,9 @@ document.addEventListener('DOMContentLoaded', () => {
             requestAnimationFrame(tick);
         }
 
-        // Hover pause
-        bwMarquee.addEventListener('mouseenter', () => { hovered = true; });
-        bwMarquee.addEventListener('mouseleave', () => { hovered = false; dragging = false; bwMarquee.classList.remove('is-dragging'); });
+        // Sin pausa en hover — el marquee se mueve siempre.
+        // Solo se detiene mientras se arrastra (dragging).
+        bwMarquee.addEventListener('mouseleave', () => { dragging = false; bwMarquee.classList.remove('is-dragging'); });
 
         // Drag — tira 1 sigue el ratón, tira 2 va al contrario
         bwMarquee.addEventListener('mousedown', e => {
