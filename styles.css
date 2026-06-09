@@ -876,7 +876,11 @@ h4 { font-size: 1.1rem; }
 }
 
 .product-link {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
 }
 
 .product-image-box {
@@ -1195,6 +1199,8 @@ h4 { font-size: 1.1rem; }
 
 @media (pointer: coarse) {
     .carousel-hint { display: none; }
+    /* Solo scroll vertical en el carrusel: el swipe horizontal no hace nada */
+    .carousel-container { touch-action: pan-y; user-select: none; cursor: auto; }
 }
 
 .carousel-container {
@@ -1388,27 +1394,37 @@ h4 { font-size: 1.1rem; }
     color: rgba(237, 233, 231, 0.4);
 }
 
-.newsletter-form button {
+.newsletter-form button,
+.newsletter-arrow {
+    background: none;
+    border: none;
+    cursor: pointer;
     color: var(--lima);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 6px 2px 6px 10px;
+    padding: 4px 0 4px 12px;
     flex-shrink: 0;
-    transition: color var(--transition-fast), transform var(--transition-fast);
+    min-width: 36px;
+    min-height: 36px;
+    transition: color 0.2s ease;
 }
 
-.newsletter-form button svg {
+.newsletter-form button svg,
+.newsletter-arrow svg {
     display: block;
     transition: transform 0.25s ease;
+    stroke: currentColor;
 }
 
-.newsletter-form button:hover {
-    color: var(--bg-light);
+.newsletter-form button:hover,
+.newsletter-arrow:hover {
+    color: #fff;
 }
 
-.newsletter-form button:hover svg {
-    transform: translateX(4px);
+.newsletter-form button:hover svg,
+.newsletter-arrow:hover svg {
+    transform: translateX(5px);
 }
 
 /* 16. MODALS & LIGHTBOX */
@@ -1900,15 +1916,13 @@ h4 { font-size: 1.1rem; }
 
 @media (max-width: 768px) {
     .header {
-        grid-template-columns: auto 1fr auto;
+        display: flex;
+        align-items: center;
         padding: 0 6%;
     }
 
     .header-nav {
-        display: none;
-        /* Hide default nav */
-
-        /* Style for mobile slide menu when active */
+        /* Oculto por defecto — se muestra como drawer lateral */
         position: fixed;
         top: 0;
         right: -100%;
@@ -1927,32 +1941,34 @@ h4 { font-size: 1.1rem; }
     }
 
     .header-nav.active {
-        display: flex;
         right: 0;
     }
 
     .header-logo {
-        grid-column: 1;
+        flex: 0 0 auto;
         justify-content: flex-start;
+        margin-right: auto; /* empuja todo lo demás a la derecha */
     }
 
     .header-actions {
-        grid-column: 3;
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 14px;
     }
 
+    /* Hamburguesa: dentro o fuera de header-actions, siempre alineada */
     .mobile-menu-btn {
         display: flex;
         align-items: center;
         justify-content: center;
-        grid-column: 2;
-        grid-row: 1;
-        align-self: center;
-        justify-self: flex-end;
+        flex-shrink: 0;
         z-index: 101;
-        margin-right: 0;
+        margin: 0 0 0 6px;
+        padding: 6px;
     }
 
-    .header-nav.active~.mobile-menu-btn {
+    .header-nav.active ~ .header-actions .mobile-menu-btn {
         color: var(--primary-red);
     }
 
@@ -2432,14 +2448,6 @@ h4 { font-size: 1.1rem; }
 /* ── VERTICAL CARD IMPROVEMENTS ── */
 .vertical-card {
     cursor: pointer;
-}
-
-.vertical-card .vertical-image img {
-    transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-.vertical-card:hover .vertical-image img {
-    transform: scale(1.09);
 }
 
 .vertical-card:hover {
@@ -4399,7 +4407,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
 
     /* Vertical grid → 1 col en pantalla muy pequeña */
     .vertical-grid { grid-template-columns: 1fr; }
-    .vertical-card { aspect-ratio: 4/3; }
+    .vertical-card { aspect-ratio: unset; }
 
     /* Featured product */
     .featured-link { grid-template-columns: 1fr; }
@@ -4518,10 +4526,20 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 /* ── ≤768px: legibilidad y limpieza de bloques interactivos ── */
 @media (max-width: 768px) {
     /* Sección interactiva: en móvil apilamos vertical */
-    .iprocess-section { grid-template-columns: 1fr !important; }
-    .iprocess-video-wrap { min-height: 56vw; }
-    /* Mini-juego: visible en móvil, tamaño suficiente para jugar */
-    .iprocess-trail-wrap { min-height: 340px; cursor: auto !important; }
+    .iprocess-section {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        height: auto !important;
+        max-height: none !important;
+    }
+    .iprocess-video-wrap { display: block !important; min-height: 56vw; }
+    /* Mini-juego: siempre visible en móvil */
+    .iprocess-trail-wrap {
+        display: flex !important;
+        min-height: 340px !important;
+        height: auto !important;
+        cursor: auto !important;
+    }
 
     /* Indicador de scroll del hero (flecha) sin animación pesada */
     .scroll-indicator { animation: none; }
@@ -4536,8 +4554,8 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     }
 
     /* Botón hamburguesa: área de toque cómoda */
-    .mobile-menu-btn { padding: 10px; margin-right: 6px; }
-    .mobile-menu-btn svg { width: 26px; height: 26px; }
+    .mobile-menu-btn { padding: 8px; }
+    .mobile-menu-btn svg { width: 24px; height: 24px; }
 
     /* Tipografía general: cuerpos y títulos legibles, sin desbordes */
     body { line-height: 1.6; }
