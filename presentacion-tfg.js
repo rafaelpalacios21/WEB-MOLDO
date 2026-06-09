@@ -394,43 +394,24 @@ function buildCampaignSequence() {
    11. ARCHIVE MARQUEE (loop visual + pantalla completa)
 ================================================================ */
 
-/* Pool con TODAS las imágenes del proyecto, repartidas en filas */
-function buildArchiveRows() {
-    const enc = s => encodeURIComponent(s);
-    const social = [];
-    SOCIAL_DATA.forEach(d => d.imgs.forEach(img => social.push(`assets/${d.folder}/${enc(img)}`)));
-
-    // Pool CURADO y ligero: solo imágenes de campaña, RRSS, fotos de producto
-    // y carteles. Se descartan los cutouts PNG (~2 MB c/u, redundantes con sus
-    // fotos JPG) y las fotos lifestyle más pesadas (IMAGEN1 6 MB, etc.) para
-    // que el archivo cargue rápido.
-    return [
-        // Fila 1 — campaña 1-6
-        ['assets/1.jpg','assets/2.jpg','assets/3.jpg','assets/4.jpg','assets/5.jpg','assets/6.jpg'],
-        // Fila 2 — campaña 7-12
-        ['assets/7.jpg','assets/8.jpg','assets/9.jpg','assets/10.jpg','assets/11.jpg','assets/12.JPG'],
-        // Fila 3 — producto (solo fotos JPG ligeras) + carteles
-        ['assets/anilloCALA.jpg','assets/CollarNARA.jpg','assets/BrazaleteORA.jpg',
-         'assets/PendientesSIRA.jpg','assets/AnilloLUA.jpg',
-         'assets/cartel.jpg','assets/cartel2.jpg','assets/cartel3.jpg',
-         'assets/tresuno.jpg','assets/trestres.jpg'],
-        // Fila 4 — RRSS (primera mitad)
-        social.slice(0, 13),
-        // Fila 5 — RRSS (segunda mitad)
-        social.slice(13),
-    ];
-}
+/* Archivo visual: solo fotos de campaña 1-12 */
+const ARCHIVE_IMGS = [
+    'assets/1.jpg','assets/2.jpg','assets/3.jpg','assets/4.jpg',
+    'assets/5.jpg','assets/6.jpg','assets/7.jpg','assets/8.jpg',
+    'assets/9.jpg','assets/10.jpg','assets/11.jpg','assets/12.JPG',
+];
 
 function buildArchiveMarquee() {
     const root = document.getElementById('archive-marquee');
     if (!root) return;
-    const rows = buildArchiveRows();
-    // Inline: 2 filas. Duplicado x2 → loop seamless (-50%).
+    // 2 filas: par e impar. Duplicado x2 → loop seamless (-50%).
+    const even = ARCHIVE_IMGS.filter((_,i) => i % 2 === 0);
+    const odd  = ARCHIVE_IMGS.filter((_,i) => i % 2 !== 0);
     const mk = arr => arr.concat(arr).map(src =>
         `<img src="${src}" alt="Archivo visual moldoLab" loading="lazy" decoding="async" data-lightbox>`).join('');
     root.innerHTML = `
-        <div class="vm-row vm-row--left"><div class="vm-track">${mk(rows[0].concat(rows[1]))}</div></div>
-        <div class="vm-row vm-row--right"><div class="vm-track">${mk(rows[2].concat(rows[3].slice(0,6)))}</div></div>`;
+        <div class="vm-row vm-row--left"><div class="vm-track">${mk(even)}</div></div>
+        <div class="vm-row vm-row--right"><div class="vm-track">${mk(odd)}</div></div>`;
 }
 
 /* Pantalla completa: muchas filas de marquee infinito */
@@ -444,20 +425,22 @@ function initArchiveFullscreen() {
     let built = false;
     function build() {
         if (built) return;
-        // Todas las imágenes del archivo en un solo pool.
-        const all = buildArchiveRows().flat();
-        // Repartidas en 2 filas (cada imagen se descarga UNA sola vez).
-        const half = Math.ceil(all.length / 2);
-        const rowA = all.slice(0, half);
-        const rowB = all.slice(half);
-        // Duplicado x2 → loop seamless (-50%).
+        // 4 filas con las 12 imágenes de campaña (distintos órdenes).
+        // El navegador las sirve desde caché → 0 bytes extra de descarga.
+        const imgs = ARCHIVE_IMGS;
+        const rows = [
+            imgs,                                           // 1→12, izq
+            [...imgs].reverse(),                           // 12→1, der
+            [...imgs.slice(4), ...imgs.slice(0,4)],       // desplazado +4, izq
+            [...imgs.slice(8), ...imgs.slice(0,8)],       // desplazado +8, der
+        ];
         const mk = arr => arr.concat(arr).map(src =>
-            `<img src="${src}" alt="Archivo visual moldoLab" loading="lazy" decoding="async" data-lightbox>`).join('');
-        // Solo 2 filas reales. El resto de la pantalla se rellena con un
-        // REFLEJO CSS (box-reflect) de estas filas → no descarga más imágenes.
-        rowsEl.innerHTML = `
-            <div class="vm-row vm-row--left"  style="--vmdur:50s"><div class="vm-track">${mk(rowA)}</div></div>
-            <div class="vm-row vm-row--right" style="--vmdur:58s"><div class="vm-track">${mk(rowB)}</div></div>`;
+            `<img src="${src}" alt="Archivo visual moldoLab" decoding="async" data-lightbox>`).join('');
+        const dirs = ['left','right','left','right'];
+        const durs = [44, 52, 48, 56];
+        rowsEl.innerHTML = rows.map((arr, i) =>
+            `<div class="vm-row vm-row--${dirs[i]}" style="--vmdur:${durs[i]}s"><div class="vm-track">${mk(arr)}</div></div>`
+        ).join('');
         built = true;
     }
 

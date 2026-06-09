@@ -54,7 +54,7 @@
     </div>
 
     <section class="top-video-section">
-        <video autoplay muted loop playsinline class="bg-video" id="hero-video">
+        <video autoplay muted loop playsinline preload="auto" class="bg-video" id="hero-video">
             <source src="./assets/spot-publicitario.mp4" type="video/mp4">
         </video>
 
@@ -185,17 +185,20 @@
                 <p class="statement-sub">Piezas que deforman lo cotidiano y convierten el accesorio en presencia. Cada forma, un gesto.</p>
             </div>
 
-            <span class="statement-bg-text" aria-hidden="true">MOLDO</span>
+            <span class="statement-bg-text" aria-hidden="true"></span>
         </section>
 
         <!-- Editorial Claim / Sobre la marca -->
         <section class="editorial" id="sobre-la-marca">
             <div class="editorial-container reveal">
-                <h2 class="editorial-title">NO ES UNA JOYA.<br>ES UNA DECLARACIÓN.</h2>
+                <h2 class="editorial-title">NO ES<br>UNA JOYA.<br>ES UNA<br>DECLARACIÓN.</h2>
                 <p class="editorial-text">moldoLab entiende la joyería como una extensión de quien la lleva. Cada pieza parte de formas orgánicas, volúmenes blandos y materiales experimentales para construir objetos con presencia propia. No diseñamos pensando en seguir moldes. Los rompemos.</p>
                 <div class="editorial-claims">
                     <span class="editorial-claim">"Diseñado para no parecerse."</span>
-                    <span class="editorial-claim">"Si encaja con todo, probablemente no sea nuestro."</span>
+                    <span class="editorial-claim editorial-claim--split">
+                        <span class="claim-lead">"Si encaja con todo,</span>
+                        <span class="claim-sub">probablemente no sea nuestro."</span>
+                    </span>
                     <span class="editorial-claim">"Lo imperfecto tiene personalidad."</span>
                 </div>
                 <div class="abstract-shape"></div>
@@ -345,7 +348,7 @@
 
             <!-- Contenedor 2: MINIJUEGO — atrapa el logo -->
             <div class="iprocess-trail-wrap" id="logo-game-zone">
-                <div class="trail-bg-word" aria-hidden="true">MOLDO</div>
+                <div class="trail-bg-word" aria-hidden="true"></div>
 
                 <!-- HUD -->
                 <div class="game-hud" id="game-hud" aria-hidden="true">
@@ -552,7 +555,11 @@
                 <p class="footer-newsletter-desc">Procesos, piezas nuevas y experimentos antes que nadie. Sin spam, con criterio.</p>
                 <form class="newsletter-form" onsubmit="event.preventDefault();">
                     <input type="email" placeholder="tu@email.com" required>
-                    <button type="submit">→</button>
+                    <button type="submit" aria-label="Suscribirse">
+                        <svg viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M3 10h14M10 4l7 6-7 6"/>
+                        </svg>
+                    </button>
                 </form>
                 <p class="footer-microcopy">Pieza hecha bajo pedido.<br>Pequeñas variaciones forman parte del proceso.<br>Tiempo estimado: 5–7 días hábiles.</p>
             </div>
@@ -787,7 +794,7 @@
             const y = 70 + Math.random() * (rect.height - 140);
             logo.style.left = x + 'px';
             logo.style.top  = y + 'px';
-            logo.addEventListener('click', (e) => {
+            const catchLogo = (e) => {
                 e.stopPropagation();
                 if (!running) return;
                 score++;
@@ -797,7 +804,9 @@
                 currentLogo = null;
                 if (score >= TARGET) { endGame(true); return; }
                 spawn();
-            });
+            };
+            logo.addEventListener('click', catchLogo);
+            logo.addEventListener('touchstart', catchLogo, { passive: false });
             zone.appendChild(logo);
             currentLogo = logo;
             // si no lo atrapa, reaparece en otro sitio
@@ -871,6 +880,7 @@
         let velX = 0;
         let lastDragX = 0;
         let inertiaRaf = null;
+        const notifyDrag = (v) => { if (window._setCarouselDragMoved) window._setCarouselDragMoved(v); };
 
         function wrapInfinite() {
             const oneSet = track.scrollWidth / 3;
@@ -902,6 +912,7 @@
             dragScrollStart = track.scrollLeft;
             lastDragX = e.clientX;
             velX = 0;
+            notifyDrag(false);
             if (inertiaRaf) { cancelAnimationFrame(inertiaRaf); inertiaRaf = null; }
             container.style.cursor = 'grabbing';
             e.preventDefault();
@@ -910,7 +921,9 @@
             if (!isDragging) return;
             velX = e.clientX - lastDragX;
             lastDragX = e.clientX;
-            track.scrollLeft = dragScrollStart - (e.clientX - dragStartX);
+            const walked = e.clientX - dragStartX;
+            if (Math.abs(walked) > 5) notifyDrag(true);
+            track.scrollLeft = dragScrollStart - walked;
             wrapInfinite();
         });
         document.addEventListener('mouseup', () => {
@@ -919,6 +932,8 @@
             container.style.cursor = '';
             if (Math.abs(velX) > 1) { startInertia(); }
             else { isPaused = false; }
+            // Reset drag flag después de un tick para que el click handler lo lea correctamente
+            setTimeout(() => notifyDrag(false), 50);
         });
 
         /* Drag táctil */

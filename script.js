@@ -63,12 +63,21 @@ document.addEventListener('DOMContentLoaded', () => {
             heroVideo.style.display = 'none';
         });
 
-        // If video fails internally/silently or source is missing
+        // Trigger play explicitly (required on some browsers/mobile even with autoplay attr)
+        const playPromise = heroVideo.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(() => {
+                // Autoplay blocked — video will still show but won't play (static frame or hidden)
+                // Don't hide it; a static frame or poster is better than nothing
+            });
+        }
+
+        // Only hide if still HAVE_NOTHING after a generous wait (network issue, file missing)
         setTimeout(() => {
-            if (heroVideo.readyState === 0) { // HAVE_NOTHING
+            if (heroVideo.readyState === 0 && heroVideo.networkState === 3) {
                 heroVideo.style.display = 'none';
             }
-        }, 1500);
+        }, 6000);
     }
 
 
@@ -347,7 +356,15 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     if (loginBtn) {
-        loginBtn.addEventListener('click', openModal);
+        if (loginModal) {
+            loginBtn.addEventListener('click', openModal);
+        } else {
+            // En páginas sin modal de auth (color-lab, products…), redirigir al index
+            loginBtn.style.cursor = 'pointer';
+            loginBtn.addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+        }
     }
     if (closeModal) {
         closeModal.addEventListener('click', closeModalFunc);
@@ -362,110 +379,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- 6. DRAGGABLE CAROUSEL & LIGHTBOX GALLERY ---
-    const carouselTrack = document.querySelector('.carousel-track');
-    const leftArrow = document.querySelector('.left-arrow');
-    const rightArrow = document.querySelector('.right-arrow');
+    // El drag del carrusel está manejado por el script inline en index.html.
+    // Aquí solo gestionamos el lightbox (sólo en desktop/ratón).
     const carouselItems = document.querySelectorAll('.carousel-item');
     const lightboxOverlay = document.getElementById('carousel-lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxClose = document.getElementById('lightbox-close');
 
-    // Drag to scroll carousel logic
+    // En dispositivos táctiles no abrimos el lightbox (evita ampliaciones accidentales al deslizar)
+    const isTouchCarousel = window.matchMedia('(pointer: coarse)').matches;
+
+    // carouselDragMoved se setea desde el script inline del carrusel vía window
     let carouselDragMoved = false;
+    window._setCarouselDragMoved = (v) => { carouselDragMoved = v; };
 
-    if (carouselTrack) {
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-
-        carouselTrack.addEventListener('mousedown', (e) => {
-            isDown = true;
-            carouselDragMoved = false;
-            carouselTrack.style.cursor = 'grabbing';
-            startX = e.pageX - carouselTrack.offsetLeft;
-            scrollLeft = carouselTrack.scrollLeft;
-        });
-
-        carouselTrack.addEventListener('mouseleave', () => {
-            isDown = false;
-            carouselTrack.style.cursor = 'grab';
-        });
-
-        carouselTrack.addEventListener('mouseup', () => {
-            isDown = false;
-            carouselTrack.style.cursor = 'grab';
-        });
-
-        carouselTrack.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - carouselTrack.offsetLeft;
-            const walk = (x - startX) * 2;
-            if (Math.abs(walk) > 5) carouselDragMoved = true;
-            carouselTrack.scrollLeft = scrollLeft - walk;
-        });
-
-        carouselTrack.style.cursor = 'grab';
-    }
-
-    /* Touch drag tracking for lightbox suppression */
-    const _carouselContainer = document.getElementById('hover-carousel');
-    let _touchStartX = 0;
-    if (_carouselContainer) {
-        _carouselContainer.addEventListener('touchstart', (e) => {
-            _touchStartX = e.touches[0].clientX;
-            carouselDragMoved = false;
-        }, { passive: true });
-        _carouselContainer.addEventListener('touchmove', (e) => {
-            if (Math.abs(e.touches[0].clientX - _touchStartX) > 5) carouselDragMoved = true;
-        }, { passive: true });
-    }
-
-    // Carousel Arrows Logic
-    if (carouselTrack && leftArrow && rightArrow) {
-        const getScrollAmount = () => {
-            const item = carouselTrack.querySelector('.carousel-item');
-            if (item) {
-                const style = window.getComputedStyle(carouselTrack);
-                const gap = parseInt(style.gap) || 0;
-                return item.offsetWidth + gap;
-            }
-            return 380;
-        };
-
-        leftArrow.addEventListener('click', () => {
-            carouselTrack.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
-        });
-
-        rightArrow.addEventListener('click', () => {
-            carouselTrack.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
-        });
-
-        const updateArrows = () => {
-            if (carouselTrack.scrollLeft <= 10) {
-                leftArrow.style.opacity = '0.3';
-                leftArrow.style.pointerEvents = 'none';
-            } else {
-                leftArrow.style.opacity = '1';
-                leftArrow.style.pointerEvents = 'auto';
-            }
-
-            if (carouselTrack.scrollLeft >= carouselTrack.scrollWidth - carouselTrack.clientWidth - 10) {
-                rightArrow.style.opacity = '0.3';
-                rightArrow.style.pointerEvents = 'none';
-            } else {
-                rightArrow.style.opacity = '1';
-                rightArrow.style.pointerEvents = 'auto';
-            }
-        };
-
-        carouselTrack.addEventListener('scroll', updateArrows);
-        setTimeout(updateArrows, 100);
-        window.addEventListener('resize', updateArrows);
-    }
-
-    // Lightbox Modal Logic
-    if (carouselItems && lightboxOverlay && lightboxImg) {
+    // Lightbox Modal Logic (solo desktop)
+    if (!isTouchCarousel && carouselItems && lightboxOverlay && lightboxImg) {
         carouselItems.forEach(item => {
             item.addEventListener('click', () => {
                 if (carouselDragMoved) return;
@@ -718,14 +647,20 @@ document.addEventListener('DOMContentLoaded', () => {
             );
         }
 
-        // Manifesto h2 character split (simple word-level)
+        // Manifesto h2 — word-level animation preserving <br> line breaks
         const manifestoH2 = document.querySelector('.manifesto h2');
         if (manifestoH2) {
-            const words = manifestoH2.textContent.trim().split(' ');
-            manifestoH2.innerHTML = words
-                .map(w => `<span style="display:inline-block; overflow:hidden; vertical-align:bottom;">` +
-                           `<span class="word-inner" style="display:inline-block;">${w}&nbsp;</span></span>`)
-                .join('');
+            // Split by <br> first to keep line structure, then by words within each line
+            const rawHTML = manifestoH2.innerHTML;
+            const lines = rawHTML.split(/<br\s*\/?>/i);
+            manifestoH2.innerHTML = lines.map((line, idx) => {
+                const words = line.trim().split(/\s+/).filter(w => w.length);
+                const wrapped = words.map(w =>
+                    `<span style="display:inline-block;overflow:hidden;vertical-align:bottom;">` +
+                    `<span class="word-inner" style="display:inline-block;">${w}&nbsp;</span></span>`
+                ).join('');
+                return idx < lines.length - 1 ? wrapped + '<br>' : wrapped;
+            }).join('');
 
             gsap.fromTo('.manifesto h2 .word-inner',
                 { y: '110%' },

@@ -416,7 +416,7 @@
         /* Image grid */
         .det-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 20px;
             position: relative;
             z-index: 1;
@@ -439,37 +439,65 @@
             position: relative;
             aspect-ratio: 1;
             overflow: hidden;
-        }
-
-        .det-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            display: block;
-        }
-
-        /* Técnica de aislamiento:
-           1. Contenedor blanco puro → la luminosidad 1 de los fondos blancos con blend=color queda blanca
-           2. La imagen se desatura con filter:grayscale para que el tinte de color sea uniforme
-           3. El overlay color blend tiñe la joya (luminosidad media) sin afectar al blanco (luminosidad 1) */
-        .det-img-wrap {
-            isolation: isolate;
             background: #ffffff;
         }
 
-        .det-card img {
-            filter: grayscale(0.85) contrast(1.05);
+        /* Capa 1: PNG del producto — bordes izq/der pegados al contenedor */
+        .det-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            z-index: 1;
         }
 
+        /* Capa 2: el sinfondo con multiply elimina el blanco y deja ver el fondo */
+        .det-piece-wrap { position: absolute; inset: 0; z-index: 2; }
+
+        .det-piece {
+            position: absolute;
+            inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            filter: grayscale(1) contrast(1.25) brightness(0.68);
+            mix-blend-mode: multiply;
+        }
+
+        /* LUA: imágenes más grandes (scale dentro de overflow:hidden) */
+        /* LUA: bg y wrapper (pieza+overlay) escalan y suben juntos —
+           así el mask queda siempre alineado con la imagen sin fondo */
+        .det-card--lua .det-bg,
+        .det-card--lua .det-piece-wrap {
+            transform: scale(1.45) translateY(-10%);
+            transform-origin: center;
+        }
+        /* El overlay está dentro del wrapper transformado: mask centrado = alineado */
+        .det-card--lua .color-overlay {
+            -webkit-mask-size: cover;
+            mask-size: cover;
+            -webkit-mask-position: center;
+            mask-position: center;
+        }
+
+        /* Capa 3: color como máscara de recorte — solo tiñe la forma de la joya */
         .color-overlay {
             position: absolute;
             inset: 0;
             background-color: #780313;
             mix-blend-mode: color;
-            opacity: 1;
+            -webkit-mask-size: cover;
+            mask-size: cover;
+            -webkit-mask-position: center;
+            mask-position: center;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
             transition: background-color 0.3s ease;
             pointer-events: none;
+            z-index: 3;
         }
 
         .det-info {
@@ -975,7 +1003,7 @@
 
         /* ── RESPONSIVE ── */
         @media (max-width: 1100px) {
-            .det-grid { grid-template-columns: repeat(2, 1fr); }
+            .det-grid { grid-template-columns: repeat(3, 1fr); }
         }
 
         @media (max-width: 900px) {
@@ -1226,8 +1254,41 @@
             <div class="det-grid">
                 <div class="det-card">
                     <div class="det-img-wrap">
-                        <img src="assets/AnilloLUAdet.PNG" alt="Detalle Anillo LUA">
-                        <div class="color-overlay" id="ov-1"></div>
+                        <img class="det-bg" src="assets/anillocala.png" alt="Anillo CALA">
+                        <div class="det-piece-wrap">
+                            <img class="det-piece" src="assets/anillocalasinfondo.png" alt="">
+                            <div class="color-overlay" id="ov-0" style="-webkit-mask-image:url('assets/anillocalasinfondo.png');mask-image:url('assets/anillocalasinfondo.png')"></div>
+                        </div>
+                    </div>
+                    <div class="det-info">
+                        <div class="det-name">Anillo CALA</div>
+                        <div class="det-sub">45 € · Resina experimental</div>
+                        <a href="featured-product.html" class="det-link">Ver pieza →</a>
+                    </div>
+                </div>
+
+                <div class="det-card">
+                    <div class="det-img-wrap">
+                        <img class="det-bg" src="assets/brazaleteora.png" alt="Brazalete ORA">
+                        <div class="det-piece-wrap">
+                            <img class="det-piece" src="assets/brazaletesinfondo.png" alt="">
+                            <div class="color-overlay" id="ov-2" style="-webkit-mask-image:url('assets/brazaletesinfondo.png');mask-image:url('assets/brazaletesinfondo.png')"></div>
+                        </div>
+                    </div>
+                    <div class="det-info">
+                        <div class="det-name">Brazalete ORA</div>
+                        <div class="det-sub">53 € · Metal oxidado</div>
+                        <a href="product-anillo-burdeos.html" class="det-link">Ver pieza →</a>
+                    </div>
+                </div>
+
+                <div class="det-card det-card--lua">
+                    <div class="det-img-wrap">
+                        <img class="det-bg" src="assets/anillolua.png" alt="Anillo LUA">
+                        <div class="det-piece-wrap">
+                            <img class="det-piece" src="assets/anilloluasinfondo.png" alt="">
+                            <div class="color-overlay" id="ov-1" style="-webkit-mask-image:url('assets/anilloluasinfondo.png');mask-image:url('assets/anilloluasinfondo.png')"></div>
+                        </div>
                     </div>
                     <div class="det-info">
                         <div class="det-name">Anillo LUA</div>
@@ -1238,20 +1299,11 @@
 
                 <div class="det-card">
                     <div class="det-img-wrap">
-                        <img src="assets/BrazaleteORAdet.PNG" alt="Detalle Brazalete ORA">
-                        <div class="color-overlay" id="ov-2"></div>
-                    </div>
-                    <div class="det-info">
-                        <div class="det-name">Brazalete ORA</div>
-                        <div class="det-sub">53 € · Metal oxidado</div>
-                        <a href="product-anillo-burdeos.html" class="det-link">Ver pieza →</a>
-                    </div>
-                </div>
-
-                <div class="det-card">
-                    <div class="det-img-wrap">
-                        <img src="assets/CollarNARAdet.PNG" alt="Detalle Collar NARA">
-                        <div class="color-overlay" id="ov-3"></div>
+                        <img class="det-bg" src="assets/collarnara.png" alt="Collar NARA">
+                        <div class="det-piece-wrap">
+                            <img class="det-piece" src="assets/collarsinfondo.png" alt="">
+                            <div class="color-overlay" id="ov-3" style="-webkit-mask-image:url('assets/collarsinfondo.png');mask-image:url('assets/collarsinfondo.png')"></div>
+                        </div>
                     </div>
                     <div class="det-info">
                         <div class="det-name">Collar NARA</div>
@@ -1262,8 +1314,11 @@
 
                 <div class="det-card">
                     <div class="det-img-wrap">
-                        <img src="assets/PendientesSIRAdet.PNG" alt="Detalle Pendientes SIRA">
-                        <div class="color-overlay" id="ov-4"></div>
+                        <img class="det-bg" src="assets/pendientes-sira.png" alt="Pendientes SIRA">
+                        <div class="det-piece-wrap">
+                            <img class="det-piece" src="assets/pendientesinfondo.png" alt="">
+                            <div class="color-overlay" id="ov-4" style="-webkit-mask-image:url('assets/pendientesinfondo.png');mask-image:url('assets/pendientesinfondo.png')"></div>
+                        </div>
                     </div>
                     <div class="det-info">
                         <div class="det-name">Pendientes SIRA</div>

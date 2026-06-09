@@ -55,34 +55,50 @@
 }
 
 .vertical-card {
-    background-color: rgba(255,255,255,0.45);
+    background-color: #fff;
     border: 1px solid rgba(86,95,52,0.08);
     border-radius: var(--border-radius-lg);
     overflow: hidden;
     display: flex;
     flex-direction: column;
     transition: var(--transition-smooth);
+    box-shadow: 0 4px 14px rgba(86,95,52,0.05);
 }
 
-.vertical-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(86,95,52,0.08); }
+.vertical-card:hover { transform: translateY(-6px); box-shadow: 0 22px 44px rgba(86,95,52,0.10); }
 
 .vertical-card .vertical-image {
     aspect-ratio: 3/4;
     width: 100%;
     overflow: hidden;
+    background: #fff;
 }
 
-.vertical-card .vertical-image img { width:100%; height:100%; object-fit:cover; object-position: bottom; display:block; }
+.vertical-card .vertical-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    transform: scale(1.18) translateY(2%);
+    transform-origin: bottom center;
+    transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    display: block;
+}
+
+.vertical-card:hover .vertical-image img { transform: scale(1.23) translateY(2%); }
 
 .vertical-card .vertical-info {
-    padding: 20px;
+    padding: 24px 22px 26px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
+    border-top: 1px solid rgba(86,95,52,0.06);
 }
 
-.vertical-card .vertical-name { font-size: 1.05rem; font-weight:700; color:var(--burdeos); }
-.vertical-card .vertical-price { font-weight:700; color:var(--oliva); }
+.vertical-card .vertical-name { font-size: 1.15rem; font-weight: 800; color: var(--burdeos); letter-spacing: -0.3px; }
+.vertical-card .vertical-price { font-size: 1rem; font-weight: 700; color: var(--oliva); margin-top: 4px; }
+.vertical-card .vertical-meta { font-size: 0.68rem; font-weight: 300; color: rgba(86,95,52,0.55); }
+.vertical-card .vertical-type { font-size: 0.52rem; font-weight: 700; letter-spacing: 2px; color: var(--color-text-muted); text-transform: uppercase; }
 
 /* Small reveal helper used by product pages */
 .reveal-on-load { opacity: 0; transform: translateY(10px); transition: all 0.9s cubic-bezier(.16,1,.3,1); }
@@ -1177,6 +1193,10 @@ h4 { font-size: 1.1rem; }
     padding: 0 5%;
 }
 
+@media (pointer: coarse) {
+    .carousel-hint { display: none; }
+}
+
 .carousel-container {
     position: relative;
     width: 100%;
@@ -1370,16 +1390,25 @@ h4 { font-size: 1.1rem; }
 
 .newsletter-form button {
     color: var(--lima);
-    font-weight: 600;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 2px 6px 10px;
+    flex-shrink: 0;
+    transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.newsletter-form button svg {
+    display: block;
+    transition: transform 0.25s ease;
 }
 
 .newsletter-form button:hover {
     color: var(--bg-light);
-    transform: translateX(3px);
+}
+
+.newsletter-form button:hover svg {
+    transform: translateX(4px);
 }
 
 /* 16. MODALS & LIGHTBOX */
@@ -1913,10 +1942,14 @@ h4 { font-size: 1.1rem; }
 
     .mobile-menu-btn {
         display: flex;
+        align-items: center;
+        justify-content: center;
         grid-column: 2;
+        grid-row: 1;
+        align-self: center;
         justify-self: flex-end;
-        z-index: 100;
-        margin-right: 15px;
+        z-index: 101;
+        margin-right: 0;
     }
 
     .header-nav.active~.mobile-menu-btn {
@@ -2194,16 +2227,16 @@ h4 { font-size: 1.1rem; }
 
 .statement-bg-text {
     position: absolute;
-    bottom: -20px;
-    right: -30px;
-    font-family: 'Moldo', var(--font-body);
-    font-size: clamp(8rem, 20vw, 18rem);
-    font-weight: 700;
-    color: rgba(120, 3, 19, 0.03);
-    line-height: 1;
-    letter-spacing: -6px;
+    bottom: -10px;
+    right: -20px;
+    width: clamp(18rem, 38vw, 42rem);
+    height: clamp(4.5rem, 9.5vw, 10.5rem);
+    background-image: url('assets/recurso-5.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right center;
+    opacity: 0.045;
     pointer-events: none;
-    white-space: nowrap;
     z-index: 0;
 }
 
@@ -2319,8 +2352,9 @@ h4 { font-size: 1.1rem; }
 
 .editorial-title {
     color: var(--bg-light) !important;
-    font-size: clamp(2.5rem, 5vw, 4.2rem) !important;
+    font-size: clamp(2rem, 4vw, 3.5rem) !important;
     letter-spacing: -2px !important;
+    line-height: 1.08 !important;
 }
 
 .editorial-text {
@@ -2341,20 +2375,20 @@ h4 { font-size: 1.1rem; }
 }
 
 .manifesto::before {
-    content: 'moldoLab';
+    content: '';
     position: absolute;
-    font-family: 'Moldo', var(--font-body);
-    font-size: clamp(7rem, 18vw, 17rem);
-    font-weight: 700;
-    color: rgba(120, 3, 19, 0.03);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    white-space: nowrap;
+    width: clamp(22rem, 55vw, 70rem);
+    height: clamp(5.5rem, 13.75vw, 17.5rem);
+    background-image: url('assets/recurso-5.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.035;
     pointer-events: none;
-    letter-spacing: -5px;
     z-index: 0;
-    line-height: 1;
 }
 
 .manifesto-content {
@@ -2996,7 +3030,7 @@ h4 { font-size: 1.1rem; }
 .iprocess-trail-wrap {
     position: relative;
     overflow: hidden;
-    cursor: none;
+    cursor: default;
     background: #111410;
     display: flex;
     flex-direction: column;
@@ -3024,21 +3058,21 @@ h4 { font-size: 1.1rem; }
     position: relative;
 }
 
-/* Ghost word watermark */
+/* Ghost logo watermark */
 .trail-bg-word {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-family: 'Moldo', var(--font-body);
-    font-size: clamp(3rem, 7vw, 5.5rem);
-    font-weight: 900;
-    color: rgba(237,233,231,0.035);
-    letter-spacing: -3px;
-    white-space: nowrap;
+    width: clamp(10rem, 22vw, 20rem);
+    height: clamp(2.5rem, 5.5vw, 5rem);
+    background-image: url('assets/recurso-5.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.06;
     pointer-events: none;
     user-select: none;
-    line-height: 1;
 }
 
 /* Decorative crosshair */
@@ -3156,7 +3190,7 @@ h4 { font-size: 1.1rem; }
 /* Logo objetivo que aparece y hay que clicar */
 .game-logo {
     position: absolute; z-index: 3;
-    width: 110px; height: 30px; padding: 0; border: none; cursor: pointer;
+    width: 110px; height: 44px; padding: 0; border: none; cursor: pointer;
     background-color: var(--lima);
     -webkit-mask-image: url('assets/recurso-4.svg'); mask-image: url('assets/recurso-4.svg');
     -webkit-mask-size: contain; mask-size: contain;
@@ -3165,6 +3199,8 @@ h4 { font-size: 1.1rem; }
     transform: translate(-50%, -50%) scale(0);
     animation: gameLogoPop 0.18s cubic-bezier(0.16,1,0.3,1) forwards;
     transition: background-color .2s;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 .game-logo:hover { background-color: var(--bg-light); }
 .game-logo.hit { background-color: var(--primary-red); transform: translate(-50%,-50%) scale(1.3); opacity: 0; transition: all .15s ease; }
@@ -3230,6 +3266,30 @@ h4 { font-size: 1.1rem; }
     color: rgba(237, 233, 231, 0.55);
     letter-spacing: 0.5px;
     font-style: italic;
+}
+
+.editorial-claim--split {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    font-style: normal;
+}
+
+.claim-lead {
+    font-size: 1rem;
+    font-weight: 600;
+    font-style: italic;
+    color: rgba(237, 233, 231, 0.82);
+    letter-spacing: 0;
+}
+
+.claim-sub {
+    font-size: 0.75rem;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(237, 233, 231, 0.42);
+    letter-spacing: 0.3px;
+    padding-left: 0.15em;
 }
 
 /* ══════════════════════════════════════
@@ -4449,14 +4509,19 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
     /* Magnético y parallax desactivados (se controlan en JS por puntero, refuerzo visual) */
     [data-magnetic] { transform: none !important; }
+
+    /* Helado banner: textos siempre visibles (no hay hover en táctil) */
+    .helado-banner-texts { opacity: 1 !important; }
+    .helado-banner-img { filter: none !important; transform: scale(1) !important; }
 }
 
 /* ── ≤768px: legibilidad y limpieza de bloques interactivos ── */
 @media (max-width: 768px) {
-    /* La "zona interactiva" del trail (mover el ratón) no sirve en táctil → fuera */
-    .iprocess-trail-wrap { display: none !important; }
+    /* Sección interactiva: en móvil apilamos vertical */
     .iprocess-section { grid-template-columns: 1fr !important; }
     .iprocess-video-wrap { min-height: 56vw; }
+    /* Mini-juego: visible en móvil, tamaño suficiente para jugar */
+    .iprocess-trail-wrap { min-height: 340px; cursor: auto !important; }
 
     /* Indicador de scroll del hero (flecha) sin animación pesada */
     .scroll-indicator { animation: none; }
@@ -4482,9 +4547,11 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     /* Imágenes: nunca deformadas, nunca desbordan */
     img { max-width: 100%; height: auto; }
     .vertical-image, .featured-image-box, .col-card-img, .split-image { overflow: hidden; }
-    .vertical-image img, .featured-image-box img, .col-card-img img, .split-image img {
+    .featured-image-box img, .col-card-img img, .split-image img {
         width: 100%; height: 100%; object-fit: cover;
     }
+    /* Product cards keep object-fit: contain so images are never cropped */
+    .vertical-image img { width: 100%; height: 100%; object-fit: contain; }
 
     /* Botones: tamaño táctil mínimo cómodo */
     .btn, .add-to-cart-btn, .col-card-cta, .filter-btn, .btn-outline {

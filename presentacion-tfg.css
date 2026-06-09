@@ -1037,8 +1037,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     background: var(--black);
     opacity: 0; pointer-events: none;
     transition: opacity .35s ease;
-    display: flex; flex-direction: column; justify-content: flex-start;
-    padding-top: 5vh;
+    display: flex; flex-direction: column; justify-content: center;
     gap: clamp(6px, 1.2vh, 14px);
     overflow: hidden;
 }
@@ -1046,11 +1045,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* 2 filas reales + REFLEJO (box-reflect): el reflejo reutiliza los píxeles
    ya renderizados, así que NO descarga imágenes extra → mucho más ligero.
    Las filas van arriba para que el reflejo rellene la mitad inferior. */
-#archive-fs-rows {
-    display: flex; flex-direction: column; gap: 12px; width: 100%;
-    -webkit-box-reflect: below 14px linear-gradient(transparent, transparent 30%, rgba(237,233,206,.16));
-}
-#archive-fs .vm-track img { height: clamp(170px, 22vh, 300px); margin-right: 12px; }
+#archive-fs-rows { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+/* 4 filas × ~22vh cada una ≈ pantalla completa */
+#archive-fs .vm-track img { height: clamp(140px, 21.5vh, 280px); margin-right: 10px; }
 #archive-fs-close {
     position: fixed; top: 1.5rem; right: 1.5rem; z-index: 8300;
     font-size: .62rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
