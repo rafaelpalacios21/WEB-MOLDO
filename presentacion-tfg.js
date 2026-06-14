@@ -11,6 +11,7 @@ let currentIndex  = 0;
 let isModalOpen   = false;
 let jumpCooldown  = false;
 let autoModules   = [];   // módulos con autoplay {el, start, stop, running}
+let accAutoTimer  = null;
 const REDUCED     = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ── DATOS RRSS (5 carpetas reales en /assets) ── */
@@ -193,6 +194,22 @@ function setActive(idx) {
     document.querySelectorAll('.hdr-link').forEach(l => l.classList.toggle('active', l.dataset.target === id));
     const counter = document.getElementById('section-counter');
     if (counter) counter.textContent = pad(idx + 1) + ' / ' + pad(sections.length);
+
+    clearTimeout(accAutoTimer);
+    if (id === 'investigacion') {
+        const triggers = sections[idx].querySelectorAll('.acc-trigger');
+        triggers.forEach(t => { t.classList.remove('open'); t.nextElementSibling.style.maxHeight = null; });
+        let i = 0;
+        function openNext() {
+            if (i >= triggers.length) return;
+            const t = triggers[i++];
+            const panel = t.nextElementSibling;
+            t.classList.add('open');
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            accAutoTimer = setTimeout(openNext, 750);
+        }
+        accAutoTimer = setTimeout(openNext, 800);
+    }
 }
 function pad(n) { return String(n).padStart(2, '0'); }
 
@@ -404,14 +421,14 @@ const ARCHIVE_IMGS = [
 function buildArchiveMarquee() {
     const root = document.getElementById('archive-marquee');
     if (!root) return;
-    // 2 filas: par e impar. Duplicado x2 → loop seamless (-50%).
-    const even = ARCHIVE_IMGS.filter((_,i) => i % 2 === 0);
-    const odd  = ARCHIVE_IMGS.filter((_,i) => i % 2 !== 0);
-    const mk = arr => arr.concat(arr).map(src =>
-        `<img src="${src}" alt="Archivo visual moldoLab" loading="lazy" decoding="async" data-lightbox>`).join('');
-    root.innerHTML = `
-        <div class="vm-row vm-row--left"><div class="vm-track">${mk(even)}</div></div>
-        <div class="vm-row vm-row--right"><div class="vm-track">${mk(odd)}</div></div>`;
+    root.classList.add('campaign-marquee');
+    const figs = ARCHIVE_IMGS.map((src, i) =>
+        `<figure class="cm-item">
+            <img src="${src}" alt="Archivo visual moldoLab — ${pad(i + 1)}" loading="lazy" decoding="async" data-lightbox>
+            <figcaption class="cm-tag"><b>${pad(i + 1)}</b> archivo</figcaption>
+         </figure>`
+    ).join('');
+    root.innerHTML = `<div class="cm-track">${figs}${figs}</div>`;
 }
 
 /* Pantalla completa: muchas filas de marquee infinito */
