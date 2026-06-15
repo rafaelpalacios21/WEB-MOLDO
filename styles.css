@@ -3763,18 +3763,19 @@ h4 { font-size: 1.1rem; }
 }
 
 .col-card-featured .col-card-img {
-    aspect-ratio: 3 / 2;            /* misma altura aprox. que una tarjeta 3/4 a 1 columna */
+    aspect-ratio: 3 / 2;
     background: #ffffff;            /* fondo blanco alrededor de la pieza */
 }
 
 .col-card-featured .col-card-img img {
-    object-fit: contain;            /* la pieza se ve completa, tamaño natural */
+    object-fit: contain;
     object-position: center;
-    padding: clamp(20px, 3vw, 48px);
+    padding: 0;
     filter: none;
+    transform: scale(1.45) translateY(-12%);
 }
 .col-card-featured:hover .col-card-img img {
-    transform: scale(1.05);
+    transform: scale(1.52) translateY(-12%);
     filter: none;
 }
 

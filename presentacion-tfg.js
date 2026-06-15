@@ -187,6 +187,8 @@ function initSectionObserver() {
     sections.forEach(s => observer.observe(s));
 }
 
+const DARK_SECTIONS = new Set(['spot','investigacion','coleccion','carteleria','rrss','packaging','estrategia','cierre']);
+
 function setActive(idx) {
     currentIndex = idx;
     const id = sections[idx].id;
@@ -194,6 +196,9 @@ function setActive(idx) {
     document.querySelectorAll('.hdr-link').forEach(l => l.classList.toggle('active', l.dataset.target === id));
     const counter = document.getElementById('section-counter');
     if (counter) counter.textContent = pad(idx + 1) + ' / ' + pad(sections.length);
+
+    const hdr = document.getElementById('tfg-header');
+    if (hdr) hdr.classList.toggle('hdr-on-light', !DARK_SECTIONS.has(id));
 
     clearTimeout(accAutoTimer);
     if (id === 'investigacion') {

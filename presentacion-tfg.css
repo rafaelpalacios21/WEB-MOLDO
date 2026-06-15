@@ -209,6 +209,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .hdr-logo.tfg-logo {
     width: 116px; height: 26px;
+    transition: filter 0.35s ease;
+}
+#tfg-header.hdr-on-light .hdr-logo.tfg-logo {
+    filter: brightness(0);
 }
 
 .hdr-nav { display: flex; gap: 1.4rem; align-items: center; }
@@ -640,7 +644,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .iv-gradient {
     height: clamp(40px, 7vh, 64px);
     border-radius: 8px; margin-top: 1rem;
-    background: url('assets/degradado.png') center / cover no-repeat;
+    background: url('assets/DEGRADADO.png') center / cover no-repeat;
 }
 
 /* ================================================================
